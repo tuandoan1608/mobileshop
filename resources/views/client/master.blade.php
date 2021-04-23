@@ -53,21 +53,10 @@
            @include('client.layout.header')
             <!-- Header Area End Here -->
             <!-- Begin Slider With Banner Area -->
-           @include('client.layout.banner')
+        
             <!-- Slider With Banner Area End Here -->
             <!-- Begin Static Top Area -->
-            <div class="static-top-wrap">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="static-top-content mt-sm-30">
-                                Gift Special: Gift every single day on Weekends - New Coupon code "
-                                <span>LimupaSaleoff</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            
             <!-- Static Top Area End Here -->
             <!-- product-area start -->
            @yield('content')

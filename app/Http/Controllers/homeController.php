@@ -11,7 +11,7 @@ class homeController extends Controller
     {
         
         if(Auth::check()){
-            return view('admin.master');
+            return redirect()->route('dashboard');
         }else{
             return redirect()->route('login');
         }

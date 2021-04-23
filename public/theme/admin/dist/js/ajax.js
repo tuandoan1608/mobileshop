@@ -13,9 +13,10 @@ $(document).ready(function(){
 			dataType : 'json',
 			type : 'get',
 			success :function($result){
-				$('.name').val($result.name);
-				$('.title').text($result.name);
-				if($result.status == 1){
+				$('.name').val($result.data.name);
+				$('.title').text($result.data.name);
+				$('#parent_id').html($result.option);
+				if($result.data.status == 1){
 					$('.ht').attr('selected','selected');
 				}else{
 					$('.kht').attr('selected','selected');
@@ -25,10 +26,12 @@ $(document).ready(function(){
 		$('.update').click(function(){
 			let ten = $('.name').val();
 			let status = $('.status').val();
+			let parent_id=$('#parent_id').val();
 			$.ajax({
 				url : '/admin/category/'+id,
 				data : {
 					name : ten,
+					parent_id:parent_id,
 					status : status,
 					
 				},

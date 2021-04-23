@@ -23,79 +23,106 @@
         <section class="content">
             <form action="{{ route('astributestore') }}" method="POST">
                 @csrf
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="card card-primary">
+                <div class="container">
+
+                    <div class="col-md-12">
+                        <div class="card card-default" style="box-shadow: none">
                             <div class="card-header">
-                                <h3 class="card-title">Attribute</h3>
+                                <h3 class="card-title">Attribute Properties</h3>
 
                                 <div class="card-tools">
-                                    <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                                        <i class="fas fa-minus"></i>
-                                    </button>
+                                    <button type="button" class="btn btn-tool" data-card-widget="collapse"
+                                        data-toggle="tooltip" title="Collapse">
+                                        <i class="fas fa-minus"></i></button>
                                 </div>
                             </div>
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="inputName">Tên attribute</label>
-                                    <input type="text" name="attribute" id="inputName" class="form-control">
+                                    <div class="row">
+                                        <label class="col-md-2" for="inputName">Tên thuộc tính <span style="color: red">*<span></label>
+                                        <input type="text" name="name" id="inputName" class="col-md-10 form-control">
+                                    </div>
                                 </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label class="col-md-2" for="inputName">Loại đầu vào thuộc tính</label>
 
+                                        <select id="frontend_input" type="text" name="attribute_type"
+                                            title="Catalog Input Type for Store Owner" class="form-control custom-select col-md-4">
+                                            <option value="multiselect" id="sel">--Select--</option>
+                                            <option value="multiselect" id="optIdEguqOvFU">Multiple Select</option>
+                                          
+                                            <option value="swatch_visual" id="optIdzJ900K6h">Visual Swatch</option>
+                                          
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group " id="multi" style="display: none">
+                                    <table id="myTable" class=" table order-list">
+                                        <thead>
+                                            <tr>
+                                                <th>Tên thuộc tính</th>
+                                                
+                                                <th></th>
+
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>                                            
+                                                <td>
+                                                    <input type="text" name="name[]"
+                                                        class="form-control " placeholder="Tên thuộc tính">
+                                                </td>                                       
+                                                <td style="text-align: left;">
+                                                    <input type="button" class="btn btn-lg btn-block "
+                                                        id="addrow" value="+" />
+                                                </td>
+                                            </tr>
+                                        </tbody>
+
+                                    </table>
+                                </div>
+                                <div class="form-group " id="multis" style="display: none">
+                                    <table id="myTable" class=" table order-list">
+                                        <thead>
+                                            <tr>
+                                                <th>Chọn màu</th>
+                                                <th>Tên thuộc tính</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><input type="color" id="favcolor" name="color[]" value="#ff0000"><label for="head">Chọn màu</label></td>
+                                                <td>
+
+
+                                                    <input type="text" name="namecolor[]"
+                                                        class="form-control " placeholder="Tên thuộc tính">
+                                                </td>
+                                              
+                                                <td style="text-align: left;">
+                                                    <input type="button" class="btn btn-lg btn-block "
+                                                        id="addrows" value="+" />
+                                                </td>
+                                            </tr>
+                                        </tbody>
+
+                                    </table>
+                                </div>
                             </div>
                             <!-- /.card-body -->
                         </div>
-                        <!-- /.card -->
+
+
                     </div>
-                    <div class="col-md-8">
-                        <div class="card card-secondary">
-                            <div class="card-header">
-                                <h3 class="card-title">Color</h3>
-
-                                <div class="card-tools">
-                                    <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                                        <i class="fas fa-minus"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <table id="myTable" class=" table order-list">
-                                    <thead>
-                                        <tr>
-                                            <td>Tên màu</td>
-
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td class="col-sm-3">
-                                                <input type="text" name="namecolor[]" class="form-control" />
-                                            </td>
-                                            <td class="col-sm-3">
-                                                <div>
-                                                    <input type="color" id="favcolor" name="color[]" value="#ff0000">
-                                                    <label for="head">Chọn màu</label>
-                                                </div>
-                                            </td>
-                                            <td colspan="5" style="text-align: left;">
-                                                <input type="button" class="btn btn-lg btn-block " id="addrow"
-                                                    value="Add Row" />
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                    
-                                </table>
-                            </div>
-                            <!-- /.card-body -->
-                        </div>
-                        <!-- /.card -->
-                    </div>
-
                 </div>
 
                 <div class="row">
                     <div class="col-12">
-                        <a href="#" class="btn btn-secondary">Cancel</a>
-                        <input type="submit" value="Create new Porject" class="btn btn-success float-left">
+                        <a href="#" class="btn btn-secondary float-left">Back</a>
+                        <input type="submit" value="Save" class="btn btn-success float-left">
                     </div>
                 </div>
             </form>
@@ -107,28 +134,57 @@
 @section('script')
     <script>
         $(document).ready(function() {
-           
+            let select= document.getElementById('optIdEguqOvFU');
+            let selects= document.getElementById('optIdzJ900K6h');
+            let select1= document.getElementById('sel');
+            
+            $("select").change(function(){
+               if(select.selected==true){
+                document.getElementById('multi').style.display="block";
+                document.getElementById('multis').style.display="none";
+               }
+               else if(selects.selected==true){
+                document.getElementById('multis').style.display="block";
+                document.getElementById('multi').style.display="none";
+               }
+               else if(select1.selected==true){
+                document.getElementById('multis').style.display="none";
+                document.getElementById('multi').style.display="none";
+               }
+            });
 
             $("#addrow").on("click", function() {
                 var newRow = $("<tr>");
                 var cols = "";
 
-                cols += '<td><input type="text" class="form-control" name="namecolor[]"/></td>';
+                cols += '<td><input type="text" class="form-control" name="name[]"/></td>';
+              
+                cols +=
+                    '<td><input type="button" class="ibtnDel btn btn-md btn-danger "  value="Delete"></td>';
+                newRow.append(cols);
+                $("table.order-list").append(newRow);
+
+            });
+
+            $("#addrows").on("click", function() {
+                var newRow = $("<tr>");
+                var cols = "";
                 cols +=
                     '<td><div> <input type="color" id="favcolor" name="color[]" value="#ff0000"><label for="head">Chọn màu</label></div></td>';
+                cols += '<td><input type="text" class="form-control" placeholder="Tên thuộc tính" name="namecolor[]"/></td>';
+               
 
                 cols +=
                     '<td><input type="button" class="ibtnDel btn btn-md btn-danger "  value="Delete"></td>';
                 newRow.append(cols);
                 $("table.order-list").append(newRow);
-                
-            });
 
+            });
 
 
             $("table.order-list").on("click", ".ibtnDel", function(event) {
                 $(this).closest("tr").remove();
-                
+
             });
 
 

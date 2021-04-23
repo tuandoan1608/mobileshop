@@ -16,7 +16,15 @@
                                 required>
                         </div>
                        
-
+                        <div class="form-group">
+                            <label for="disabledTextInput">Danh mục con</label>
+                           <select name="parent_id" class="form-control" id="">
+                             <option value="0">Danh mục cha</option>
+                                   {!! $option !!}
+                              
+                           </select>
+                        </div>
+                       
                         <div class="form-group">
                             <label>Status:</label>
                             <label class="radio-inline">

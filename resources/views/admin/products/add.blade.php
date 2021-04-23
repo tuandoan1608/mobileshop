@@ -17,296 +17,466 @@
                         <div class="card-header">
                             <h3 class="card-title">Thêm sản phẩm</h3>
 
-                            <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                    <i class="fas fa-minus"></i>
-                                </button>
 
-                            </div>
                         </div>
                         <!-- /.card-header -->
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-7">
+                        <div class="container">
 
-                                    <div class="card card-secondary">
-                                        <div class="card-header">
-                                            <h3 class="card-title">Thông tin sản phẩm</h3>
 
-                                            <div class="card-tools">
-                                                <button type="button" class="btn btn-tool" data-card-widget="collapse"
-                                                    title="Collapse">
-                                                    <i class="fas fa-minus"></i>
-                                                </button>
+
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-8">
+
+
+                                        <div class="card card-default">
+                                            <div class="card-header">
+                                                <h3 class="card-title">Thông tin sản phẩm</h3>
+
+                                                <div class="card-tools">
+                                                    <button type="button" class="btn btn-tool" data-card-widget="collapse"
+                                                        title="Collapse">
+                                                        <i class="fas fa-minus"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="card-body ">
+
+                                                <fieldset>
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-3" for="disabledTextInput">Tên sản
+                                                            phẩm</label>
+                                                        <input type="text" name="name" class="form-control col-sm-9"
+                                                            placeholder="Nhập tên sản phẩm" required>
+                                                    </div>
+
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-3" for="disabledTextInput">Giá sản
+                                                            phẩm</label>
+                                                        <input type="text" name="price" class="form-control col-sm-9"
+                                                            placeholder="Nhập giá sản phẩm" required>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-3" for="disabledTextInput">Discount</label>
+                                                        <input type="text" name="discount" class="form-control col-sm-9"
+                                                            placeholder="Nhập discount">
+                                                    </div>
+
+
+
+
+
+
+
+
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-3" for="disabledTextInput">Nội dung</label>
+                                                        <textarea id="my-editor" name="content" rows="25" class="form-control col-md-8 "></textarea>
+                                                    </div>
+
+                                                    <br>
+
+
+                                                    <div class="form-group">
+                                                        <label>Thông số kỹ thuật:</label>
+                                                        <br>
+                                                        <label class="radio-inline">
+                                                            <input name="spe" value="1" id="yes" onclick="myfun()"
+                                                                checked="" type="radio">Có
+                                                        </label>
+                                                        <label class="radio-inline">
+                                                            <input name="spe" value="0" id="no" onclick="myfun()"
+                                                                type="radio">Không
+                                                        </label>
+                                                    </div>
+                                                </fieldset>
+
                                             </div>
                                         </div>
-                                        <div class="card-body ">
 
-                                            <fieldset>
-                                                <div class="form-group row">
-                                                    <label class="col-sm-3" for="disabledTextInput">Tên sản phẩm</label>
-                                                    <input type="text" name="name" class="form-control col-sm-9"
-                                                        placeholder="Nhập tên sản phẩm" required>
+
+                                        <div id="specification">
+                                            <div class="card card-default collapsed-card">
+                                                <div class="card-header">
+                                                    <h3 class="card-title">Thông số kỉ thuật</h3>
+
+                                                    <div class="card-tools">
+                                                        <button type="button" class="btn btn-tool"
+                                                            data-card-widget="collapse" title="Collapse">
+                                                            <i class="fas fa-minus"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-4 col-form-label"
+                                                            for="inputEstimatedBudget">Thương
+                                                            hiệu:</label>
+                                                        <input type="text" name="band" class="form-control">
+                                                        {{-- <select
+                                                            class="js-example-placeholder-single js-states form-control col-sm-8"
+                                                            name="band">
+                                                            <option selected="selected"></option>
+                                                            @foreach ($speci as $item)
+                                                                <option>{{ $item->Band }}</option>
+                                                            @endforeach
+                                                        </select> --}}
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-4 col-form-label"
+                                                            for="inputEstimatedBudget">Màn
+                                                            hình:</label>
+                                                        <input type="text" name="display" class="form-control">
+                                                        {{-- <select
+                                                            class="js-example-placeholder-single js-states form-control col-sm-8"
+                                                            name="display">
+                                                            <option selected="selected"></option>
+                                                            @foreach ($speci as $item)
+                                                                <option>{{ $item->Band }}</option>
+                                                            @endforeach
+                                                        </select> --}}
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-4  col-form-label" for="inputSpentBudget">Hệ
+                                                            điều
+                                                            hành:</label>
+                                                        <input type="text" name="operating" class="form-control">
+                                                        {{-- <select
+                                                            class="js-example-placeholder-single js-states form-control col-sm-8"
+                                                            name="operating">
+                                                            <option selected="selected"></option>
+                                                            @foreach ($speci as $item)
+                                                                <option>{{ $item->Band }}</option>
+                                                            @endforeach
+                                                        </select> --}}
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-4 col-form-label"
+                                                            for="inputEstimatedDuration">Camera
+                                                            sau:</label>
+                                                        <input type="text" name="camera_rear" class="form-control">
+                                                        {{-- <select
+                                                            class="js-example-placeholder-single js-states form-control col-sm-8"
+                                                            name="camera_rear">
+                                                            <option selected="selected"></option>
+                                                            @foreach ($speci as $item)
+                                                                <option>{{ $item->Band }}</option>
+                                                            @endforeach
+                                                        </select> --}}
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-4 col-form-label" for="inputSpentBudget">Camera
+                                                            trước:</label>
+                                                        <input type="text" name="camera_front" class="form-control">
+                                                        {{-- <select
+                                                            class="js-example-placeholder-single js-states form-control col-sm-8"
+                                                            name="camera_front">
+                                                            <option selected="selected"></option>
+                                                            @foreach ($speci as $item)
+                                                                <option>{{ $item->Band }}</option>
+                                                            @endforeach
+                                                        </select> --}}
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-4 col-form-label"
+                                                            for="inputEstimatedDuration">Chip:</label>
+                                                        <input type="text" name="chip" class="form-control">
+                                                        {{-- <select
+                                                            class="js-example-placeholder-single js-states form-control col-sm-8"
+                                                            name="chip">
+                                                            <option selected="selected"></option>
+                                                            @foreach ($speci as $item)
+                                                                <option>{{ $item->Band }}</option>
+                                                            @endforeach
+                                                        </select> --}}
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-4 col-form-label"
+                                                            for="inputSpentBudget">RAM:</label>
+                                                        <input type="text" name="ram" class="form-control">
+                                                        {{-- <select
+                                                            class="js-example-placeholder-single js-states form-control col-sm-8"
+                                                            name="ram">
+                                                            <option selected="selected"></option>
+                                                            @foreach ($speci as $item)
+                                                                <option>{{ $item->Band }}</option>
+                                                            @endforeach
+                                                        </select> --}}
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-4 col-form-label"
+                                                            for="inputEstimatedDuration">Bộ
+                                                            nhớ
+                                                            trong:</label>
+                                                        <input type="text" name="memory" class="form-control">
+                                                        {{-- <select
+                                                            class="js-example-placeholder-single js-states form-control col-sm-8"
+                                                            name="memory">
+                                                            <option selected="selected"></option>
+                                                            @foreach ($speci as $item)
+                                                                <option>{{ $item->Band }}</option>
+                                                            @endforeach
+                                                        </select> --}}
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-4 col-form-label"
+                                                            for="inputSpentBudget">SIM:</label>
+                                                        <input type="text" name="sim" class="form-control">
+                                                        {{-- <select
+                                                            class="js-example-placeholder-single js-states form-control col-sm-8"
+                                                            name="sim">
+                                                            <option selected="selected"></option>
+                                                            @foreach ($speci as $item)
+                                                                <option>{{ $item->Band }}</option>
+                                                            @endforeach
+                                                        </select> --}}
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-4 col-form-label"
+                                                            for="inputEstimatedDuration">Pin:</label>
+                                                        <input type="text" name="battery" class="form-control">
+                                                        {{-- <select
+                                                            class="js-example-placeholder-single js-states form-control col-sm-8"
+                                                            name="battery">
+                                                            <option selected="selected"></option>
+                                                            @foreach ($speci as $item)
+                                                                <option>{{ $item->Band }}</option>
+                                                            @endforeach
+                                                        </select> --}}
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-4 col-form-label"
+                                                            for="inputEstimatedDuration">Bảo
+                                                            mật
+                                                            nâng cao:</label>
+                                                        <input type="text" name="security" class="form-control">
+                                                        {{-- <select
+                                                            class="js-example-placeholder-single js-states form-control col-sm-8"
+                                                            name="security">
+                                                            <option selected="selected"></option>
+                                                            @foreach ($speci as $item)
+                                                                <option>{{ $item->Band }}</option>
+                                                            @endforeach
+                                                        </select> --}}
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-4 col-form-label"
+                                                            for="inputEstimatedDuration">Wifi:</label>
+                                                        <input type="text" name="wifi" class="form-control">
+                                                        {{-- <select
+                                                            class="js-example-placeholder-single js-states form-control col-sm-8"
+                                                            name="wifi">
+                                                            <option selected="selected"></option>
+                                                            @foreach ($speci as $item)
+                                                                <option>{{ $item->Band }}</option>
+                                                            @endforeach
+                                                        </select> --}}
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-4 col-form-label"
+                                                            for="inputEstimatedDuration">Thiết
+                                                            kế:</label>
+                                                        <input type="text" name="design" class="form-control">
+                                                        {{-- <select
+                                                            class="js-example-placeholder-single js-states form-control col-sm-8"
+                                                            name="design">
+                                                            <option selected="selected"></option>
+                                                            @foreach ($speci as $item)
+                                                                <option>{{ $item->Band }}</option>
+                                                            @endforeach
+                                                        </select> --}}
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-4 col-form-label"
+                                                            for="inputEstimatedDuration">Khối
+                                                            lượng:</label>
+                                                        <input type="text" name="mass" class="form-control">
+                                                        {{-- <select
+                                                            class="js-example-placeholder-single js-states form-control col-sm-8"
+                                                            name="mass">
+                                                            <option selected="selected"></option>
+                                                            @foreach ($speci as $item)
+                                                                <option>{{ $item->Band }}</option>
+                                                            @endforeach
+                                                        </select> --}}
+                                                    </div>
+
+                                                </div>
+                                                <!-- /.card-body -->
+
+                                            </div>
+                                            <!-- /.card -->
+
+
+                                        </div>
+                                        <div class="card card-default ">
+                                            <div class="card-header">
+                                                <h3 class="card-title">Thêm thuộc tính</h3>
+
+                                                <div class="card-tools">
+                                                    <button type="button" class="btn btn-tool" data-card-widget="collapse"
+                                                        title="Collapse">
+                                                        <a href="">Thêm thuộc tính</a>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="attribute-form">
+                                                    <div class="attribute-top">
+                                                        Dung lượng
+                                                    </div>
+                                                    <fieldset class="attribute-fie">
+                                                        <ul class="attribute-option">
+                                                            <li class="atribute-option">
+                                                                <div class="form-group">
+                                                                    <input name="datasize[]" value="1" type="checkbox">
+                                                                    <label for="">16GB</label>
+                                                                </div>
+                                                            </li>
+                                                            <li class="atribute-option">
+                                                                <div class="form-group">
+                                                                    <input name="datasize[]" value="2" type="checkbox">
+                                                                    <label for="">32GB</label>
+                                                                </div>
+                                                            </li>
+
+                                                        </ul>
+                                                    </fieldset>
+                                                  <input type="button" id="getdata" > theem</button>
+                                                </div>
+                                                <div class="att">
+                                                    
                                                 </div>
 
-                                                <div class="form-group row">
-                                                    <label class="col-sm-3" for="disabledTextInput">Giá sản phẩm</label>
-                                                    <input type="text" name="price" class="form-control col-sm-9"
-                                                        placeholder="Nhập giá sản phẩm" required>
+
+
+
+                                            </div>
+                                        </div>
+
+
+
+
+
+
+                                    </div>
+
+                                    <div class="col-md-4">
+
+                                        <div class="card card-default " style="background-color: #f9fafb">
+                                            <div class="card-header">
+                                                <h5 class="m-0">Trạng thái</h5>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="form-group">
+                                                    <label class="radio-inline">
+                                                        <input name="spe" value="1" checked="" type="checkbox">Có
+                                                    </label><br>
+                                                    <label class="radio-inline">
+                                                        <input name="spe" value="0" type="checkbox">Không
+                                                    </label>
                                                 </div>
-                                                <div class="form-group row">
-                                                    <label class="col-sm-3" for="disabledTextInput">Discount</label>
-                                                    <input type="text" name="discount" class="form-control col-sm-9"
-                                                        placeholder="Nhập discount">
-                                                </div>
-
-
-
-                                                <div class="form-group row">
-                                                    <label class="col-sm-3" for="disabledTextInput">Ảnh đại diện</label>
-                                                    <input type="file" name="feature_image_path"
-                                                        class="form-control-file col-sm-9" required>
-                                                </div>
-
-                                                <div class="form-group row">
-                                                    <label class="col-sm-3" for="disabledSelect">Danh mục</label>
-                                                    <select class="js-example-basic-multiple form-control col-sm-9"
+                                            </div>
+                                            <div class="card-header">
+                                                <h5 for="disabledSelect" class="m-0">Phân loại</h5>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="form-group ">
+                                                    <label>Danh mục</label><br>
+                                                    <select id="danhmuc"
+                                                        class="js-example-basic-multiple  custom-select  text-light border-0 bg-white "
                                                         style="width:200px" name="category_id">
 
 
-                                                        @foreach ($category as $item)
-                                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                                        @endforeach
+
+                                                        {!! $category !!}
+
                                                     </select>
                                                 </div>
-                                                <div class="form-group row">
-                                                    <label class="col-sm-3" for="disabledSelect">Loại sản phẩm</label>
-                                                    <select class="js-example-basic-multiple form-control col-sm-9"
+                                                <div class="form-group ">
+                                                    <label for="disabledSelect">Loại sản phẩm</label><br>
+                                                    <select id="loaisp"
+                                                        class="js-example-basic-multiple  custom-select mb-3 text-light border-0 bg-white "
                                                         style="width:200px" name="producttype_id">
 
 
                                                         @foreach ($protype as $item)
-                                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                            <option value="{{ $item->id }}">{{ $item->name }}
+                                                            </option>
                                                         @endforeach
                                                     </select>
                                                 </div>
-                                                <div class="form-group row">
-                                                    <label class="col-sm-3" for="disabledTextInput">Nội dung</label>
-                                                    <textarea class="form-control my-editor col-sm-9"
-                                                        id="exampleFormControlTextarea1" name="content"
-                                                        rows="15"></textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="card card-default">
+                                            <div class="card-header">
+                                                <h3 class="card-title">Ảnh đại diện</h3>
+
+                                                <div class="card-tools">
+                                                    <button type="button" class="btn btn-tool" data-card-widget="collapse"
+                                                        title="Collapse">
+                                                        <i class="fas fa-minus"></i>
+                                                    </button>
                                                 </div>
-                                                <br>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="form-group">
 
-                                                <br>
+                                                    <div class="mx-auto">
+                                                        <div class="input-group ">
+                                                            <div class="custom-file">
+                                                                <input type="file" name="image" class="custom-file-input"
+                                                                    id="inputGroupFile">
+                                                                <label class="custom-file-label" for="inputGroupFile"
+                                                                    aria-describedby="inputGroupFileAddon">Choose
+                                                                    image</label>
+                                                            </div>
 
-                                            </fieldset>
+                                                        </div>
+                                                        <div class="border rounded-lg text-center p-3">
+                                                            <img src="//placehold.it/140?text=IMAGE" class="img-fluid"
+                                                                id="preview" />
+                                                        </div>
+                                                    </div>
 
+                                                </div>
+                                            </div>
                                         </div>
+
                                     </div>
 
-                                    <!-- /.form-group -->
-                                </div>
-                                <!-- /.col -->
-                                <div class="col-md-5">
-                                    <div class="card card-secondary">
-                                        <div class="card-header">
-                                            <h3 class="card-title">Thông số kỉ thuật</h3>
 
-                                            <div class="card-tools">
-                                                <button type="button" class="btn btn-tool" data-card-widget="collapse"
-                                                    title="Collapse">
-                                                    <i class="fas fa-minus"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="form-group row">
-                                                <label class="col-sm-4 col-form-label" for="inputEstimatedBudget">Thương
-                                                    hiệu:</label>
-                                                    <select
-                                                    class="js-example-placeholder-single js-states form-control col-sm-8"
-                                                    name="band">
-                                                    <option selected="selected"></option>
-                                                    @foreach ($speci as $item)
-                                                        <option>{{ $item->Band }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-4 col-form-label" for="inputEstimatedBudget">Màn
-                                                    hình:</label>
 
-                                                <select
-                                                    class="js-example-placeholder-single js-states form-control col-sm-8"
-                                                    name="display">
-                                                    <option selected="selected"></option>
-                                                    @foreach ($speci as $item)
-                                                        <option>{{ $item->Band }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-4  col-form-label" for="inputSpentBudget">Hệ điều
-                                                    hành:</label>
-                                                <select
-                                                    class="js-example-placeholder-single js-states form-control col-sm-8"
-                                                    name="operating">
-                                                    <option selected="selected"></option>
-                                                    @foreach ($speci as $item)
-                                                        <option>{{ $item->Band }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-4 col-form-label" for="inputEstimatedDuration">Camera
-                                                    sau:</label>
-                                                <select
-                                                    class="js-example-placeholder-single js-states form-control col-sm-8"
-                                                    name="camera_rear">
-                                                    <option selected="selected"></option>
-                                                    @foreach ($speci as $item)
-                                                        <option>{{ $item->Band }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-4 col-form-label" for="inputSpentBudget">Camera
-                                                    trước:</label>
-                                                <select
-                                                    class="js-example-placeholder-single js-states form-control col-sm-8"
-                                                    name="camera_front">
-                                                    <option selected="selected"></option>
-                                                    @foreach ($speci as $item)
-                                                        <option>{{ $item->Band }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-4 col-form-label"
-                                                    for="inputEstimatedDuration">Chip:</label>
-                                                <select
-                                                    class="js-example-placeholder-single js-states form-control col-sm-8"
-                                                    name="chip">
-                                                    <option selected="selected"></option>
-                                                    @foreach ($speci as $item)
-                                                        <option>{{ $item->Band }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-4 col-form-label" for="inputSpentBudget">RAM:</label>
-                                                <select
-                                                    class="js-example-placeholder-single js-states form-control col-sm-8"
-                                                    name="ram">
-                                                    <option selected="selected"></option>
-                                                    @foreach ($speci as $item)
-                                                        <option>{{ $item->Band }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-4 col-form-label" for="inputEstimatedDuration">Bộ
-                                                    nhớ
-                                                    trong:</label>
-                                                <select
-                                                    class="js-example-placeholder-single js-states form-control col-sm-8"
-                                                    name="memory">
-                                                    <option selected="selected"></option>
-                                                    @foreach ($speci as $item)
-                                                        <option>{{ $item->Band }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-4 col-form-label" for="inputSpentBudget">SIM:</label>
-                                                <select
-                                                    class="js-example-placeholder-single js-states form-control col-sm-8"
-                                                    name="sim">
-                                                    <option selected="selected"></option>
-                                                    @foreach ($speci as $item)
-                                                        <option>{{ $item->Band }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-4 col-form-label"
-                                                    for="inputEstimatedDuration">Pin:</label>
-                                                <select
-                                                    class="js-example-placeholder-single js-states form-control col-sm-8"
-                                                    name="battery">
-                                                    <option selected="selected"></option>
-                                                    @foreach ($speci as $item)
-                                                        <option>{{ $item->Band }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-4 col-form-label" for="inputEstimatedDuration">Bảo
-                                                    mật
-                                                    nâng cao:</label>
-                                                <select
-                                                    class="js-example-placeholder-single js-states form-control col-sm-8"
-                                                    name="security">
-                                                    <option selected="selected"></option>
-                                                    @foreach ($speci as $item)
-                                                        <option>{{ $item->Band }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-4 col-form-label"
-                                                    for="inputEstimatedDuration">Wifi:</label>
-                                                <select
-                                                    class="js-example-placeholder-single js-states form-control col-sm-8"
-                                                    name="wifi">
-                                                    <option selected="selected"></option>
-                                                    @foreach ($speci as $item)
-                                                        <option>{{ $item->Band }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-4 col-form-label" for="inputEstimatedDuration">Thiết
-                                                    kế:</label>
-                                                <select
-                                                    class="js-example-placeholder-single js-states form-control col-sm-8"
-                                                    name="design">
-                                                    <option selected="selected"></option>
-                                                    @foreach ($speci as $item)
-                                                        <option>{{ $item->Band }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-4 col-form-label" for="inputEstimatedDuration">Khối
-                                                    lượng:</label>
-                                                <select
-                                                    class="js-example-placeholder-single js-states form-control col-sm-8"
-                                                    name="mass">
-                                                    <option selected="selected"></option>
-                                                    @foreach ($speci as $item)
-                                                        <option>{{ $item->Band }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
 
-                                        </div>
-                                        <!-- /.card-body -->
-                                    </div>
-                                    <!-- /.card -->
+
+
                                 </div>
                             </div>
+
+
+
+
+
+
+                            {{-- <div id="cols" class="cols">
+                                <div >
+                                    <button class="action-close" data-role="closeBtn" type="button">
+                                        <i class="fa fa-times" style="font-size: 30px;" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                                <div>dsfdsf</div>
+                            </div> --}}
                             <!-- /.row -->
                         </div>
                         <!-- /.card-body -->
-                        <div class="col-md-12">
+                        {{-- <div class="col-md-12">
 
                             <div class="card-body">
                                 <section class="content">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <div class="card card-primary">
+                                            <div class="card card-secondary">
                                                 <div class="card-header">
                                                     <h3 class="card-title">Sản phẩm theo màu</h3>
 
@@ -338,6 +508,7 @@
                                                                         class="js-example-basic-multiple form-control col-sm-9"
                                                                         style="width:200px" name="astributevalue_id[]">
                                                                         @foreach ($color as $item)
+
                                                                             <option value="{{ $item->id }}">
                                                                                 {{ $item->name }}</option>
                                                                         @endforeach
@@ -387,28 +558,68 @@
                                 </section>
                             </div>
 
-                        </div>
+                        </div> --}}
+
+
+
+
+
                     </div>
-                    <!-- /.card -->
-
-
-                    <!-- /.row -->
                 </div>
-                <!-- /.container-fluid -->
-            </section>
-        </form>
-        <!-- /.content -->
+                <!-- /.card -->
+
+
+                <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+    </section>
+    </form>
+    <!-- /.content -->
     </div>
 
 @endsection
+
+
+
 @section('script')
-    <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+    <script>
+      $('#getdata').click(function(e){
+        e.preventDefault();
+                        let stringV = '';
+                        // su dung vong lap de them gia tri checkbox vao chuoi....
+                        jQuery("input[name='datasize[]']:checked").each(function() {
+                            stringV = stringV + '/' + jQuery(this).val();
+                        });
+                        if (stringV.length == 1) {
+                            stringV = stringV.substring(1);
+                        }
+                      $.ajax({
+                          url:'/admin/getsize',
+                          method:'post',
+
+                          data:{
+                              id: stringV,
+                              
+                          },
+                          success:function(data){
+                              $('.att').html(data);
+                          }
+                      })
+      });
+                   
+                   
+        
+
+    </script>
+
+
+
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
         $(".js-example-placeholder-single").select2({
 
             placeholder: 'Select an item',
-            tags:true
+            tags: true
             // ajax: {
             //     url: '/admin/search/search',
             //     dataType: 'json',
@@ -416,7 +627,7 @@
             //     processResults: function(data) {
             //         return {
             //             results: $.map(data, function(item) {
-                            
+
             //                 return {
             //                     text: item.name,
             //                     id: item.id
@@ -438,6 +649,18 @@
             }
         });
 
+        function myfun() {
+            var yes = document.getElementById("yes");
+            var no = document.getElementById("no");
+            var spe = document.getElementById("specification");
+            if (yes.checked == true) {
+                spe.style.display = "block";
+            }
+            if (no.checked == true) {
+                spe.style.display = "none";
+            }
+        }
+
     </script>
     <script>
         $(document).ready(function() {
@@ -445,8 +668,9 @@
             $('#addrow').click(function() {
                 var row = $('<tr>');
                 var col = '';
-                col +=
-                    '<td>  <select class="js-example-basic-multiple form-control col-sm-9" style="width:200px" name="astributevalue_id[]"> @foreach ($color as $item)<option value="{{ $item->id }}">{{ $item->name }}</option>@endforeach</select></td>';
+                @foreach ($color as $item)
+                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                @endforeach < /select></td > ';
                 col +=
                     '<td> <input type="text" name="import_price[]" class="form-control " placeholder="Nhập giá nhập"></td>';
                 col +=
@@ -464,49 +688,73 @@
             $('table.order-list').on('click', '.ibtnDel', function(event) {
                 $(this).closest('tr').remove();
             })
-        });
-        var editor_config = {
-            path_absolute: "/",
-            selector: "textarea.my-editor",
-            plugins: [
-                "advlist autolink lists link image charmap print preview hr anchor pagebreak",
-                "searchreplace wordcount visualblocks visualchars code fullscreen",
-                "insertdatetime media nonbreaking save table contextmenu directionality",
-                "emoticons template paste textcolor colorpicker textpattern"
-            ],
-            toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media",
-            relative_urls: false,
-            file_browser_callback: function(field_name, url, type, win) {
-                var x = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName(
-                    'body')[0].clientWidth;
-                var y = window.innerHeight || document.documentElement.clientHeight || document
-                    .getElementsByTagName('body')[0].clientHeight;
 
-                //   var cmsURL = editor_config.path_absolute + 'laravel-filemanager?field_name=' + field_name;
-                //   if (type == 'image') {
-                //     cmsURL = cmsURL + "&type=Images";
-                //   } else {
-                //     cmsURL = cmsURL + "&type=Files";
-                //   }
-                var cmsURL = editor_config.path_absolute + 'laravel-filemanager?field_name=' + field_name +
-                    '&lang=' + tinymce.settings.language;
-                if (type == 'image') {
-                    cmsURL = cmsURL + "&type=Images";
-                } else {
-                    cmsURL = cmsURL + "&type=Files";
-                }
-                tinyMCE.activeEditor.windowManager.open({
-                    file: cmsURL,
-                    title: 'Filemanager',
-                    width: x * 0.8,
-                    height: y * 0.8,
-                    resizable: "yes",
-                    close_previous: "no"
+
+            //load loai sp khi add san pham
+            var url = "/admin/loaisp";
+            $("select[name='category_id']").change(function() {
+                var id = $(this).val();
+                var token = $("input[name='_token']").val();
+                $.ajax({
+                    url: url,
+                    method: 'POST',
+                    data: {
+                        id: id,
+                        _token: token
+                    },
+                    success: function(data) {
+                        $("select[name='producttype_id'").html('');
+                        $.each(data, function(key, value) {
+                            $("select[name='producttype_id']").append(
+                                "<option value=" + value.id + ">" + value.name +
+                                "</option>"
+                            );
+                        });
+                    }
                 });
-            }
-        };
-
-        tinymce.init(editor_config);
+            });
+        });
 
     </script>
+    <script>
+        $(document).ready(function() {
+            bsCustomFileInput.init()
+            $("#inputGroupFile").on('change', function() {
+                var input = $(this)[0];
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                        $('#preview').attr('src', e.target.result).fadeIn('slow');
+                    }
+                    reader.readAsDataURL(input.files[0]);
+                }
+            })
+
+        });
+     
+  
+    </script>
+
+<script src="//cdn.ckeditor.com/4.6.2/standard/ckeditor.js"></script>
+<script>
+      $.ajaxSetup({
+            headers: {
+                'csrftoken': '{{ csrf_token() }}'
+            }
+        });
+        let token = document.head.querySelector('[name=csrf-token]').content;
+  var options = {
+   
+    filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
+    filebrowserImageUploadUrl: '/laravel-filemanager/upload?type=Images&_token='+token,
+    filebrowserBrowseUrl: '/laravel-filemanager?type=Files',
+    filebrowserUploadUrl: '/laravel-filemanager/upload?type=Files&_token='+token,
+  };
+</script>
+
+//
+<script>
+CKEDITOR.replace('my-editor', options);
+</script>
+
 @endsection

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\category;
+use App\Components\Recusive;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -41,10 +42,18 @@ class categoryController extends Controller
      */
     public function create()
     {
-        
-        return view('admin.categories.add');
+        $option=$this->getcate();
+    
+        return view('admin.categories.add',compact('option'));
     }
 
+    public function getcate()
+    {
+        $data=category::where('status',1)->get();
+        $recusive=new Recusive($data);
+        $option=$recusive->categoryRecure();
+        return $option;
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -79,10 +88,27 @@ class categoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    function getcateselect($parentId, $id =0, $text = '')
+    {
+        $data=$this->category->all();
+
+        foreach ($data as $value) {
+            if ($value['parent_id'] == $id) {
+                if(!empty($parentId)&& $parentId==$value['id']){
+                    $this->htmlSelect .= "<option selected value='"  . $value['id'] .  "'>" . $text . $value['name'] . "</option>";
+                }
+                $this->htmlSelect .= "<option value='"  . $value['id'] .  "'>" . $text . $value['name'] . "</option>";
+
+                $this->getcateselect($parentId,$value['id'], $text . '--');
+            }
+        }
+        return $this->htmlSelect;
+    }
     public function edit($id)
     {
         $data=  $this->category->find($id);
-        return response()->json($data,'200');
+        $option=$this->getcateselect($data->parent_id);
+        return response()->json(['data'=>$data,'option'=>$option]);
     }
 
     /**
@@ -97,6 +123,7 @@ class categoryController extends Controller
       $category=category::find($id);
       $category->update([
         'name' => $request->name,
+        'parent_id' => $request->parent_id,
         'slug' => Str::slug($request->name),
         'status' => $request->status
       ]);

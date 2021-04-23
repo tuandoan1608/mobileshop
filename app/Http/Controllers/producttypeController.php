@@ -22,7 +22,7 @@ class producttypeController extends Controller
      */
     public function index()
     {
-        $producttype= $this->producttype->paginate(10);
+        $producttype= $this->producttype->where('status',1)->paginate(10);
         
        return view('admin.productTypes.list',compact('producttype'));
     }
@@ -53,7 +53,7 @@ class producttypeController extends Controller
         $data['slug']=Str::slug($request->name);
         if(producttype::create($data)){
             Flash::success('Thêm thành công');
-            return redirect()->route('producttype.index');
+            return back();
         }else{
             Flash::error('có lỗi xảy ra');
            

@@ -20,7 +20,7 @@ class attributeController extends Controller
   {
       $attribute=$this->attribute->first();
       $attributevalue= DB::table('attribute')
-      ->join('attribute_value','attribute.astributeID','=','attribute_value.attribute_id')
+      ->join('attribute_value','attribute.id','=','attribute_value.attribute_id')
     
       ->get();
       

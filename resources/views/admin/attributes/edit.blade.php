@@ -1,102 +1,210 @@
-<div class="card-body">
-    <div class="row">
-      <div class="col-md-6">
-        <div class="form-group">
-          <label>Minimal</label>
-          <select class="form-control select2" style="width: 100%;">
-            <option selected="selected">Alabama</option>
-            <option>Alaska</option>
-            <option>California</option>
-            <option>Delaware</option>
-            <option>Tennessee</option>
-            <option>Texas</option>
-            <option>Washington</option>
-          </select>
-        </div>
-        <!-- /.form-group -->
-        <div class="form-group">
-          <label>Disabled</label>
-          <select class="form-control select2" disabled="disabled" style="width: 100%;">
-            <option selected="selected">Alabama</option>
-            <option>Alaska</option>
-            <option>California</option>
-            <option>Delaware</option>
-            <option>Tennessee</option>
-            <option>Texas</option>
-            <option>Washington</option>
-          </select>
-        </div>
-        <!-- /.form-group -->
-      </div>
-      <!-- /.col -->
-      <div class="col-md-6">
-        <div class="form-group">
-          <label>Multiple</label>
-          <select class="select2" multiple="multiple" data-placeholder="Select a State" style="width: 100%;">
-            <option>Alabama</option>
-            <option>Alaska</option>
-            <option>California</option>
-            <option>Delaware</option>
-            <option>Tennessee</option>
-            <option>Texas</option>
-            <option>Washington</option>
-          </select>
-        </div>
-        <!-- /.form-group -->
-        <div class="form-group">
-          <label>Disabled Result</label>
-          <select class="form-control select2" style="width: 100%;">
-            <option selected="selected">Alabama</option>
-            <option>Alaska</option>
-            <option disabled="disabled">California (disabled)</option>
-            <option>Delaware</option>
-            <option>Tennessee</option>
-            <option>Texas</option>
-            <option>Washington</option>
-          </select>
-        </div>
-        <!-- /.form-group -->
-      </div>
-      <!-- /.col -->
-    </div>
-    <!-- /.row -->
+@extends('admin.master')
+@section('content')
 
-    <h5>Custom Color Variants</h5>
-    <div class="row">
-      <div class="col-12 col-sm-6">
-        <div class="form-group">
-          <label>Minimal (.select2-danger)</label>
-          <select class="form-control select2 select2-danger" data-dropdown-css-class="select2-danger" style="width: 100%;">
-            <option selected="selected">Alabama</option>
-            <option>Alaska</option>
-            <option>California</option>
-            <option>Delaware</option>
-            <option>Tennessee</option>
-            <option>Texas</option>
-            <option>Washington</option>
-          </select>
-        </div>
-        <!-- /.form-group -->
-      </div>
-      <!-- /.col -->
-      <div class="col-12 col-sm-6">
-        <div class="form-group">
-          <label>Multiple (.select2-purple)</label>
-          <div class="select2-purple">
-            <select class="select2" multiple="multiple" data-placeholder="Select a State" data-dropdown-css-class="select2-purple" style="width: 100%;">
-              <option>Alabama</option>
-              <option>Alaska</option>
-              <option>California</option>
-              <option>Delaware</option>
-              <option>Tennessee</option>
-              <option>Texas</option>
-              <option>Washington</option>
-            </select>
-          </div>
-        </div>
-        <!-- /.form-group -->
-      </div>
-      <!-- /.col -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>Attribute Add</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active">Attribute Add</li>
+                        </ol>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <form action="{{ route('astributestore') }}" method="POST">
+                @csrf
+                <div class="container">
+
+                    <div class="col-md-12">
+                        <div class="card card-default" style="box-shadow: none">
+                            <div class="card-header">
+                                <h3 class="card-title">Attribute Properties</h3>
+
+                                <div class="card-tools">
+                                    <button type="button" class="btn btn-tool" data-card-widget="collapse"
+                                        data-toggle="tooltip" title="Collapse">
+                                        <i class="fas fa-minus"></i></button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label class="col-md-2" for="inputName">Tên thuộc tính <span style="color: red">*<span></label>
+                                        <input type="text" name="name" id="inputName" class="col-md-10 form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label class="col-md-2" for="inputName">Loại đầu vào thuộc tính</label>
+
+                                        <select id="frontend_input" type="text" name="attribute_type"
+                                            title="Catalog Input Type for Store Owner" class="form-control custom-select col-md-4">
+                                            <option value="multiselect" id="sel">--Select--</option>
+                                            <option value="multiselect" id="optIdEguqOvFU">Multiple Select</option>
+                                          
+                                            <option value="swatch_visual" id="optIdzJ900K6h">Visual Swatch</option>
+                                          
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group " id="multi" style="display: none">
+                                    <table id="myTable" class=" table order-list">
+                                        <thead>
+                                            <tr>
+                                                <th>Tên thuộc tính</th>
+                                                
+                                                <th></th>
+
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>                                            
+                                                <td>
+                                                    <input type="text" name="name[]"
+                                                        class="form-control " placeholder="Tên thuộc tính">
+                                                </td>                                       
+                                                <td style="text-align: left;">
+                                                    <input type="button" class="btn btn-lg btn-block "
+                                                        id="addrow" value="+" />
+                                                </td>
+                                            </tr>
+                                        </tbody>
+
+                                    </table>
+                                </div>
+                                <div class="form-group " id="multis" style="display: none">
+                                    <table id="myTable" class=" table order-list">
+                                        <thead>
+                                            <tr>
+                                                <th>Chọn màu</th>
+                                                <th>Tên thuộc tính</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><input type="color" id="favcolor" name="color[]" value="#ff0000"><label for="head">Chọn màu</label></td>
+                                                <td>
+
+
+                                                    <input type="text" name="namecolor[]"
+                                                        class="form-control " placeholder="Tên thuộc tính">
+                                                </td>
+                                              
+                                                <td style="text-align: left;">
+                                                    <input type="button" class="btn btn-lg btn-block "
+                                                        id="addrows" value="+" />
+                                                </td>
+                                            </tr>
+                                        </tbody>
+
+                                    </table>
+                                </div>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <a href="#" class="btn btn-secondary float-left">Back</a>
+                        <input type="submit" value="Save" class="btn btn-success float-left">
+                    </div>
+                </div>
+            </form>
+        </section>
+        <!-- /.content -->
     </div>
-    <!-- /.row -->
-  </div>
+
+@endsection
+@section('script')
+    <script>
+        $(document).ready(function() {
+            let select= document.getElementById('optIdEguqOvFU');
+            let selects= document.getElementById('optIdzJ900K6h');
+            let select1= document.getElementById('sel');
+            
+            $("select").change(function(){
+               if(select.selected==true){
+                document.getElementById('multi').style.display="block";
+                document.getElementById('multis').style.display="none";
+               }
+               else if(selects.selected==true){
+                document.getElementById('multis').style.display="block";
+                document.getElementById('multi').style.display="none";
+               }
+               else if(select1.selected==true){
+                document.getElementById('multis').style.display="none";
+                document.getElementById('multi').style.display="none";
+               }
+            });
+
+            $("#addrow").on("click", function() {
+                var newRow = $("<tr>");
+                var cols = "";
+
+                cols += '<td><input type="text" class="form-control" name="name[]"/></td>';
+              
+                cols +=
+                    '<td><input type="button" class="ibtnDel btn btn-md btn-danger "  value="Delete"></td>';
+                newRow.append(cols);
+                $("table.order-list").append(newRow);
+
+            });
+
+            $("#addrows").on("click", function() {
+                var newRow = $("<tr>");
+                var cols = "";
+                cols +=
+                    '<td><div> <input type="color" id="favcolor" name="color[]" value="#ff0000"><label for="head">Chọn màu</label></div></td>';
+                cols += '<td><input type="text" class="form-control" placeholder="Tên thuộc tính" name="namecolor[]"/></td>';
+               
+
+                cols +=
+                    '<td><input type="button" class="ibtnDel btn btn-md btn-danger "  value="Delete"></td>';
+                newRow.append(cols);
+                $("table.order-list").append(newRow);
+
+            });
+
+
+            $("table.order-list").on("click", ".ibtnDel", function(event) {
+                $(this).closest("tr").remove();
+
+            });
+
+
+
+        });
+
+
+
+        function calculateRow(row) {
+            var price = +row.find('input[name^="price"]').val();
+
+        }
+
+        function calculateGrandTotal() {
+            var grandTotal = 0;
+            $("table.order-list").find('input[name^="price"]').each(function() {
+                grandTotal += +$(this).val();
+            });
+            $("#grandtotal").text(grandTotal.toFixed(2));
+        }
+
+    </script>
+@endsection

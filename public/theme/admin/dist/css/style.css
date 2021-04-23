@@ -1,3 +1,67 @@
 .uppercase{
     text-transform: capitalize
 }
+.content-wrapper  {  background-color: #fff;
+}
+
+.cols{
+    height:100%;display:block; 
+    z-index:99999;
+    position: fixed; 
+    background-color:black;
+    top:0;
+    right:0; 
+    transition: opacity .3s ease;
+    transition: transform .3s ease-in-out;
+    width: auto;
+    background-color: #fff;
+    box-shadow: 0 0 12px 2px rgb(0 0 0 / 35%);
+    opacity: 1;
+    width: 80%;
+
+}
+.action-close {
+    padding: 2.1rem 2.6rem;
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    z-index: 99;
+    top: 10px;
+    right: 20px;
+}
+
+
+
+.attribute-option li{
+    display: inline-block;
+    width: 23.333%;
+
+}
+.attribute-option li div input{
+    margin-right: 5px;
+}
+.attribute-option {
+   padding: 0;
+    list-style: none;
+}
+.attribute-form{
+    border: 1px solid #d1d1d1;
+    transition: border-color .3s;
+    margin: 0 0 3rem;
+    padding: 1rem;
+}
+.attribute-top{
+    font-size: 1.3rem;
+    padding-bottom: 10px;
+}
+
+#cke_my-editor{
+    width: 100%;
+    
+}
+
+

@@ -11,9 +11,11 @@ class category extends Model
         "id",
         "name",
         "slug",
-        "parentID",
+        "parent_id",
         "status",
         
     ];
-    
+    public function categorychilrent(){
+        return $this->hasMany(category::class,'parent_id')->where('status',1);
+    }
 }

@@ -43,13 +43,17 @@ Route::prefix('admin')->group(function () {
    Route::resource('category', 'categoryController');
    Route::resource('producttype', 'producttypeController');
    Route::resource('product', 'productController');
+   route::post('/loaisp','productController@loaisp');
+   route::post('/getsize','productController@getsize');
    route::get('/productattribute/delete/{id}','productController@deletes')->name('proattribute-delete');
 });
-route::get('/',function(){
-    return view('client.productdetail.index');
-});
-route::get('/product',function(){
+route::get('/','homeClientController@index');
+
+route::get('/{slug}',function(){
     return view('client.productcatorgori.index');
 });
-
+route::get('/dang-nhap');
+route::get('/san-pham/{slug}','homeClientController@index');
+route::get('/thanh-toan');
+route::get('/gio-hang');
 

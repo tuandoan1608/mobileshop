@@ -99,7 +99,14 @@
                                                             placeholder="Nhập tên loại sản phẩm">
                                                         <div class="alert alert-danger errorName"></div>
                                                     </fieldset>
-
+                                                    <div class="form-group">
+                                                        <label for="disabledTextInput">Danh mục con</label>
+                                                       <select id="parent_id" name="parent_id" class="form-control" >
+                                                         <option value="0">Danh mục cha</option>
+                                                              
+                                                          
+                                                       </select>
+                                                    </div>
                                                     <div class="form-group">
                                                         <label>Status</label>
                                                         <select class="form-control status" name="status">

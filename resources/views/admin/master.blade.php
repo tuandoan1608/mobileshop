@@ -34,8 +34,11 @@
     <link rel="stylesheet" href="/theme/admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" href="/theme/admin/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
     <link rel="stylesheet" href="/theme/admin/plugins/sweetalert2/sweetalert2.css">
+ 
+    
     <!-- Theme style -->
     <link rel="stylesheet" href="/theme/admin/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="/theme/admin/dist/css/style.css">
  
 
     @yield('css')
@@ -161,7 +164,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./index.html" class="nav-link active">
+                <a href="/admin/dashboard/danh-sach" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Tổng hợp</p>
                 </a>
@@ -373,7 +376,7 @@
 <script src="/theme/admin/plugins/datatables-buttons/js/buttons.print.min.js"></script>
 <script src="/theme/admin/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 <script src="/theme/admin/plugins/sweetalert2/sweetalert2.js"></script>
-
+<script src="/theme/admin/plugins/bs-custom-file-input/bs-custom-file-input.js"></script>
 @yield('script')
 </body>
 </html>

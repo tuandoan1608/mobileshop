@@ -380,7 +380,7 @@
                                                                     <input type="file" name="image0[]" class="form-control "
                                                                         multiple>
                                                                 </td>
-                                                                <td><a data-url="{{route('proattribute-delete',['id'=>$items->id])}}"  class="ibtnDel delete btn btn-md btn-danger "  >Xóa</a></td>
+                                                                <td><a data-url="{{route('proattribute-delete',['id'=>$items->id])}}"  class="ibtnDel deletes btn btn-md btn-danger "  >Xóa</a></td>
                                                                
                                                             </tr>
                                                             @endforeach
@@ -448,8 +448,8 @@
 
     </script>
     <script>
-         $(function() {
-            $('.delete').on('click', function(e) {
+          $(function() {
+            $('.deletes').on('click', function(e) {
                 e.preventDefault();
                 let urlreq = $(this).data('url');
                 let that = $(this);
@@ -465,7 +465,7 @@
                     if (result.isConfirmed) {
 
                         $.ajax({
-                            type: 'GET',
+                            type: 'delete',
                             url: urlreq,
                             success: function(data) {
                                 if (data.code == 200) {

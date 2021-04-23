@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\attributevalue;
+use App\attributevalue_size;
 use App\category;
+use App\Components\Recusive;
 use App\product;
 use App\productAttribute;
 use App\productImage;
@@ -54,14 +56,83 @@ class productController extends Controller
     public function create()
     {
         $color=attributevalue::all();
-        $category=category::all();
+     
+        $category=$this->getcate();
         $protype=producttype::all();
         $speci=DB::table('specifications')
         ->select('Band','Chip')
         ->groupBy('Chip','Band')->get();
         return view('admin.products.add',compact('color','category','protype','speci'));
     }
+    public function getcate()
+    {
+        $data=category::all();
+        $recusive=new Recusive($data);
+        $option=$recusive->categoryRecure();
+        return $option;
+    }
+    function getd($parentId, $id = 0, $text = '')
+    {
+        $data = $this->category->all();
 
+        foreach ($data as $value) {
+            if ($value['parent_id'] == $id) {
+                if (!empty($parentId) && $parentId == $value['id']) {
+                    $this->htmlSelect .= "<option selected value='"  . $value['id'] .  "'>" . $text . $value['name'] . "</option>";
+                } else {
+                    $this->htmlSelect .= "<option value='"  . $value['id'] .  "'>" . $text . $value['name'] . "</option>";
+
+                    $this->getd($parentId, $value['id'], $text . '--');
+                }
+            }
+        }
+        return $this->htmlSelect;
+    }
+    public function loaisp(Request $request)
+    {
+        if($request->ajax()){
+            $data=producttype::where('categori_id',$request->id)->select('id','name')->get();
+            
+            return response()->json($data);
+        }
+    }
+    public function getsize(Request $request)
+    {
+        if($request->ajax()){
+            $output='';
+            $string=$request->id;
+            $string=substr($string,1);
+            $ids=explode('/',$string);
+
+           foreach($ids as $key=>$item){
+            $data=attributevalue_size::find($item);
+           
+            $output .= '<table>
+            <thead>
+              
+                <th>'. $data->name .'GB</th>
+            </thead>
+            <tbody id="tbody">
+            <tr>
+           
+            <td>   <label>id</label><input type="text"'.$data->id.' class="form-control"></td>
+            <td>   <label>Gia ban</label><input type="number" class="form-control"></td>
+            
+          
+            </tr>   
+            </tbody>
+        </table>';
+            
+            
+            
+            
+            
+           }
+         
+            return response($output);
+            
+        }
+    }
     /**
      * Store a newly created resource in storage.
      *
