@@ -1,6 +1,6 @@
-@if ($parent->categorychilrent->count())
+@if ($parent->categorychildrent->count())
     <ul>
-        @foreach ($parent->categorychilrent as $child)
+        @foreach ($parent->categorychildrent as $child)
 
             <li><a href="shop-3-column.html">{{ $child->name }}</a></li>
 

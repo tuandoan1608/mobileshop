@@ -236,7 +236,7 @@
 
                                 </li>
                                 @foreach ($menu as $menuparent)
-                                    @if ($menuparent->categorychilrent->count())
+                                    @if ($menuparent->categorychildrent->count())
                                         <li class="megamenu-holder"><a
                                                 href="/{{ $menuparent->slug }}">{{ $menuparent->name }}</a>
 

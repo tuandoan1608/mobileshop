@@ -403,7 +403,7 @@ input {
 	padding-left: 10px;
 	font-size: 14px;
 	color: #626262;
-	width: 100%;
+
 }
 select {
 	width: 100%;
@@ -2663,7 +2663,7 @@ textarea:focus {
 /*  2.7 Li's Static Home Banner
 /*----------------------------------------*/
 .li-static-home-image {
-	background-image: url(images/bg-banner/1.jpg);
+	background-image: url(images/bg-banner/1_1.jpg);
 	background-size: cover;
 	height: 400px;
 	background-repeat: no-repeat;

@@ -15,7 +15,7 @@ class category extends Model
         "status",
         
     ];
-    public function categorychilrent(){
+    public function categorychildrent(){
         return $this->hasMany(category::class,'parent_id')->where('status',1);
     }
 }

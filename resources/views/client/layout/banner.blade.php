@@ -18,7 +18,7 @@
                 <div class="slider-area pt-sm-30 pt-xs-30">
                     <div class="slider-active owl-carousel">
                         <!-- Begin Single Slide Area -->
-                        <div class="single-slide align-center-left animation-style-01 bg-1">
+                        <div class="single-slide align-center-left animation-style-01 bg-4">
                             <div class="slider-progress"></div>
                             <div class="slider-content">
                                 <h5>Sale Offer <span>-20% Off</span> This Week</h5>

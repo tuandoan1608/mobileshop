@@ -54,9 +54,9 @@
                         <div class="col-lg-7 col-md-6">
                             <div class="product-details-view-content pt-60">
                                 <div class="product-info">
-                                    <h2>Today is a good day Framed poster</h2>
-                                    <span class="product-details-ref">Reference: demo_15</span>
-                                    <div class="rating-box pt-20">
+                                    <h2>{{ $product->name }}</h2>
+                                    <span class="product-details-ref">Trạng thái: Còn hàng</span>
+                                    {{-- <div class="rating-box pt-20">
                                         <ul class="rating rating-with-review-item">
                                             <li><i class="fa fa-star-o"></i></li>
                                             <li><i class="fa fa-star-o"></i></li>
@@ -66,26 +66,62 @@
                                             <li class="review-item"><a href="#">Read Review</a></li>
                                             <li class="review-item"><a href="#">Write Review</a></li>
                                         </ul>
-                                    </div>
-                                    <div class="price-box pt-20">
-                                        <span class="new-price new-price-2">$57.98</span>
-                                    </div>
-                                    <div class="product-desc">
-                                        <p>
-                                            <span>100% cotton double printed dress. Black and white striped top and orange high waisted skater skirt bottom. Lorem ipsum dolor sit amet, consectetur adipisicing elit. quibusdam corporis, earum facilis et nostrum dolorum accusamus similique eveniet quia pariatur.
-                                            </span>
-                                        </p>
-                                    </div>
-                                    <div class="product-variants">
-                                        <div class="produt-variants-size">
-                                            <label>Dimension</label>
-                                            <select class="nice-select">
-                                                <option value="1" title="S" selected="selected">40x60cm</option>
-                                                <option value="2" title="M">60x90cm</option>
-                                                <option value="3" title="L">80x120cm</option>
-                                            </select>
+                                    </div> --}}
+                             
+                                   
+                                  
+                                       <div>
+                                        <form action="/card/{{ $product->id }}">
+                                        <label>Dung lượng</label>
+                                        @foreach ($productattribute  as $item )
+                                
+                                            
+                                        @if ($item->quantity_sell==1)
+                                              <div>
+                                                  <label for="">
+                                                    <a >  <input type="radio" style="padding: 0px" name="status" value="{{ $item->attributevaluesize_id }}"  >{{ $item->productsize->name }}GB</a>
+                                                  </label>
+                                                  <label for="">{{ number_format($item->export_price) }} .đ</label>
+                                              </div>
+                                              @else
+                                              <div>
+                                                <label for="">
+                                                    <a >  <input type="radio" style="padding: 0px" name="status" value="{{ $item->attributevaluesize_id }}"  >{{ $item->productsize->name }}GB</a>
+                                                </label>
+                                                <label for="">{{ number_format($item->export_price) }} .đ</label>
+                                            </div>
+                                              @endif
+                                 
+                                        @endforeach
+                                       </div>
+                                      
+                                     
+
+
+
+
+
+                                       <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                          <div class="modal-content">
+                                            <div class="modal-header">
+                                              <h5 class="modal-title" id="exampleModalLongTitle">{{ $product->name }}</h5>
+                                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                              </button>
+                                            </div>
+                                            <div class="modal-body">
+                                            @foreach ($productattribute as $item )
+                                    <label for=""><input value="{{ $item->attributevalue_id }}" type="radio"> {{ $item->productcolor->name }}</label>
+                                            @endforeach
+                                            </div>
+                                            <div class="modal-footer">
+                                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                              <button type="button" class="btn btn-primary">Save changes</button>
+                                            </div>
+                                          </div>
                                         </div>
-                                    </div>
+                                      </div>  
                                     <div class="single-add-to-cart">
                                         <form action="#" class="cart-quantity">
                                             <div class="quantity">
@@ -96,7 +132,9 @@
                                                     <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
                                                 </div>
                                             </div>
-                                            <button class="add-to-cart" type="submit">Add to cart</button>
+                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
+                                                Launch demo modal
+                                              </button>
                                         </form>
                                     </div>
                                     <div class="product-additional-info pt-25">

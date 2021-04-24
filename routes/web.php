@@ -49,11 +49,12 @@ Route::prefix('admin')->group(function () {
 });
 route::get('/','homeClientController@index');
 
-route::get('/{slug}',function(){
-    return view('client.productcatorgori.index');
-});
-route::get('/dang-nhap');
-route::get('/san-pham/{slug}','homeClientController@index');
-route::get('/thanh-toan');
-route::get('/gio-hang');
+
+route::get('/dang-nhap','accountController@index');
+route::post('/login','accountController@login')->name('login');
+route::get('/register','accountController@register');
+route::get('/san-pham/{slug}','productClientController@index');
+
+route::get('/card/id','productClientController@card');
+
 
