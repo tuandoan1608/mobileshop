@@ -18,7 +18,7 @@
 
                         <div class="card">
                             <div class="card-header">
-                                h3 class="card-title">Danh sách sản phẩm</h3>
+                                <h3 class="card-title">Danh sách sản phẩm</h3>
                                 <div style="float: right;margin-top:-5px"><a href="{{ route('product.create') }}"><button
                                             class="btn btn-success">Thêm sản phẩm</button></a></div>
                             </div>

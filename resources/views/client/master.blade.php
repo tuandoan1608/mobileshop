@@ -4,6 +4,7 @@
 <!-- index-431:41-->
 <head>
         <meta charset="utf-8">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <title>Home Version Four || limupa - Digital Products Store ECommerce Bootstrap 4 Template</title>
         <meta name="description" content="">
@@ -38,6 +39,7 @@
         <link rel="stylesheet" href="/theme/client/css/helper.css">
         <!-- Main Style CSS -->
         <link rel="stylesheet" href="/theme/client/style.css">
+        <link rel="stylesheet" href="/theme/client/css.css">
         <!-- Responsive CSS -->
         <link rel="stylesheet" href="/theme/client/css/responsive.css">
         <!-- Modernizr js -->
@@ -111,6 +113,7 @@
         <script src="/theme/client/js/scrollUp.min.js"></script>
         <!-- Main/Activator js -->
         <script src="/theme/client/js/main.js"></script>
+        @yield('script')
     </body>
 
 <!-- index-431:47-->

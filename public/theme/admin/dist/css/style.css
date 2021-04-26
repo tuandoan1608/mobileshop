@@ -65,3 +65,245 @@
 }
 
 
+
+
+
+.loader {
+    background: rgb(77, 76, 76);
+   opacity: 0.7;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 99999;
+ 
+}
+
+.loader-inner {
+    bottom: 0;
+    height: 60px;
+    left: 0;
+    margin: auto;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100px;
+}
+
+.loader-line-wrap {
+    animation: 
+    spin 2000ms cubic-bezier(.175, .885, .32, 1.275) infinite
+  ;
+    box-sizing: border-box;
+    height: 50px;
+    left: 0;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    transform-origin: 50% 100%;
+    width: 100px;
+}
+.loader-line {
+    border: 4px solid transparent;
+    border-radius: 100%;
+    box-sizing: border-box;
+    height: 100px;
+    left: 0;
+    margin: 0 auto;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100px;
+}
+.loader-line-wrap:nth-child(1) { animation-delay: -50ms; }
+.loader-line-wrap:nth-child(2) { animation-delay: -100ms; }
+.loader-line-wrap:nth-child(3) { animation-delay: -150ms; }
+.loader-line-wrap:nth-child(4) { animation-delay: -200ms; }
+.loader-line-wrap:nth-child(5) { animation-delay: -250ms; }
+
+.loader-line-wrap:nth-child(1) .loader-line {
+    border-color: hsl(0, 80%, 60%);
+    height: 90px;
+    width: 90px;
+    top: 7px;
+}
+.loader-line-wrap:nth-child(2) .loader-line {
+    border-color: hsl(60, 80%, 60%);
+    height: 76px;
+    width: 76px;
+    top: 14px;
+}
+.loader-line-wrap:nth-child(3) .loader-line {
+    border-color: hsl(120, 80%, 60%);
+    height: 62px;
+    width: 62px;
+    top: 21px;
+}
+.loader-line-wrap:nth-child(4) .loader-line {
+    border-color: hsl(180, 80%, 60%);
+    height: 48px;
+    width: 48px;
+    top: 28px;
+}
+.loader-line-wrap:nth-child(5) .loader-line {
+    border-color: hsl(240, 80%, 60%);
+    height: 34px;
+    width: 34px;
+    top: 35px;
+}
+
+@keyframes spin {
+    0%, 15% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+
+.progressbar {
+    counter-reset: step;
+    padding: 0;
+    
+    /* for demo */
+    margin: 20px auto 0;
+    max-width: 800px;
+  }
+  
+  .progressbar li {
+    float: left;
+    list-style: none;
+    position: relative;
+    text-align: center;
+    width: calc(100% / 5);
+  
+  }
+  
+  .progressbar li:before {
+    background: #fff;
+    border: 2px solid #bebebe;
+    border-radius: 50%;
+    color: #bebebe;
+    content: counter(step);
+    counter-increment: step;
+    display: block;
+    font-weight: 700;
+    height: 30px;
+    line-height: 27px;
+    margin: 0 auto 10px;
+    text-align: center;
+    width: 30px;
+   
+    
+  }
+  
+  .progressbar li:after {
+    background: #5a5a5a;
+    content: '';
+    height: 3px;
+
+    position: absolute;
+    top: 15px;
+    width: 100%;
+    z-index: -1;
+    left: -35%;
+  }
+  
+  .progressbar li:first-child:after {
+    content: none;
+  }
+  
+  .progressbar li.active:after,
+  .progressbar li.complete:after {
+    background: #3aac5d;
+    z-index: 999;
+  }
+  
+  .progressbar li.active:before,
+  .progressbar li.complete:before {
+    background: #3aac5d;
+    border-color: #3aac5d;
+    color: #fff;
+    z-index: 999;
+
+  }
+  
+  .progressbar li.active {
+    color: #3aac5d;
+    font-weight: 600;
+
+   
+  }
+  .l1{
+      z-index: 5;
+  }
+  .l2{
+    z-index: 1;
+    
+}
+.l3{
+    z-index: 3;
+}
+.l4{
+    z-index: 2;
+}
+.l5{
+    z-index: 1;
+}
+
+.order-dashboard-item{
+  border: 1px solid rgb(127, 219, 219);
+  width: 40%;
+  margin: 10px;
+  height:100px;
+  display: inline-block;
+  border-radius: 6px;
+  text-align: center;
+  background-color: rgb(217 245 242 / 91%);
+
+
+
+}
+.title-dashboard{
+  color: #8d8d8d;
+  font-weight: normal;
+  margin-bottom: 0px;
+}
+.price1,.price2,.price3{
+  font-size: 25px;
+}
+.price1{
+  color: rgba(236, 160, 241, 0.801);
+}
+.price2{
+  color: rgb(176, 161, 241);
+}
+.price3{
+  color: rgb(100, 96, 100);
+}
+.tl{
+  text-transform: uppercase;
+    font-size: 18px;
+    color: #484a4c;
+    display: inline-block;
+    margin-top: 8px;
+    line-height: 2rem;
+}
+.contai{
+  text-align: center;
+  width: 100%;
+  margin-left: 20px;
+}
+.left{
+  width: 30%;
+}
+.right3{
+  width: 60%;
+}
+.tl{
+  margin-left: 10px;
+}
+.img{margin-top: 15px;}

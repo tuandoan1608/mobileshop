@@ -9,7 +9,7 @@ class product extends Model
 {
     use Notifiable;
     protected $table='product';
-    protected $fillable=['name','slug','price','discount','content','image','category_id','producttype_id'];
+    protected $fillable=['name','slug','price','discount','content','image','category_id','producttype_id','startdate','enddate'];
     public function category(){
     	return $this->belongsTo('App\category','category_id','id');
     }

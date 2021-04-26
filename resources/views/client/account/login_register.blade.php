@@ -1,5 +1,6 @@
 @extends('client.master')
 @section('content')
+
     <div class="breadcrumb-area">
         <div class="container">
             <div class="breadcrumb-content">
@@ -18,17 +19,30 @@
                 <div class="col-sm-12 col-md-12 col-xs-12 col-lg-6 mb-30">
                     <!-- Login Form s-->
                     <form action="/login" method="POST">
+                        
                         @csrf
                         <div class="login-form">
                             <h4 class="login-title">Đăng nhập</h4>
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+                            
+                        
                             <div class="row">
+                               
                                 <div class="col-md-12 col-12 mb-20">
                                     <label>Email</label>
-                                    <input class="mb-0" type="email" placeholder="Email Address">
+                                    <input class="mb-0" type="email" name="email" placeholder="Email Address">
                                 </div>
                                 <div class="col-12 mb-20">
                                     <label>Mật khẩu</label>
-                                    <input class="mb-0" type="password" placeholder="Password">
+                                    <input class="mb-0" type="password" name="password" placeholder="Password">
                                 </div>
                                 <div class="col-md-8">
                                     <div class="check-box d-inline-block ml-0 ml-md-2 mt-10">
@@ -40,7 +54,7 @@
                                     <a href="#"> Quên mật khẩu</a>
                                 </div>
                                 <div class="col-md-12">
-                                    <button class="register-button mt-0">Đăng nhập</button>
+                                    <button type="submit" class="register-button mt-0">Đăng nhập</button>
                                 </div>
                             </div>
                         </div>
@@ -67,7 +81,7 @@
                                     <label>Mật khẩu</label>
                                     <input class="mb-0" type="password" placeholder="Password">
                                 </div>
-                                
+
                                 <div class="col-12">
                                     <button class="register-button mt-0">Đăng ký</button>
                                 </div>
@@ -79,4 +93,9 @@
         </div>
     </div>
 
+@endsection
+@section('script')
+    <script>
+        $('div.alert').delay(3000).slideUp();
+    </script>
 @endsection

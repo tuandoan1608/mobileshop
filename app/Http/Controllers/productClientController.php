@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\category;
 use App\product;
 use App\productAttribute;
+use App\productImage;
 use App\specification;
 use Illuminate\Http\Request;
 
@@ -13,9 +14,13 @@ class productClientController extends Controller
     public function index($slug)
     {
         $product=product::where('slug',$slug)->first();
-        $productattribute=productAttribute::where('product_id',$product->id)->get();
+        $productattribute=productAttribute::where('product_id',$product->id)
+        ->select('attributevaluesize_id')
+        ->groupBy('attributevaluesize_id')
+        ->get();
+        $productimg=productImage::where('product_id',$product->id)->get();
         $specification=specification::where('product_id',$product->id)->first();
-        return view('client.product.index',compact('product','productattribute','specification'));
+        return view('client.product.index',compact('product','productattribute','specification','productimg'));
     }
     public function card(Request $request,$id)
     {

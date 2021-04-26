@@ -51,20 +51,15 @@
                                                     </div>
 
                                                     <div class="form-group row">
-                                                        <label class="col-sm-3" for="disabledTextInput">Giá sản
+                                                        <label class="col-sm-3" for="disabledTextInput">Giá hiển thị sản
                                                             phẩm</label>
                                                         <input type="text" name="price" class="form-control col-sm-9"
                                                             placeholder="Nhập giá sản phẩm" required>
                                                     </div>
-                                                    <div class="form-group row">
-                                                        <label class="col-sm-3" for="disabledTextInput">Discount</label>
-                                                        <input type="text" name="discount" class="form-control col-sm-9"
-                                                            placeholder="Nhập discount">
-                                                    </div>
+                                                   
 
 
-
-
+                                                  
 
 
 
@@ -93,7 +88,38 @@
 
                                             </div>
                                         </div>
+                                        <div class="card card-default">
+                                            <div class="card-header">
+                                                Thông tin  giảm giá
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="form-group row">
+                                                    <label class="col-sm-3" for="disabledTextInput">Discount</label>
+                                                    <input type="text" name="discount" class="form-control col-sm-9"
+                                                        placeholder="Nhập discount">
+                                                </div>
+                                               
+                                                <div class="form-group">
+                                                    <label>Date:</label>
+                                                      <div class="input-group date" id="reservationdate" data-target-input="nearest">
+                                                          <input type="text" class="form-control datetimepicker-input" data-target="#reservationdate"/>
+                                                          <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+                                                              <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                                  <div class="form-group">
+                                                    <label>Date:</label>
+                                                      <div class="input-group date" id="reservationdate1" data-target-input="nearest">
+                                                          <input type="text" class="form-control datetimepicker-input" data-target="#reservationdate1"/>
+                                                          <div class="input-group-append" data-target="#reservationdate1" data-toggle="datetimepicker">
+                                                              <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                                          </div>
+                                                      </div>
+                                                  </div>
 
+                                            </div>
+                                        </div>
 
                                         <div id="specification">
                                             <div class="card card-default collapsed-card">
@@ -327,27 +353,59 @@
                                                     </div>
                                                     <fieldset class="attribute-fie">
                                                         <ul class="attribute-option">
+                                                            @foreach ($size as $item )
                                                             <li class="atribute-option">
                                                                 <div class="form-group">
-                                                                    <input name="datasize[]" value="1" type="checkbox">
-                                                                    <label for="">16GB</label>
+                                                                    <input name="datasize[]" value="{{ $item->id }}" type="checkbox">
+                                                                    <label for="">{{ $item->name }}GB</label>
                                                                 </div>
                                                             </li>
-                                                            <li class="atribute-option">
-                                                                <div class="form-group">
-                                                                    <input name="datasize[]" value="2" type="checkbox">
-                                                                    <label for="">32GB</label>
-                                                                </div>
-                                                            </li>
+                                                            @endforeach
+                                                            
 
                                                         </ul>
                                                     </fieldset>
-                                                  <input type="button" id="getdata" > theem</button>
+                                             
                                                 </div>
-                                                <div class="att">
-                                                    
-                                                </div>
+                                                <div class="attribute-form">
+                                                    <div class="attribute-top">
+                                                        Màu sắc
+                                                    </div>
+                                                    <fieldset class="attribute-fie">
+                                                        <ul class="attribute-option">
+                                                            @foreach ($color as $item )
+                                                            <li class="atribute-option">
+                                                                <div class="form-group">
+                                                                    <input name="datacolor[]" value="{{ $item->id }}" type="checkbox">
+                                                                    <label for="">{{ $item->name }}</label>
+                                                                </div>
+                                                            </li>
+                                                            @endforeach
+                                                            
 
+                                                        </ul>
+                                                    </fieldset>
+                                                 
+                                                </div>
+                                                <button type="button" id="getdata" > theem</button>
+                                               
+                                                    <table class="table tb">
+                                                        <thead>
+                                                            <th>Size</th>
+                                                            <th>Color</th>
+                                                            <th>Giá nhập</th>
+                                                            <th>Giá bán</th>
+                                                            <th>Số  lượng</th>
+                                                         
+                                                        </thead>
+                                                        <tbody>
+
+                                                        </tbody>
+                                                    </table>
+                                              
+                                                <div class="img">
+
+                                                </div>
 
 
 
@@ -426,7 +484,7 @@
                                                     <div class="mx-auto">
                                                         <div class="input-group ">
                                                             <div class="custom-file">
-                                                                <input type="file" name="image" class="custom-file-input"
+                                                                <input type="file" name="feature_image_path" class="custom-file-input"
                                                                     id="inputGroupFile">
                                                                 <label class="custom-file-label" for="inputGroupFile"
                                                                     aria-describedby="inputGroupFileAddon">Choose
@@ -469,6 +527,11 @@
                             </div> --}}
                             <!-- /.row -->
                         </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <a href="#" class="btn btn-secondary">Cancel</a>
+                                <input type="submit" value="Thêm" class="btn btn-success float-left">
+                            </div>
                         <!-- /.card-body -->
                         {{-- <div class="col-md-12">
 
@@ -549,11 +612,7 @@
                                         </div>
 
                                     </div>
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <a href="#" class="btn btn-secondary">Cancel</a>
-                                            <input type="submit" value="Thêm" class="btn btn-success float-left">
-                                        </div>
+                                    
                                     </div>
                                 </section>
                             </div>
@@ -585,24 +644,45 @@
     <script>
       $('#getdata').click(function(e){
         e.preventDefault();
-                        let stringV = '';
+                        $('.loader').show();
+                        let size = '';
+                        let color = '';
                         // su dung vong lap de them gia tri checkbox vao chuoi....
                         jQuery("input[name='datasize[]']:checked").each(function() {
-                            stringV = stringV + '/' + jQuery(this).val();
+                         
+                            size = size + '/' + jQuery(this).val();
+                         
                         });
-                        if (stringV.length == 1) {
-                            stringV = stringV.substring(1);
+                        if (size.length == 1) {
+                            size = size.substring(1);
+                        }
+                        if(size.length==0){
+                            alert('hãy chọn size')
+                        }
+                       
+                        jQuery("input[name='datacolor[]']:checked").each(function() {
+                            color = color + '/' + jQuery(this).val();
+                        });
+                        if (color.length == 1) {
+                            color = color.substring(1);
+                        }
+                        if(color.length==0){
+                            alert('hãy chọn màu')
                         }
                       $.ajax({
                           url:'/admin/getsize',
                           method:'post',
 
                           data:{
-                              id: stringV,
+                              size: size,
+                              color:color
                               
                           },
                           success:function(data){
-                              $('.att').html(data);
+                            $('.loader').hide();
+                              $('tbody').html(data.output);
+                              $('.img').html(data.out);
+                             
                           }
                       })
       });
@@ -615,32 +695,35 @@
 
 
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    {{-- daetpicker --}}
     <script>
         $(".js-example-placeholder-single").select2({
 
             placeholder: 'Select an item',
             tags: true
-            // ajax: {
-            //     url: '/admin/search/search',
-            //     dataType: 'json',
-            //     delay: 250,
-            //     processResults: function(data) {
-            //         return {
-            //             results: $.map(data, function(item) {
-
-            //                 return {
-            //                     text: item.name,
-            //                     id: item.id
-            //                 }
-            //             })
-            //         };
-            //     },
-            //     cache: true
-            // }
+            
 
 
         });
-
+        $(function () {
+        
+       $('#reservationdate').datetimepicker({
+  
+        format: 'DD-MM-YYYY',
+       });
+       $('#reservationdate1').datetimepicker({
+        format: 'DD-MM-YYYY',
+    
+       });
+    
+       $("#datetimepicker").on("showCalendar.daterangepicker", function (e,picker) {
+           $('#datetimepicker1').data("DateTimePicker").minDate(e.date);
+       });
+       $("#datetimepicker1").on("showCalendar.daterangepicker", function (e,picker) {
+           $('#datetimepicker').data("DateTimePicker").maxDate(e.date);
+       });
+   });
     </script>
     <script type="text/javascript">
         $.ajaxSetup({
@@ -737,11 +820,7 @@
 
 <script src="//cdn.ckeditor.com/4.6.2/standard/ckeditor.js"></script>
 <script>
-      $.ajaxSetup({
-            headers: {
-                'csrftoken': '{{ csrf_token() }}'
-            }
-        });
+     
         let token = document.head.querySelector('[name=csrf-token]').content;
   var options = {
    

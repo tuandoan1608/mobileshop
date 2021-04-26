@@ -17,11 +17,13 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+
 class productController extends Controller
-{   private $product;
+{
+    private $product;
     public function __construct(product $product)
     {
-       $this->product=$product;
+        $this->product = $product;
     }
     /**
      * Display a listing of the resource.
@@ -30,12 +32,12 @@ class productController extends Controller
      */
     public function index()
     {
-        $product=product::all();
-  
-    
-        return view('admin.products.list',compact('product'));
+        $product = product::all();
+
+
+        return view('admin.products.list', compact('product'));
     }
-   
+
     // public function search(Request $request)
     // {
     // 	$data = [];
@@ -55,20 +57,20 @@ class productController extends Controller
      */
     public function create()
     {
-        $color=attributevalue::all();
-     
-        $category=$this->getcate();
-        $protype=producttype::all();
-        $speci=DB::table('specifications')
-        ->select('Band','Chip')
-        ->groupBy('Chip','Band')->get();
-        return view('admin.products.add',compact('color','category','protype','speci'));
+        $color = attributevalue::all();
+        $size = attributevalue_size::all();
+        $category = $this->getcate();
+        $protype = producttype::all();
+        $speci = DB::table('specifications')
+            ->select('Band', 'Chip')
+            ->groupBy('Chip', 'Band')->get();
+        return view('admin.products.add', compact('color', 'category', 'protype', 'speci', 'size'));
     }
     public function getcate()
     {
-        $data=category::all();
-        $recusive=new Recusive($data);
-        $option=$recusive->categoryRecure();
+        $data = category::all();
+        $recusive = new Recusive($data);
+        $option = $recusive->categoryRecure();
         return $option;
     }
     function getd($parentId, $id = 0, $text = '')
@@ -90,47 +92,67 @@ class productController extends Controller
     }
     public function loaisp(Request $request)
     {
-        if($request->ajax()){
-            $data=producttype::where('categori_id',$request->id)->select('id','name')->get();
-            
+        if ($request->ajax()) {
+            $data = producttype::where('categori_id', $request->id)->select('id', 'name')->get();
+
             return response()->json($data);
         }
     }
     public function getsize(Request $request)
     {
-        if($request->ajax()){
-            $output='';
-            $string=$request->id;
-            $string=substr($string,1);
-            $ids=explode('/',$string);
+      
+        if ($request->ajax()) {
+            $output = '';
+            $out = '';
+            //color
+            $color = $request->color;
+            $color = substr($color, 1);
+            $idcolor = explode('/', $color);
+            //size
+            $size = $request->size;
+            $size = substr($size, 1);
+            $idsize = explode('/', $size);
 
-           foreach($ids as $key=>$item){
-            $data=attributevalue_size::find($item);
+            foreach ($idcolor as $key => $item) {
+                $datacolor = attributevalue::find($item);
+                foreach ($idsize as $keys => $items) {
+                    $datasize = attributevalue_size::find($items);
+
+                    $output .=
+
+                        '<tr>
            
-            $output .= '<table>
-            <thead>
-              
-                <th>'. $data->name .'GB</th>
-            </thead>
-            <tbody id="tbody">
-            <tr>
-           
-            <td>   <label>id</label><input type="text"'.$data->id.' class="form-control"></td>
-            <td>   <label>Gia ban</label><input type="number" class="form-control"></td>
+                                <td>   <lable>' . $datasize->name . 'GB</lable><input style="   visibility: hidden;" name="size[]" readonly value="' . $datasize->id . '" type="text" class="form-control"></td>
+                                <td>  <lable>' . $datacolor->name . 'GB</lable><input  style="   visibility: hidden;" name="color[]" readonly value="' . $datacolor->id . '" type="text" class="form-control"></td>
+                                <td>   <input type="number" name="import_price[]" class="form-control"></td>
+                                <td>   <input type="number" name="export_price[]" class="form-control"></td>
+                                <td>   <input type="number" name="quantity[]" class="form-control"></td>
+                         
             
           
-            </tr>   
-            </tbody>
-        </table>';
+                        </tr>  ';
+                }
+            }
+            foreach ($idcolor as $key => $item) {
+                $datacolor = attributevalue::find($item);
+
+
+                $out .=
+                    '<table>
+                        <tr>
+           
+                                
+                                <td>  <lable>' . $datacolor->name . '</lable><input  style="   visibility: hidden;" name="colorid[]" readonly value="' . $datacolor->id . '" type="text" class="form-control"></td>
+                               
+                              
+                                <td>   <input type="file" name="image[]" class="form-control"></td>
+                         
             
-            
-            
-            
-            
-           }
-         
-            return response($output);
-            
+          
+                        </tr> </table> ';
+            }
+
+            return response(['output' => $output, 'out' => $out]);
         }
     }
     /**
@@ -141,65 +163,65 @@ class productController extends Controller
      */
     public function store(Request $request)
     {
-      
-        if($request->hasFile('feature_image_path')){
-            $file=$request->feature_image_path;
-
-            $filenamehash= Str::random(10).'.'.$file->getClientOriginalExtension();
-            $path=$request->file('feature_image_path')->storeAs('public/productimg/'.Auth::user()->id,$filenamehash);
-            
-        }
-        $data=new product();
-        $data->name=$request->name;
-        $data->slug=Str::slug($request->name);
-        $data->price=$request->price;
-        $data->discount=$request->discount;
-        $data->category_id=$request->category_id;
-        $data->producttype_id=$request->producttype_id;
-        $data->content=$request->content;
-        $data->image= $path;
-        $data->save();
-        
-        //luu specification
-        $specification=new specification();
-        $specification->product_id=$data->id;
-        $specification->Display=$request->display;
-        $specification->Operating=$request->operating;
-        $specification->Memory=$request->memory;
-        $specification->Chip=$request->chip;
-        $specification->Ram=$request->ram;
-        $specification->Sim=$request->sim;
-        $specification->Battery=$request->battery;
-        $specification->Camera_front=$request->camera_front;
-        $specification->Camera_rear=$request->camera_rear;
-        $specification->Design=$request->design;
-        $specification->Mass=$request->mass;
-        $specification->Wifi=$request->wifi;
-        $specification->Security=$request->security;
-        $specification->Band=$request->band;
-        $specification->save();
        
-        foreach($request->astributevalue_id as $key=>$item){
-            $productattribute= new productAttribute();
-            $productattribute->product_id=$data->id;
-            $productattribute->attributevalue_id=$item;
-            $productattribute->import_price=$request->import_price[$key];
-            $productattribute->export_price=$request->export_price[$key];
-            $productattribute->quantity=$request->quantity[$key];
-            $productattribute->save();
-           
-            $image='image'.$key;
-            foreach($request->$image  as $items){
-                
-         
-                $fileNameHashs =Str::random(10).'.' . $items->getClientOriginalExtension();
-                $paths = $items->storeAs('public/productimageattribute/' . auth()->id(), $fileNameHashs);
-               $productimage=new productImage();
-               $productimage->productattribute_id=$productattribute->id;
-               $productimage->image=$paths;
-               $productimage->save();
+            if ($request->hasFile('feature_image_path')) {
+                $file = $request->feature_image_path;
+
+                $filenamehash = Str::random(10) . '.' . $file->getClientOriginalExtension();
+                $path = $request->file('feature_image_path')->storeAs('public/productimg/' . Auth::user()->id, $filenamehash);
             }
-        }
+            $data = new product();
+            $data->name = $request->name;
+            $data->slug = Str::slug($request->name);
+            $data->price = $request->price;
+            $data->discount = $request->discount;
+            $data->category_id = $request->category_id;
+            $data->producttype_id = $request->producttype_id;
+            $data->content = $request->content;
+            $data->image = $path;
+            $data->save();
+
+            //luu specification
+            $specification = new specification();
+            $specification->product_id = $data->id;
+            $specification->Display = $request->display;
+            $specification->Operating = $request->operating;
+            $specification->Memory = $request->memory;
+            $specification->Chip = $request->chip;
+            $specification->Ram = $request->ram;
+            $specification->Sim = $request->sim;
+            $specification->Battery = $request->battery;
+            $specification->Camera_front = $request->camera_front;
+            $specification->Camera_rear = $request->camera_rear;
+            $specification->Design = $request->design;
+            $specification->Mass = $request->mass;
+            $specification->Wifi = $request->wifi;
+            $specification->Security = $request->security;
+            $specification->Band = $request->band;
+            $specification->save();
+
+            foreach ($request->size as $key => $item) {
+                $productattribute = new productAttribute();
+                $productattribute->product_id = $data->id;
+                $productattribute->attributevaluesize_id = $item;
+                $productattribute->attributevalue_id = $request->color[$key];
+                $productattribute->import_price = $request->import_price[$key];
+                $productattribute->export_price = $request->export_price[$key];
+                $productattribute->quantity = $request->quantity[$key];
+                $productattribute->save();
+            }
+            foreach ($request->image  as $key => $items) {
+
+
+                $fileNameHashs = Str::random(10) . '.' . $items->getClientOriginalExtension();
+                $paths = $items->storeAs('public/productimageattribute/' . auth()->id(), $fileNameHashs);
+                $productimage = new productImage();
+                $productimage->product_id = $data->id;
+                $productimage->image = $paths;
+
+                $productimage->color_id = $request->colorid[$key];
+                $productimage->save();
+            }
         return redirect()->route('product.index');
     }
 
@@ -222,14 +244,14 @@ class productController extends Controller
      */
     public function edit($id)
     {
-        $product=product::find($id);
-        $category=category::all();
-        $protype =producttype::all();
-     
-        $speci =specification::where('product_id',$id);
-        $product_attribute=productAttribute::where('product_id',$id)->get();
-        $color=attributevalue::all();
-        return view('admin.products.edit',compact('product','product_attribute','speci','category','protype','color'));
+        $product = product::find($id);
+        $category = category::all();
+        $protype = producttype::all();
+
+        $speci = specification::where('product_id', $id);
+        $product_attribute = productAttribute::where('product_id', $id)->get();
+        $color = attributevalue::all();
+        return view('admin.products.edit', compact('product', 'product_attribute', 'speci', 'category', 'protype', 'color'));
     }
 
     /**
@@ -241,64 +263,64 @@ class productController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data=new product();
-        if($request->hasFile('feature_image_path')){
-            $file=$request->feature_image_path;
+        $data = new product();
+        if ($request->hasFile('feature_image_path')) {
+            $file = $request->feature_image_path;
             Storage::delete($data->image);
-            $filenamehash= Str::random(10).'.'.$file->getClientOriginalExtension();
-            $path=$request->file('feature_image_path')->storeAs('public/productimg/'.Auth::user()->id,$filenamehash);
-            $data->image= $path;
-        }else{
-            $data->name=$request->name;
-            $data->slug=Str::slug($request->name);
-            $data->price=$request->price;
-            $data->discount=$request->discount;
-            $data->category_id=$request->category_id;
-            $data->producttype_id=$request->producttype_id;
-            $data->content=$request->content;
+            $filenamehash = Str::random(10) . '.' . $file->getClientOriginalExtension();
+            $path = $request->file('feature_image_path')->storeAs('public/productimg/' . Auth::user()->id, $filenamehash);
+            $data->image = $path;
+        } else {
+            $data->name = $request->name;
+            $data->slug = Str::slug($request->name);
+            $data->price = $request->price;
+            $data->discount = $request->discount;
+            $data->category_id = $request->category_id;
+            $data->producttype_id = $request->producttype_id;
+            $data->content = $request->content;
             $data->update();
         }
-    
-        
-        
+
+
+
         //update specification
-        $specification=new specification();
-        $specification->product_id=$data->id;
-        $specification->Display=$request->display;
-        $specification->Operating=$request->operating;
-        $specification->Memory=$request->memory;
-        $specification->Chip=$request->chip;
-        $specification->Ram=$request->ram;
-        $specification->Sim=$request->sim;
-        $specification->Battery=$request->battery;
-        $specification->Camera_front=$request->camera_front;
-        $specification->Camera_rear=$request->camera_rear;
-        $specification->Design=$request->design;
-        $specification->Mass=$request->mass;
-        $specification->Wifi=$request->wifi;
-        $specification->Security=$request->security;
-        $specification->Band=$request->band;
+        $specification = new specification();
+        $specification->product_id = $data->id;
+        $specification->Display = $request->display;
+        $specification->Operating = $request->operating;
+        $specification->Memory = $request->memory;
+        $specification->Chip = $request->chip;
+        $specification->Ram = $request->ram;
+        $specification->Sim = $request->sim;
+        $specification->Battery = $request->battery;
+        $specification->Camera_front = $request->camera_front;
+        $specification->Camera_rear = $request->camera_rear;
+        $specification->Design = $request->design;
+        $specification->Mass = $request->mass;
+        $specification->Wifi = $request->wifi;
+        $specification->Security = $request->security;
+        $specification->Band = $request->band;
         $specification->update();
-       
-        foreach($request->astributevalue_id as $key=>$item){
-            $productattribute= new productAttribute();
-            $productattribute->product_id=$data->id;
-            $productattribute->attributevalue_id=$item;
-            $productattribute->import_price=$request->import_price[$key];
-            $productattribute->export_price=$request->export_price[$key];
-            $productattribute->quantity=$request->quantity[$key];
+
+        foreach ($request->astributevalue_id as $key => $item) {
+            $productattribute = new productAttribute();
+            $productattribute->product_id = $data->id;
+            $productattribute->attributevalue_id = $item;
+            $productattribute->import_price = $request->import_price[$key];
+            $productattribute->export_price = $request->export_price[$key];
+            $productattribute->quantity = $request->quantity[$key];
             $productattribute->save();
-           
-            $image='image'.$key;
-            if(!empty($image)){
-                foreach($request->$image  as $items){
-                
-         
-                    $fileNameHashs =Str::random(10).'.' . $items->getClientOriginalExtension();
+
+            $image = 'image' . $key;
+            if (!empty($image)) {
+                foreach ($request->$image  as $items) {
+
+
+                    $fileNameHashs = Str::random(10) . '.' . $items->getClientOriginalExtension();
                     $paths = $items->storeAs('public/productimageattribute/' . auth()->id(), $fileNameHashs);
-                    $productimage=new productImage();
-                    $productimage->productattribute_id=$productattribute->id;
-                    $productimage->image=$paths;
+                    $productimage = new productImage();
+                    $productimage->productattribute_id = $productattribute->id;
+                    $productimage->image = $paths;
                     $productimage->save();
                 }
             }
@@ -317,9 +339,11 @@ class productController extends Controller
     }
     public function deletes($id)
     {
-       $data=productAttribute::find($id);
-       $data->delete();
-       return response()->json(['code'=>200,
-       'message'=>'success']);
+        $data = productAttribute::find($id);
+        $data->delete();
+        return response()->json([
+            'code' => 200,
+            'message' => 'success'
+        ]);
     }
 }

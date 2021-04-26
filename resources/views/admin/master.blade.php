@@ -19,6 +19,7 @@
   <link rel="stylesheet" href="/theme/admin/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <!-- JQVMap -->
   <link rel="stylesheet" href="/theme/admin/plugins/jqvmap/jqvmap.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="/theme/admin/dist/css/adminlte.min.css">
   <link rel="stylesheet" href="/theme/admin/dist/css/style.css">
@@ -26,7 +27,7 @@
   <link rel="stylesheet" href="/theme/admin/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   <!-- Daterange picker -->
   <link rel="stylesheet" href="/theme/admin/plugins/jquery-ui/jquery-ui.css">
-  <link rel="stylesheet" href="/theme/admin/plugins/daterangepicker/daterangepicker.css">
+
   <!-- summernote -->
   <link rel="stylesheet" href="/theme/admin/plugins/summernote/summernote-bs4.min.css">
     <!-- DataTables -->
@@ -35,7 +36,8 @@
     <link rel="stylesheet" href="/theme/admin/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
     <link rel="stylesheet" href="/theme/admin/plugins/sweetalert2/sweetalert2.css">
  
-    
+    <link rel="stylesheet" href="/theme/admin/plugins/daterangepicker/daterangepicker.css">
+  
     <!-- Theme style -->
     <link rel="stylesheet" href="/theme/admin/dist/css/adminlte.min.css">
     <link rel="stylesheet" href="/theme/admin/dist/css/style.css">
@@ -220,7 +222,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="pages/charts/chartjs.html" class="nav-link">
+                <a href="/admin/don-hang/danh-sach" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Danh sách đơn hàng</p>
                 </a>
@@ -309,7 +311,25 @@
     </div>
     <!-- /.sidebar -->
   </aside>
-
+  <div class="loader">
+    <div class="loader-inner">
+        <div class="loader-line-wrap">
+            <div class="loader-line"></div>
+        </div>
+        <div class="loader-line-wrap">
+            <div class="loader-line"></div>
+        </div>
+        <div class="loader-line-wrap">
+            <div class="loader-line"></div>
+        </div>
+        <div class="loader-line-wrap">
+            <div class="loader-line"></div>
+        </div>
+        <div class="loader-line-wrap">
+            <div class="loader-line"></div>
+        </div>
+    </div>
+</div>
   <!-- Content Wrapper. Contains page content -->
  @yield('content')
   <!-- /.content-wrapper -->
@@ -348,7 +368,7 @@
 <script src="/theme/admin/plugins/jquery-knob/jquery.knob.min.js"></script>
 <!-- daterangepicker -->
 <script src="/theme/admin/plugins/moment/moment.min.js"></script>
-<script src="/theme/admin/plugins/daterangepicker/daterangepicker.js"></script>
+
 <!-- Tempusdominus Bootstrap 4 -->
 <script src="/theme/admin/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
 <!-- Summerno/theme/admin/te -->
@@ -362,7 +382,7 @@
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="/theme/admin/dist/js/pages/dashboard.js"></script>
 <script src="/theme/admin/dist/js/ajax.js"></script>
-
+<script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
 <script src="/theme/admin/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="/theme/admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script src="/theme/admin/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
@@ -371,12 +391,21 @@
 <script src="/theme/admin/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
 <script src="/theme/admin/plugins/jszip/jszip.min.js"></script>
 <script src="/theme/admin/plugins/pdfmake/pdfmake.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
 <script src="/theme/admin/plugins/pdfmake/vfs_fonts.js"></script>
 <script src="/theme/admin/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
 <script src="/theme/admin/plugins/datatables-buttons/js/buttons.print.min.js"></script>
 <script src="/theme/admin/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 <script src="/theme/admin/plugins/sweetalert2/sweetalert2.js"></script>
 <script src="/theme/admin/plugins/bs-custom-file-input/bs-custom-file-input.js"></script>
+<script src="/theme/admin/plugins/daterangepicker/daterangepicker.js"></script>
+<script>
+  $(window).on('load', function(event) {
+   $('.loader').hide();
+
+});
+</script>
 @yield('script')
 </body>
 </html>

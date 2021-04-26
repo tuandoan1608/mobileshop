@@ -31,8 +31,10 @@ class categoryComposer
      public function compose(View $view)
      {
          $menu=category::where('status',1)->where('parent_id',0)->get();
+         $cart= Cart::instance('shopping')->content();
+         $total= Cart::instance('shopping')->total();
         $category=category::where('status',1)->get();
-         $view->with(['menu'=>$menu,'category'=>$category]);
+         $view->with(['menu'=>$menu,'category'=>$category,'cart'=>$cart,'total'=>$total]);
          
      }
  }

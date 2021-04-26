@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\categoryController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,6 +35,8 @@ Route::prefix('admin')->group(function () {
    route::prefix('search')->group(function(){
     Route::get('/search', 'productController@search');
    });
+
+   //attribute
    route::prefix('attribute')->group(function(){
     route::get('danh-sach','attributeController@index')->name('astributeindex');
     Route::get('add', 'attributeController@create')->name('astributeadd');
@@ -46,15 +49,36 @@ Route::prefix('admin')->group(function () {
    route::post('/loaisp','productController@loaisp');
    route::post('/getsize','productController@getsize');
    route::get('/productattribute/delete/{id}','productController@deletes')->name('proattribute-delete');
+   route::get('/databar','dashboardController@getdata');
+
+   //dơn hang
+   route::prefix('don-hang')->group(function(){
+    route::get('danh-sach','orderController@index');
+    route::post('cap-nhat/{id}','orderController@update');
+    route::get('danh-sach/{id}','orderController@getorder');
+    Route::get('tao-don-hang', 'orderController@create');
+    
+   });
+
+
 });
-route::get('/','homeClientController@index');
 
 
-route::get('/dang-nhap','accountController@index');
-route::post('/login','accountController@login')->name('login');
+
+
+route::get('/search','searchController@search');
+route::get('/','homeClientController@index')->name('home');
+route::get('/dang-nhap','accountController@index')->name('dang-nhap');
+route::post('/login','accountController@login')->name('logins');
 route::get('/register','accountController@register');
 route::get('/san-pham/{slug}','productClientController@index');
+Route::get('/dtdd/{slug}','productcateController@index');
+Route::get('/pk/{slug}','productcateController@indexs');
 
-route::get('/card/id','productClientController@card');
-
-
+route::post('/update-users','accountController@update');
+Route::group(['middleware' => 'auth:custommer'], function () {
+    route::post('/thanh-toan','cardController@checkout');
+    route::get('/gio-hang','cardController@index');
+    route::get('/dang-xuat','accountController@logout');
+    route::post('/card/{id}','cardController@addToCard')->name('addcard');
+});

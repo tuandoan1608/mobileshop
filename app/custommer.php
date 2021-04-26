@@ -17,7 +17,7 @@ class custommer extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'firstname', 'email', 'password','addess','lastname','phone'
     ];
 
     /**
