@@ -61,25 +61,26 @@
                     </form>
                 </div>
                 <div class="col-sm-12 col-md-12 col-lg-6 col-xs-12">
-                    <form action="#">
+                    <form action="/register" method="post">
+                        @csrf
                         <div class="login-form">
                             <h4 class="login-title">Đăng ký</h4>
                             <div class="row">
                                 <div class="col-md-6 col-12 mb-20">
                                     <label>Họ tên lót</label>
-                                    <input class="mb-0" type="text" placeholder="First Name">
+                                    <input class="mb-0" name="firstname" type="text" placeholder="First Name">
                                 </div>
                                 <div class="col-md-6 col-12 mb-20">
                                     <label>tên</label>
-                                    <input class="mb-0" type="text" placeholder="Last Name">
+                                    <input class="mb-0" type="text" name="lastname" placeholder="Last Name">
                                 </div>
                                 <div class="col-md-12 mb-20">
                                     <label>Email </label>
-                                    <input class="mb-0" type="email" placeholder="Email Address">
+                                    <input class="mb-0" type="email" name="email" placeholder="Email Address">
                                 </div>
                                 <div class="col-md-6 mb-20">
                                     <label>Mật khẩu</label>
-                                    <input class="mb-0" type="password" placeholder="Password">
+                                    <input class="mb-0" name="password" type="password" placeholder="Password">
                                 </div>
 
                                 <div class="col-12">

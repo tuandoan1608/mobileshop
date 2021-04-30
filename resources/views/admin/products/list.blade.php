@@ -95,7 +95,25 @@
                 "pageLength": 25,
                 "lengthChange": false,
                 "autoWidth": false,
-                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
+                "language": {
+                    "search": "Tìm kiếm:",
+                    "info": "Hiển thị _START_ từ _END_ của _TOTAL_ bản ghi",
+                    "infoEmpty": "Chưa có dữ liệu",
+                    "loadingRecords": "Vui lòng đợi - loading...",
+                    "processing": "Đang xử lý...",
+                    "show":"Hiển thị",
+                    "entris":" sản phẩm",
+                    "paginate": {
+
+                        "next": "Tiếp",
+                        "previous": "Lùi",
+                        "first": "Đầu",
+                        "last": "Cuối",
+
+
+                    }
+                },
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
 
         });

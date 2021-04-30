@@ -1151,12 +1151,12 @@ textarea:focus {
 	float: left;
 	width: 100%;
 }
-.cart-quantity label {
+.qtylable{
   display: block;
-  font-size: 16px;
-  font-weight: 600;
+  font-size: 19px;
+  font-weight: 700;
 }
-.cart-quantity .add-to-cart {
+ .add-to-cart {
 	border: none;
 	font-size: 14px;
 	color: #242424;
@@ -1169,7 +1169,7 @@ textarea:focus {
 	border-radius: 2px;
 	transition: all 0.3s ease-in-out;
 }
-.cart-quantity .add-to-cart:hover {
+ .add-to-cart:hover {
   background: #242424;
   color: #ffffff;
 }
@@ -1178,6 +1178,7 @@ textarea:focus {
   margin-right: 15px;
   position: relative;
   width: 76px;
+
   text-align: left;
 }
 .cart-plus-minus .cart-plus-minus-box {
@@ -2663,7 +2664,7 @@ textarea:focus {
 /*  2.7 Li's Static Home Banner
 /*----------------------------------------*/
 .li-static-home-image {
-	background-image: url(images/bg-banner/1_1.jpg);
+	background-image: url(/theme/client/images/bg-banner/1.jpg);
 	background-size: cover;
 	height: 400px;
 	background-repeat: no-repeat;
@@ -5154,7 +5155,7 @@ span.required {
 .sp-carousel-content .quantity {
 	display: inline-block;
 }
-.sp-carousel-content .cart-quantity label {
+.qtylable {
 	display: inline-block;
 	margin-right: 10px;
 }

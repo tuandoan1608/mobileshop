@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\category;
 use App\product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class homeClientController extends Controller
 {
@@ -13,8 +14,9 @@ class homeClientController extends Controller
         
         $dienthoai=category::where('status',1)->where('id',38)->first();
         $phukien=category::where('status',1)->where('id',39)->first();
-        $productphone=product::where('status',1)->where('category_id',38)->get();
-        
-        return view('client.productdetail.index',compact('dienthoai','phukien','productphone'));
+        $productphone=product::where('status',1)->get();
+        $category=category::all();
+
+        return view('client.productdetail.index',compact('productphone','category'));
     }
 }

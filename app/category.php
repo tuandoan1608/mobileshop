@@ -18,4 +18,7 @@ class category extends Model
     public function categorychildrent(){
         return $this->hasMany(category::class,'parent_id')->where('status',1);
     }
+    public function categoryproduct(){
+        return $this->hasMany(product::class,'category_id')->where('status',1);
+    }
 }

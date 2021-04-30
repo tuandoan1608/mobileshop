@@ -45,9 +45,17 @@ public function __construct()
             return back()->withInput()->withErrors('Tài khoảng hoặc mật khẩu không đúng');
          }
     }
-    public function register()
+    public function register(Request $request)
     {
-        # code...
+       
+        $user= new custommer();
+        $user->firstname=$request->firstname;
+        $user->lastname=$request->lastname;
+        $user->email=$request->email;
+        $user->phone=9089089;
+        $user->address='sdfsf';
+        $user->password=bcrypt($request->password);
+        $user->save();
     }
     public function update(Request $request)
     {

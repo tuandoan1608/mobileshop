@@ -6,6 +6,7 @@ use App\orderdetail;
 use App\orders;
 use App\productAttribute;
 use App\statistic;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -35,6 +36,7 @@ class orderController extends Controller
    }
    public function update(Request $request,$id)
    {
+      
       // dd($request->all());
       $order=orders::find($id);
       $order->status=$request->status;
@@ -45,15 +47,20 @@ class orderController extends Controller
         $sale=0;
         $quantity=0;
         $profit=0;
+   
         foreach($request->productattribute_id as $key => $product_id){
             $product=productAttribute::find($product_id);
             $product_price=$product->export_price;
             $product_importprice=$product->import_price;
             $product_qty=$product->quantity;
+            $product_sell=$product->quantity_sell;
             foreach($request->qty as $key1 =>$qty){
                if($key==$key1){
                   $pro_remain=$product_qty-$qty;
+                  $productsell=$product_sell +$qty;
                   $product->quantity=$pro_remain;
+                  $product->quantity_sell=$productsell;
+                  $product->save();
                  $sale +=$product_price *$qty;
                  $quantity+=$qty;
                  $profit +=$product_importprice *$qty;
@@ -62,10 +69,10 @@ class orderController extends Controller
         }
         if($count >0){
             $statitic=statistic::where('order_date',$order->order_date)->first();
-            $statitic->sales=$sale;
-            $statitic->profit=$profit;
-            $statitic->quantity=$quantity;
-            $statitic->total_order=$total_order;
+            $statitic->sales=$statitic->sales+$sale;
+            $statitic->profit= $statitic->profit +$profit;
+            $statitic->quantity= $statitic->quantity+$quantity;
+            $statitic->total_order=$statitic->total_order+$total_order;
             $statitic->save();
         }else{
          $statitic=new statistic();

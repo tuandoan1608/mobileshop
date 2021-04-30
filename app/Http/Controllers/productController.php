@@ -7,6 +7,7 @@ use App\attributevalue_size;
 use App\category;
 use App\Components\Recusive;
 use App\product;
+use App\product_spetification;
 use App\productAttribute;
 use App\productImage;
 use App\producttype;
@@ -21,6 +22,7 @@ use Illuminate\Support\Str;
 class productController extends Controller
 {
     private $product;
+    private $htmlSelect;
     public function __construct(product $product)
     {
         $this->product = $product;
@@ -61,10 +63,8 @@ class productController extends Controller
         $size = attributevalue_size::all();
         $category = $this->getcate();
         $protype = producttype::all();
-        $speci = DB::table('specifications')
-            ->select('Band', 'Chip')
-            ->groupBy('Chip', 'Band')->get();
-        return view('admin.products.add', compact('color', 'category', 'protype', 'speci', 'size'));
+        $spe=specification::where('status',1)->get();
+        return view('admin.products.add', compact('color', 'category', 'protype',  'size','spe'));
     }
     public function getcate()
     {
@@ -75,7 +75,7 @@ class productController extends Controller
     }
     function getd($parentId, $id = 0, $text = '')
     {
-        $data = $this->category->all();
+        $data = category::all();
 
         foreach ($data as $value) {
             if ($value['parent_id'] == $id) {
@@ -100,10 +100,11 @@ class productController extends Controller
     }
     public function getsize(Request $request)
     {
-      
+
         if ($request->ajax()) {
-            $output = '';
+            $outcolor = '';
             $out = '';
+            $outsize = '';
             //color
             $color = $request->color;
             $color = substr($color, 1);
@@ -115,45 +116,71 @@ class productController extends Controller
 
             foreach ($idcolor as $key => $item) {
                 $datacolor = attributevalue::find($item);
-                foreach ($idsize as $keys => $items) {
-                    $datasize = attributevalue_size::find($items);
-
-                    $output .=
-
-                        '<tr>
-           
-                                <td>   <lable>' . $datasize->name . 'GB</lable><input style="   visibility: hidden;" name="size[]" readonly value="' . $datasize->id . '" type="text" class="form-control"></td>
-                                <td>  <lable>' . $datacolor->name . 'GB</lable><input  style="   visibility: hidden;" name="color[]" readonly value="' . $datacolor->id . '" type="text" class="form-control"></td>
-                                <td>   <input type="number" name="import_price[]" class="form-control"></td>
-                                <td>   <input type="number" name="export_price[]" class="form-control"></td>
-                                <td>   <input type="number" name="quantity[]" class="form-control"></td>
-                         
-            
-          
-                        </tr>  ';
-                }
+                $outcolor .=
+                    '
+                            <tr>
+                                <td>   <lable>' . $datacolor->name . '</lable><input style="   visibility: hidden;" name="color[]" readonly value="' . $datacolor->id . '" type="text" class="form-control"></td>
+                                <td>   <input type="number" required name="quantity[]" class="form-control"></td>
+                                <td>    <input type="file" required name="image[]" class="form-control"></td>
+                                <td>  <input style="   visibility: hidden;" name="color_id[]" value="'.$item.'" > </td>
+                            </tr> 
+                     ';
             }
-            foreach ($idcolor as $key => $item) {
-                $datacolor = attributevalue::find($item);
-
-
-                $out .=
-                    '<table>
-                        <tr>
-           
-                                
-                                <td>  <lable>' . $datacolor->name . '</lable><input  style="   visibility: hidden;" name="colorid[]" readonly value="' . $datacolor->id . '" type="text" class="form-control"></td>
-                               
-                              
-                                <td>   <input type="file" name="image[]" class="form-control"></td>
-                         
-            
-          
-                        </tr> </table> ';
+            foreach ($idsize as $keys => $items) {
+                $datasize = attributevalue_size::find($items);
+                $outsize .=
+                    '
+                    <tr>
+                        <td>   <lable>' . $datasize->name . '</lable><input style="   visibility: hidden;" name="size[]" readonly value="' . $datasize->id . '" type="text" class="form-control"></td>
+                        <td>   <input type="number" required name="import_price[]" class="form-control"></td>
+                        <td>   <input type="number" required name="export_price[]" class="form-control"></td>
+                    
+                    </tr> 
+               ';
             }
 
-            return response(['output' => $output, 'out' => $out]);
+
+            return response(['outcolor' => $outcolor, 'outsize' => $outsize,]);
         }
+    }
+
+    public function getspe()
+    {
+        $output='';
+        $data=specification::where('status',1)->get();
+        foreach($data as $key=>$item){
+           if($item->default==1){
+            $output.='
+            <li><input type="checkbox" name="spe[]" checked id="checkbox'.$key.'" value="'.$item->id.'"><label class="uppercase" for="checkbox'.$key.'">'.$item->name.'</label></li>
+            ';
+           }else{
+            $output.='
+            <li><input name="spe[]"  type="checkbox" id="checkbox'.$key.'" value="'.$item->id.'"><label class="uppercase" for="checkbox'.$key.'">'.$item->name.'</label></li>
+            ';
+           }
+        }
+        return response($output);
+    }
+    public function addspe(Request $request)
+    {   
+        $output='';
+        $spe = $request->spe;
+        $spe = substr($spe, 1);
+        $idspe = explode('/', $spe);
+         foreach ($idspe as $key => $item) {
+                $data = specification::find($item);
+                $output .=
+                    '
+                            <tr>
+                                <td>   <lable>' . $data->name . '</lable><input style="   visibility: hidden;" name="speid[]" readonly value="' . $data->id . '" type="text" class="form-control"></td>
+                               
+                                <td>    <input type="text" name="specontent[]" required class="form-control"></td>
+                              
+                            </tr> 
+                     ';
+            }
+            return response($output);
+
     }
     /**
      * Store a newly created resource in storage.
@@ -163,65 +190,82 @@ class productController extends Controller
      */
     public function store(Request $request)
     {
-       
-            if ($request->hasFile('feature_image_path')) {
-                $file = $request->feature_image_path;
+     
 
-                $filenamehash = Str::random(10) . '.' . $file->getClientOriginalExtension();
-                $path = $request->file('feature_image_path')->storeAs('public/productimg/' . Auth::user()->id, $filenamehash);
-            }
-            $data = new product();
-            $data->name = $request->name;
-            $data->slug = Str::slug($request->name);
-            $data->price = $request->price;
+        if ($request->hasFile('feature_image_path')) {
+            $file = $request->feature_image_path;
+
+            $filenamehash = Str::random(10) . '.' . $file->getClientOriginalExtension();
+            $path = $request->file('feature_image_path')->storeAs('public/productimg/' . Auth::user()->id, $filenamehash);
+        }else{
+            
+        }
+        $data = new product();
+        $data->name = $request->name;
+        $data->lower_name = Str::lower($request->name);
+        $data->slug = Str::slug($request->name);
+        $data->price = $request->price;
+        if (isset($request->discount) && isset($request->startdate) && isset($request->enddate)) {
+            $old_datestart = explode('/', $request->startdate);
+            $new_datastart = $old_datestart[2] . '-' . $old_datestart[0] . '-' . $old_datestart[1];
+            $old_dateend = explode('/', $request->enddate);
+            $new_dataend = $old_dateend[2] . '-' . $old_dateend[0] . '-' . $old_dateend[1];
             $data->discount = $request->discount;
-            $data->category_id = $request->category_id;
-            $data->producttype_id = $request->producttype_id;
-            $data->content = $request->content;
-            $data->image = $path;
-            $data->save();
 
-            //luu specification
-            $specification = new specification();
-            $specification->product_id = $data->id;
-            $specification->Display = $request->display;
-            $specification->Operating = $request->operating;
-            $specification->Memory = $request->memory;
-            $specification->Chip = $request->chip;
-            $specification->Ram = $request->ram;
-            $specification->Sim = $request->sim;
-            $specification->Battery = $request->battery;
-            $specification->Camera_front = $request->camera_front;
-            $specification->Camera_rear = $request->camera_rear;
-            $specification->Design = $request->design;
-            $specification->Mass = $request->mass;
-            $specification->Wifi = $request->wifi;
-            $specification->Security = $request->security;
-            $specification->Band = $request->band;
-            $specification->save();
+            $data->startdate = $new_datastart;
+            $data->enddate =  $new_dataend;
+        }
 
-            foreach ($request->size as $key => $item) {
+        $data->category_id = $request->category_id;
+        $data->producttype_id = $request->producttype_id;
+        $data->content = $request->content;
+        $data->image = $path;
+        $data->status = $request->status;
+        $data->save();
+
+        //luu attribute sp
+        foreach ($request->size as $key => $item) {
+            foreach ($request->color as $key1 => $items) {
+              
+
                 $productattribute = new productAttribute();
                 $productattribute->product_id = $data->id;
-                $productattribute->attributevaluesize_id = $item;
-                $productattribute->attributevalue_id = $request->color[$key];
+                $productattribute->attributevaluesize_id=$item;
+                $productattribute->attributevalue_id = $items;
                 $productattribute->import_price = $request->import_price[$key];
                 $productattribute->export_price = $request->export_price[$key];
-                $productattribute->quantity = $request->quantity[$key];
+                $productattribute->quantity = $request->quantity[$key1];
                 $productattribute->save();
             }
-            foreach ($request->image  as $key => $items) {
+        }
+        //luu specification
+        if(!empty($request->speid)){
+            foreach ($request->speid  as $key => $item) {
 
 
-                $fileNameHashs = Str::random(10) . '.' . $items->getClientOriginalExtension();
-                $paths = $items->storeAs('public/productimageattribute/' . auth()->id(), $fileNameHashs);
-                $productimage = new productImage();
-                $productimage->product_id = $data->id;
-                $productimage->image = $paths;
+              
+                $prospe = new product_spetification();
+                $prospe->product_id = $data->id;
+                $prospe->spetification_id = $item;
+    
+                $prospe->content = $request->specontent[$key];
+                $prospe->save();
+            } 
+        }
 
-                $productimage->color_id = $request->colorid[$key];
-                $productimage->save();
-            }
+    
+        foreach ($request->image  as $key => $items) {
+
+
+            $fileNameHashs = Str::random(10) . '.' . $items->getClientOriginalExtension();
+            $paths = $items->storeAs('public/productimageattribute/' . auth()->id(), $fileNameHashs);
+            $productimage = new productImage();
+            $productimage->product_id = $data->id;
+            $productimage->image = $paths;
+
+            $productimage->color_id = $request->color_id[$key];
+            $productimage->save();
+        }
         return redirect()->route('product.index');
     }
 
@@ -243,15 +287,24 @@ class productController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {
-        $product = product::find($id);
-        $category = category::all();
+    {   $color = attributevalue::all();
+        $size = attributevalue_size::all();
+        $category = $this->getcate();
         $protype = producttype::all();
-
-        $speci = specification::where('product_id', $id);
+        $product = product::find($id);
+        $category = $this->getd($product->category_id);
+        $protype = producttype::all();
+        $productattribute=DB::table('product_attribute')->where('product_id',$id)->orderBy('attributevaluesize_id', 'asc')->get();
+    
+        $speci = product_spetification::where('product_id', $id)->select('product_spetification.id as idspe','product_spetification.product_id','product_spetification.content')->get();
+      
         $product_attribute = productAttribute::where('product_id', $id)->get();
         $color = attributevalue::all();
-        return view('admin.products.edit', compact('product', 'product_attribute', 'speci', 'category', 'protype', 'color'));
+        $product_img=productImage::where('product_id',$id)
+                                ->get();
+        $spe=specification::where('status',1)->get();
+        $productattribute=productAttribute::where('product_id',$id)->get();
+        return view('admin.products.edit', compact('product', 'product_attribute', 'speci', 'category', 'spe','protype', 'color','size','productattribute','product_img'));
     }
 
     /**
@@ -262,69 +315,89 @@ class productController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
-        $data = new product();
-        if ($request->hasFile('feature_image_path')) {
+    {   
+  
+        $data =  product::find($id);
+     
+        if (isset($request->feature_image_path)) {
             $file = $request->feature_image_path;
-            Storage::delete($data->image);
+
             $filenamehash = Str::random(10) . '.' . $file->getClientOriginalExtension();
             $path = $request->file('feature_image_path')->storeAs('public/productimg/' . Auth::user()->id, $filenamehash);
+            unlink($data->image);
             $data->image = $path;
-        } else {
-            $data->name = $request->name;
-            $data->slug = Str::slug($request->name);
-            $data->price = $request->price;
+        }
+        
+
+        $data->name = $request->name;
+        $data->lower_name = Str::lower($request->name);
+        $data->slug = Str::slug($request->name);
+        $data->price = $request->price;
+        if (isset($request->discount) && isset($request->startdate) && isset($request->enddate)) {
+            $old_datestart = explode('/', $request->startdate);
+            $new_datastart = $old_datestart[2] . '-' . $old_datestart[0] . '-' . $old_datestart[1];
+            $old_dateend = explode('/', $request->enddate);
+            $new_dataend = $old_dateend[2] . '-' . $old_dateend[0] . '-' . $old_dateend[1];
             $data->discount = $request->discount;
-            $data->category_id = $request->category_id;
-            $data->producttype_id = $request->producttype_id;
-            $data->content = $request->content;
-            $data->update();
+
+            $data->startdate = $new_datastart;
+            $data->enddate =  $new_dataend;
         }
 
+        $data->category_id = $request->category_id;
+        $data->producttype_id = $request->producttype_id;
+        $data->content = $request->content;
+        $data->status = $request->status;
+        
+        $data->save();
 
+        //luu attribute sp
+      if(isset($request->product_attribute)){
+        foreach ($request->product_attribute as $key => $item) {
+           
 
-        //update specification
-        $specification = new specification();
-        $specification->product_id = $data->id;
-        $specification->Display = $request->display;
-        $specification->Operating = $request->operating;
-        $specification->Memory = $request->memory;
-        $specification->Chip = $request->chip;
-        $specification->Ram = $request->ram;
-        $specification->Sim = $request->sim;
-        $specification->Battery = $request->battery;
-        $specification->Camera_front = $request->camera_front;
-        $specification->Camera_rear = $request->camera_rear;
-        $specification->Design = $request->design;
-        $specification->Mass = $request->mass;
-        $specification->Wifi = $request->wifi;
-        $specification->Security = $request->security;
-        $specification->Band = $request->band;
-        $specification->update();
-
-        foreach ($request->astributevalue_id as $key => $item) {
-            $productattribute = new productAttribute();
-            $productattribute->product_id = $data->id;
-            $productattribute->attributevalue_id = $item;
+            $productattribute = productAttribute::find($item);
+          
+       
             $productattribute->import_price = $request->import_price[$key];
             $productattribute->export_price = $request->export_price[$key];
             $productattribute->quantity = $request->quantity[$key];
             $productattribute->save();
+        
+    }
+      }
+        //luu specification
+       
+          if(isset($request->speid)){
+            
+            foreach ($request->speid  as $key => $item) {
 
-            $image = 'image' . $key;
-            if (!empty($image)) {
-                foreach ($request->$image  as $items) {
+          
+              
+                $prospe =  product_spetification::where('id',$item)->first();
+       
+                $prospe->content = $request->specontent[$key];
+                $prospe->save();
+            } 
+        
+          }
+        if($request->hasFile('img')){
+            foreach ($request->image  as $key => $items) {
 
 
-                    $fileNameHashs = Str::random(10) . '.' . $items->getClientOriginalExtension();
-                    $paths = $items->storeAs('public/productimageattribute/' . auth()->id(), $fileNameHashs);
-                    $productimage = new productImage();
-                    $productimage->productattribute_id = $productattribute->id;
-                    $productimage->image = $paths;
-                    $productimage->save();
-                }
+                $fileNameHashs = Str::random(10) . '.' . $items->getClientOriginalExtension();
+                $paths = $items->storeAs('public/productimageattribute/' . auth()->id(), $fileNameHashs);
+                $productimage = new productImage();
+                $productimage->product_id = $data->id;
+                $productimage->image = $paths;
+    
+                $productimage->color_id = $request->color_id[$key];
+                $productimage->save();
+                $img=productImage::where('product_id',$id)->where('color_id',$request->color_img[$key])->first();
+                unlink($img->image);
             }
         }
+        return redirect('/admin/product');
     }
 
     /**
@@ -340,7 +413,14 @@ class productController extends Controller
     public function deletes($id)
     {
         $data = productAttribute::find($id);
-        $data->delete();
+        $count=productAttribute::where('product_id',$data->product_id)->where('attributevalue_id',$data->attributevalue_id)->count();
+       
+        if($count==1){
+            $data->delete();
+            productImage::where('color_id',$data->attributevalue_id)->where('product_id',$data->product_id)->delete();
+        }else{
+            $data->delete();
+        }
         return response()->json([
             'code' => 200,
             'message' => 'success'

@@ -22,7 +22,7 @@ class producttypeController extends Controller
      */
     public function index()
     {
-        $producttype= $this->producttype->where('status',1)->paginate(10);
+        $producttype= $this->producttype->paginate(10);
         
        return view('admin.productTypes.list',compact('producttype'));
     }

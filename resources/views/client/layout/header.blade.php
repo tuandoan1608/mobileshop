@@ -69,7 +69,7 @@
                 <div class="col-lg-3">
                     <div class="logo pb-sm-30 pb-xs-30">
                         <a href="index.html">
-                            <img src="images/menu/logo/2.jpg" alt="">
+                            <img src="/theme/client/images/menu/logo/2.jpg" alt="">
                         </a>
                     </div>
                 </div>
@@ -77,11 +77,12 @@
                 <!-- Begin Header Middle Right Area -->
                 <div class="col-lg-9 pl-0 ml-sm-15 ml-xs-15">
                     <!-- Begin Header Middle Searchbox Area -->
-                    <form action="#" class="hm-searchbox">
+                    <form action="/tim-kiem" method="get" class="hm-searchbox ">
                        
-                        <input type="text" placeholder="Enter your search key ...">
-                        <button class="li-btn" type="submit"><i class="fa fa-search"></i></button>
+                        <input type="search"  name="search" placeholder="Nhập từ khóa sản phẩm bạn muốn tìm..">
+                        <button class="li-btn"  type="submit"><i class="fa fa-search"></i></button>
                     </form>
+                   
                     <!-- Header Middle Searchbox Area End Here -->
                     <!-- Begin Header Middle Right Area -->
                     <div class="header-middle-right">
@@ -98,7 +99,7 @@
                             <li class="hm-minicart">
                                 <div class="hm-minicart-trigger">
                                     <span class="item-icon"></span>
-                                    <span class="item-text">{{ $total }}
+                                    <span class="item-text">Giỏ hàng
                                         <span class="cart-item-count">{{ Cart::instance('shopping')->count() }}</span>
                                     </span>
                                 </div>
@@ -107,11 +108,9 @@
                                     <ul class="minicart-product-list">
                                         @foreach ($cart as $item )
                                         <li>
-                                            <a href="single-product.html" class="minicart-product-image">
-                                                <img src="images/product/small-size/1.jpg" alt="cart products">
-                                            </a>
+                                            
                                             <div class="minicart-product-details">
-                                                <h6><a href="single-product.html">{{ $item->name }}</a></h6>
+                                                <h6><a href="">{{ $item->name }}</a></h6>
                                                 <span> {{ $item->price }} * {{ $item->qty }}</span>
                                             </div>
                                             <button class="close">
@@ -123,11 +122,11 @@
                                     </ul>
                                     <p class="minicart-total">Tổng: <span>{{ $total }}</span></p>
                                     <div class="minicart-button">
-                                        <a href="checkout.html"
+                                        <a href="/gio-hang"
                                             class="li-button li-button-dark li-button-fullwidth li-button-sm">
                                             <span>Xem giỏ hàng</span>
                                         </a>
-                                        <a href="/gio-hang" class="li-button li-button-fullwidth li-button-sm">
+                                        <a href="/checkout" class="li-button li-button-fullwidth li-button-sm">
                                             <span>Thanh toán</span>
                                         </a>
                                     </div>

@@ -32,7 +32,11 @@ class categoryComposer
      {
          $menu=category::where('status',1)->where('parent_id',0)->get();
          $cart= Cart::instance('shopping')->content();
-         $total= Cart::instance('shopping')->total();
+         $total=0;
+         foreach($cart as $item){
+             $price=$item->price;
+             $total +=$price;
+         }
         $category=category::where('status',1)->get();
          $view->with(['menu'=>$menu,'category'=>$category,'cart'=>$cart,'total'=>$total]);
          

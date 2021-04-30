@@ -7,21 +7,7 @@
             @include('flash::message')
         </div>
         <!-- Content Header (Page header) -->
-        <section class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1>DataTables</h1>
-                    </div>
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">DataTables</li>
-                        </ol>
-                    </div>
-                </div>
-            </div><!-- /.container-fluid -->
-        </section>
+
 
         <!-- Main content -->
         <section class="content">
@@ -32,30 +18,58 @@
 
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">DataTable with default features</h3>
+                                <h3 class="card-title">Danh sách sản phẩm</h3>
+                                <div style="float: right;margin-top:-5px"><a href="{{ route('accessories.create') }}"><button
+                                            class="btn btn-success">Thêm sản phẩm</button></a></div>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
                                 <table id="example1" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
-                                            <th>Rendering engine</th>
-                                            <th>Browser</th>
-                                            <th>Platform(s)</th>
-                                            <th>Engine version</th>
-                                            <th>CSS grade</th>
+                                            <th>STT</th>
+                                            <th>Tên SP</th>
+
+                                            <th>Giá</th>
+                                            <th>Hình ảnh</th>
+                                            <th>Danh mục</th>
+                                            <th>Loại SP</th>
+
+                                            {{-- <th>Giá nhập</th>
+                                            <th>Giá bán</th>
+                                            <th>Màu sắc</th> --}}
+                                            <th>Chĩnh sửa</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>Trident</td>
-                                            <td>Internet
-                                                Explorer 4.0
-                                            </td>
-                                            <td>Win 95+</td>
-                                            <td> 4</td>
-                                            <td>X</td>
-                                        </tr>
+                                        @foreach ($product as $key => $item)
+                                            <tr>
+                                                <td>{{ $key + 1 }}</td>
+                                                <td>{{ $item->name }}</td>
+
+                                                <td>{{ $item->price }}</td>
+                                                <td><img src="{{ Storage::url($item->image) }}" title="{{ $item->name }}"
+                                                        width="200px" height="200px"></td>
+                                                <td>{{ $item->category->name }}</td>
+                                                <td>{{ $item->producttype->name }}</td>
+
+                                                {{-- <td>{{$item->import_price}}</td>
+                                        <td>{{$item->export_price}}</td>
+                                        <td>{{$item->attributevalue_id}}</td> --}}
+                                                <td>
+                                                    <button class="btn btn-primary editProducttype"
+                                                        title="{{ 'Sửa ' . $item->name }}" data-toggle="modal"
+                                                        data-target="#edit" type="button" data-id="{{ $item->id }}"><a
+                                                            style="text-decoration: none;color:white;"
+                                                            href="/admin/product/{{ $item->id }}/edit"><i
+                                                                class="fas fa-edit"></i></a></button>
+                                                    <button class="btn btn-danger delete"
+                                                        title="{{ 'Xóa ' . $item->name }}" type="button"
+                                                        data-url="/admin/producttype/{{ $item->id }}"><i
+                                                            class="fas fa-trash-alt"></i></button>
+                                                </td>
+                                            </tr>
+                                        @endforeach
 
                                 </table>
                             </div>
