@@ -305,9 +305,9 @@
                                 <thead>
                                     <tr>
                                         <tr>
-                                            <th>ID</th>
-                                            <th>Tên attribute</th>
-                                            <th> Màu</th>
+                                            <th>STT</th>
+                                            <th> Thuộc tính</th>
+                                            <th> Danh sách thuộc tính</th>
                                           
                                             <th>Sửa</th>
                                            
@@ -319,11 +319,23 @@
                                         
                                    
                                     <tr>
-                                        <td>{{$attribute->astribute_id}}</td>
-                                        <td>{{$attribute->name}}</td>
+                                        <td>1</td>
+                                        <td>{{$size->name}}</td>
                                         <td>
-                                            @foreach ($attributevalue as $item )
-                                                <button style="background:{{$item->color}}; border:none;width:50px"> &nbsp</button>
+                                            @foreach ($attributesize as $item )
+                                               <p class="float-left" style="margin-right: 10px">{{ $item->name }} GB</p>
+                                            @endforeach
+                                        </td>
+                                        
+                                       
+                                        <td width="3%" class="center"> <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li></td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>{{$color->name}}</td>
+                                        <td>
+                                            @foreach ($attributecolor as $item )
+                                               <p class="float-left" style="margin-right: 10px">{{ $item->name }}</p>
                                             @endforeach
                                         </td>
                                         

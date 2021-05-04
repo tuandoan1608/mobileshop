@@ -468,3 +468,23 @@ opacity: 0;
 ul.ks-cboxtags li input[type="checkbox"]:focus + label {
 border: 2px solid #e9a1ff;
 }
+.link{
+  cursor: pointer;
+}
+.ulroles{
+  border: 1px solid rgb(100, 100, 100);
+  width: 100%;
+  padding: 20px;
+}
+.ulroles>li{
+  display: inline-block;
+  list-style: none;
+  width: 23%;
+}
+.header{
+  padding: 10px;
+  color: #FFF;
+  width: 100%;
+  height: 60px;
+  background-color: rgb(60, 60, 214);
+}

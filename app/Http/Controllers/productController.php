@@ -268,7 +268,6 @@ class productController extends Controller
         }
         return redirect()->route('product.index');
     }
-
     /**
      * Display the specified resource.
      *
@@ -277,7 +276,7 @@ class productController extends Controller
      */
     public function show($id)
     {
-        //
+      
     }
 
     /**
@@ -295,9 +294,7 @@ class productController extends Controller
         $category = $this->getd($product->category_id);
         $protype = producttype::all();
         $productattribute=DB::table('product_attribute')->where('product_id',$id)->orderBy('attributevaluesize_id', 'asc')->get();
-    
         $speci = product_spetification::where('product_id', $id)->select('product_spetification.id as idspe','product_spetification.product_id','product_spetification.content')->get();
-      
         $product_attribute = productAttribute::where('product_id', $id)->get();
         $color = attributevalue::all();
         $product_img=productImage::where('product_id',$id)
@@ -327,8 +324,6 @@ class productController extends Controller
             unlink($data->image);
             $data->image = $path;
         }
-        
-
         $data->name = $request->name;
         $data->lower_name = Str::lower($request->name);
         $data->slug = Str::slug($request->name);
@@ -343,54 +338,38 @@ class productController extends Controller
             $data->startdate = $new_datastart;
             $data->enddate =  $new_dataend;
         }
-
         $data->category_id = $request->category_id;
         $data->producttype_id = $request->producttype_id;
         $data->content = $request->content;
-        $data->status = $request->status;
-        
+        $data->status = $request->status;   
         $data->save();
 
         //luu attribute sp
       if(isset($request->product_attribute)){
         foreach ($request->product_attribute as $key => $item) {
-           
-
-            $productattribute = productAttribute::find($item);
-          
-       
+            $productattribute = productAttribute::find($item);     
             $productattribute->import_price = $request->import_price[$key];
             $productattribute->export_price = $request->export_price[$key];
             $productattribute->quantity = $request->quantity[$key];
-            $productattribute->save();
-        
+            $productattribute->save();  
     }
       }
         //luu specification
        
-          if(isset($request->speid)){
-            
-            foreach ($request->speid  as $key => $item) {
-
-          
-              
-                $prospe =  product_spetification::where('id',$item)->first();
-       
+          if(isset($request->speid)){      
+            foreach ($request->speid  as $key => $item) {         
+                $prospe =  product_spetification::where('id',$item)->first();     
                 $prospe->content = $request->specontent[$key];
                 $prospe->save();
-            } 
-        
+            }      
           }
         if($request->hasFile('img')){
             foreach ($request->image  as $key => $items) {
-
-
                 $fileNameHashs = Str::random(10) . '.' . $items->getClientOriginalExtension();
                 $paths = $items->storeAs('public/productimageattribute/' . auth()->id(), $fileNameHashs);
                 $productimage = new productImage();
                 $productimage->product_id = $data->id;
                 $productimage->image = $paths;
-    
                 $productimage->color_id = $request->color_id[$key];
                 $productimage->save();
                 $img=productImage::where('product_id',$id)->where('color_id',$request->color_img[$key])->first();

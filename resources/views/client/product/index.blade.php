@@ -52,8 +52,9 @@
                             <div>
                                 <form action="{{ route('addcard', ['id' => $product->id]) }}" method="POST">
                                     @csrf
-                                    <div class="form-group">
-                                        <label>Dung lượng</label>
+
+                                    <div class="row justify-content-center pb-5">
+
                                         @foreach ($productattribute as $item)
 
 
@@ -61,7 +62,7 @@
                                                 <div>
                                                     <label for="">
                                                         <a> <input name="attributevaluesize_id" checked type="radio"
-                                                                name="status" value="{{ $item->attributevaluesize_id }}"
+                                                                value="{{ $item->attributevaluesize_id }}"
                                                                 checked>{{ $item->productsize->name }}GB</a>
                                                     </label>
                                                     <span class="new-price new-price-2 "> <?php
@@ -76,18 +77,29 @@
 
                                                 </div>
                                             @else
-                                                <div>
-                                                    <label for="">
-                                                        <a> <input name="attributevaluesize_id" type="radio"
-                                                                style="padding: 0px" checked name="status"
-                                                                value="{{ $item->attributevaluesize_id }}">{{ $item->productsize->name }}GB</a>
-                                                    </label>
-                                                    <label for="">{{ number_format($item->export_price) }} VND</label>
-                                                </div>
+                                                {{-- <div>
+                                                <input type="radio" id="control_01" name="attributevaluesize_id" value="{{ $item->attributevaluesize_id }}" checked>
+                                                <label for="control_01">
+                                                  <h2>{{ $item->productsize->name }}GB</h2>
+                                                  <label for="">{{ number_format($item->export_price) }} VND</label>
+                                                </label>
+                                              </div> --}}
+
+
+                                                <input class="checkbox-tools" type="radio" name="attributevaluesize_id" value="{{ $item->attributevaluesize_id }}"  
+                                                    id="tool-{{ $item->attributevaluesize_id }}" checked>
+                                                <label class="for-checkbox-tools"
+                                                    for="tool-{{ $item->attributevaluesize_id }}">
+                                                    <i class=''>{{ $item->productsize->name }}GB</i>
+                                                    {{ number_format($item->export_price) }} VND
+                                                </label>
+
+
                                             @endif
 
                                         @endforeach
                                     </div>
+
                             </div>
 
 
@@ -126,12 +138,16 @@
                                         </div>
                                         <div class="modal-body">
                                             @foreach ($productimg as $key => $item)
-                                                <img width="100px" height="50px" src="{{ Storage::url($item->image) }}"
-                                                    alt="">
-                                                <label for="">
-                                                    <input checked name="attributevalue_id" value="{{ $item->color_id }}"
-                                                        type="radio">
-                                                    {{ $item->getcolorimg->name }}</label>
+                                                <input class="checkbox-tools" type="radio" name="attributevalue_id" value="{{ $item->color_id }}"
+                                                    id="tool-{{ $item->id }}" >
+                                                <label class="for-checkbox-tools" for="tool-{{ $item->id }}">
+                                                    <i class=''> <img width="100px" height="50px"
+                                                            src="{{ Storage::url($item->image) }}" alt=""></i>
+                                                    {{ $item->getcolorimg->name }}
+                                                </label>
+
+
+                                              
                                             @endforeach
                                         </div>
                                         <div class="modal-footer">
@@ -402,27 +418,28 @@
                                                     </h4>
                                                     <div class="price-box">
                                                         @if ($item->startsale == 1)
-                                                            
-                                                                <span class="new-price new-price-2 "> <?php
-                                                                    $pr = $item->price;
-                                                                    $dc = $product->discount;
-                                                                    $dis = ($pr * (100 - $dc)) / 100;
-                                                                    echo number_format($dis);
-                                                                    ?> VND</span>
-                                                                <br>
-                                                                <span
-                                                                    class="old-price">{{ number_format($item->price) }} VND</span>
+
+                                                            <span class="new-price new-price-2 "> <?php
+                                                                $pr = $item->price;
+                                                                $dc = $product->discount;
+                                                                $dis = ($pr * (100 - $dc)) / 100;
+                                                                echo number_format($dis);
+                                                                ?> VND</span>
+                                                            <br>
+                                                            <span class="old-price">{{ number_format($item->price) }}
+                                                                VND</span>
 
                                                         @else
                                                             <div>
-                                                           
-                                                                  
-                                                                <label for="">{{ number_format($item->price)}} VND</label>
+
+
+                                                                <label for="">{{ number_format($item->price) }}
+                                                                    VND</label>
                                                             </div>
                                                         @endif
                                                     </div>
                                                 </div>
-                                               
+
                                             </div>
                                         </div>
                                         <!-- single-product-wrap end -->

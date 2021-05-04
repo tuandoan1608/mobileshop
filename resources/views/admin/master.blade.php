@@ -12,15 +12,15 @@
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="/theme/admin/plugins/fontawesome-free/css/all.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Tempusdominus Bootstrap 4 -->
     <link rel="stylesheet" href="/theme/admin/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
     <!-- iCheck -->
-    <link rel="stylesheet" href="/theme/admin/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+
     <!-- JQVMap -->
-    <link rel="stylesheet" href="/theme/admin/plugins/jqvmap/jqvmap.min.css">
+
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="/theme/admin/dist/css/adminlte.min.css">
@@ -30,8 +30,7 @@
     <!-- Daterange picker -->
     <link rel="stylesheet" href="/theme/admin/plugins/jquery-ui/jquery-ui.css">
 
-    <!-- summernote -->
-    <link rel="stylesheet" href="/theme/admin/plugins/summernote/summernote-bs4.min.css">
+
     <!-- DataTables -->
     <link rel="stylesheet" href="/theme/admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="/theme/admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
@@ -39,6 +38,7 @@
     <link rel="stylesheet" href="/theme/admin/plugins/sweetalert2/sweetalert2.css">
 
     <link rel="stylesheet" href="/theme/admin/plugins/daterangepicker/daterangepicker.css">
+   
 
     <!-- Theme style -->
     <link rel="stylesheet" href="/theme/admin/dist/css/adminlte.min.css">
@@ -64,42 +64,22 @@
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="index3.html" class="nav-link">Home</a>
+                    <a href="/" target="_blank" class="nav-link">Xem website</a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="#" class="nav-link">Contact</a>
+                    <a href="/admin/dashboard/danh-sach" class="nav-link">Tổng quan</a>
                 </li>
             </ul>
 
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
                 <!-- Navbar Search -->
-                <li class="nav-item">
-                    <a class="nav-link" data-widget="navbar-search" href="#" role="button">
-                        <i class="fas fa-search"></i>
-                    </a>
-                    <div class="navbar-search-block">
-                        <form class="form-inline">
-                            <div class="input-group input-group-sm">
-                                <input class="form-control form-control-navbar" type="search" placeholder="Search"
-                                    aria-label="Search">
-                                <div class="input-group-append">
-                                    <button class="btn btn-navbar" type="submit">
-                                        <i class="fas fa-search"></i>
-                                    </button>
-                                    <button class="btn btn-navbar" type="button" data-widget="navbar-search">
-                                        <i class="fas fa-times"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </li>
+           
 
                 <!-- Messages Dropdown Menu -->
                 <li class="nav-item dropdown">
                     <a class="nav-link" href="/admin/auth/logout">
-                        <i class="far fa-comments"></i>
+                        <i class="fa fa-sign-out" aria-hidden="true"></i>
                         <span class="">Đăng xuất</span>
                     </a>
 
@@ -183,6 +163,7 @@
 
                             </ul>
                         </li>
+                        <li class="nav-header"></li>
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-copy"></i>
@@ -220,11 +201,12 @@
 
                             </ul>
                         </li>
+                        <li class="nav-header"></li>
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-copy"></i>
                                 <p>
-                                    Điện thoại
+                                   Sản phẩm
                                     <i class="fas fa-angle-left right"></i>
 
                                 </p>
@@ -240,7 +222,7 @@
                             </ul>
                         </li>
 
-
+                        <li class="nav-header"></li>
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-chart-pie"></i>
@@ -265,6 +247,7 @@
 
                             </ul>
                         </li>
+                        <li class="nav-header"></li>
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-tree"></i>
@@ -275,15 +258,15 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="pages/UI/general.html" class="nav-link">
+                                    <a href="/admin/user" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Danh sách người dùng</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="pages/UI/icons.html" class="nav-link">
+                                    <a href="/admin/roles" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Roles</p>
+                                        <p>Vai trò</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
@@ -306,13 +289,8 @@
 
                         <li class="nav-header"></li>
 
-                        <li class="nav-item">
-                            <a href="{{ route('category.index') }}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Danh mục sản phẩm</p>
-                            </a>
-                        </li>
-                        <li class="nav-header"></li>
+                        
+                 
 
 
                         <li class="nav-header">LABELS</li>
@@ -390,19 +368,15 @@
     <script src="/theme/admin/plugins/chart.js/Chart.min.js"></script>
     <!-- Sparkline -->
     <script src="/theme/admin/plugins/sparklines/sparkline.js"></script>
-    <!-- JQVMap -->
-    <script src="/theme/admin/plugins/jqvmap/jquery.vmap.min.js"></script>
-    <script src="/theme/admin/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
-    <!-- jQuery Knob Chart -->
-    <script src="/theme/admin/plugins/jquery-knob/jquery.knob.min.js"></script>
+
+
     <!-- daterangepicker -->
     <script src="/theme/admin/plugins/moment/moment.min.js"></script>
 
     <!-- Tempusdominus Bootstrap 4 -->
     <script src="/theme/admin/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
     <!-- Summerno/theme/admin/te -->
-    <script src="/theme/admin/plugins/summernote/summernote-bs4.min.js"></script>
-    <!-- overlayScrollbars -->
+  
     <script src="/theme/admin/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
     <!-- AdminLTE App -->
     <script src="/theme/admin/dist/js/adminlte.js"></script>
@@ -418,8 +392,8 @@
     <script src="/theme/admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
     <script src="/theme/admin/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
     <script src="/theme/admin/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
-    <script src="/theme/admin/plugins/jszip/jszip.min.js"></script>
-    <script src="/theme/admin/plugins/pdfmake/pdfmake.min.js"></script>
+ 
+
     <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
     <script src="/theme/admin/plugins/pdfmake/vfs_fonts.js"></script>
@@ -429,6 +403,7 @@
     <script src="/theme/admin/plugins/sweetalert2/sweetalert2.js"></script>
     <script src="/theme/admin/plugins/bs-custom-file-input/bs-custom-file-input.js"></script>
     <script src="/theme/admin/plugins/daterangepicker/daterangepicker.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
     <script>
         $(window).on('load', function(event) {
             $('.loader').hide();

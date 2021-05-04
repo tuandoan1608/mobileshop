@@ -79,7 +79,7 @@
                                             <div class="form-group">
                                                 <ul class="progressbar">
                                                     @if ($order->status == 1)
-                                                        <li class=" l1">Xác nhận</li>
+                                                        <li class="active l1">Xác nhận</li>
                                                         <li class=" l2">Đóng gói</li>
                                                         <li class=" l3">Xuất kho</li>
                                                         <li class=" l3">Giao hàng</li>

@@ -56,11 +56,8 @@ class searchController extends Controller
     public function searchByName(Request $request)
     {  
         $con=new converString();
-        dd(Str::lower($con->convert_vi_to_en($request->search)));
-        
-        
-        
-      
+       $key=Str::lower($con->convert_vi_to_en($request->search));
+        $product=product::where('lower_name','like','%'.$key.'%')->get();   
         return view('client.search.index',compact('product'));
     }
     public function searchindex(Request $request)

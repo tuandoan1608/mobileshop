@@ -16,12 +16,12 @@
                     border-radius: 4px;">
                 <ol id="menu" class="breadcrumb">
                     <li><a href=""><i class="fa fa-dashboard"></i> Trang chủ /</a></li>
-                    <li><a href="">Nhân viên / </a></li>
+                    <li><a href="">Vai trò / </a></li>
                     <li class="active">Danh sách</li>
 
                 </ol>
-                <div style="float: right;margin-top:-32px"><a href="{{ route('user.create') }}"><button
-                            class="btn btn-success">Tạo tài khoản</button></a></div>
+                <div style="float: right;margin-top:-32px"><a href="{{ route('roles.create') }}"><button
+                            class="btn btn-success">Tạo vai trò</button></a></div>
             </div>
 
 
@@ -45,27 +45,27 @@
                                         <tr>
                                         <tr>
                                             <th>STT</th>
-                                            <th>Tên nhân viên</th>
-                                            <th>Email</th>
-                                            <th>Số điện thoại</th>
-                                 
-                                            <th>Trạng thái</th>
+                                            <th>Tên vai trò</th>
+                                            
+                                            <th>tên hiển thị</th>
+                                           
                                             <th>Chĩnh sửa</th>
                                         </tr>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($data as $key => $item)
+                                        @foreach ($role as $key => $item)
 
 
                                             <tr>
                                                 <td>{{ $key + 1 }}</td>
-                                                <td>{{ $item->firstname }} {{ $item->lastname }}</td>
-                                                <td>{{ $item->email }}</td>
-                                                <td>{{ $item->phone }}</td>
-                                                <td>{{ $item->address }}</td>
+                                                <td>{{ $item->name }}</td>
+                                                <td>{{ $item->display_name }}</td>
+                                           
+                                    
                                                 <td><button class="btn btn-primary edit" title="{{ 'Sửa ' . $item->name }}"
-                                                        type="button" ><a style="text-decoration: none;color:white;" href="/admin/user/{{ $item->id }}/edit"><i class="fas fa-edit"></i></a></button>
+                                                        data-toggle="modal" data-target="#edit" type="button"
+                                                        data-id="{{ $item->id }}"><i class="fas fa-edit"></i></button>
                                                     <button class="btn btn-danger delete" title="{{ 'Xóa ' . $item->name }}"
                                                         type="button" data-url="/admin/category/{{ $item->id }}"><i
                                                             class="fas fa-trash-alt"></i></button>

@@ -95,15 +95,15 @@
                     <div class="col-md-12">
                         <p class="title_thongke">Thống kê đơn hàng doanh số</p>
 
-                        <form  autocomplete="off">
+                        <form autocomplete="off">
                             @csrf
                             <div class="row">
-                                <div class="col-md-3">
+                                <div class="col-md-4">
 
 
 
                                     <p style="margin: 0px">Lọc theo ngày
-                                        <input name="date" id="date-range-picker" type="text">
+                                        <input class="form-control" name="date" id="date-range-picker" type="text">
                                     </p>
                                 </div>
 
@@ -142,7 +142,7 @@
                     <div class="col-md-8">
                         <div class="card" style="padding: 20px">
                             <div class="row">
-                                <div class="left" style="margin-left: 15px;border-right:1px solid rgb(199, 199, 199);">
+                                <div class="left1" style="margin-left: 15px;border-right:1px solid rgb(199, 199, 199);">
                                     <h2 class="tl">Tổng quan trong ngày</h2>
                                     <div class="row">
                                         <div class="form-group">
@@ -259,75 +259,123 @@
                     </div>
 
 
-                    <div class="row">
-                       <div class="col-md-12">
-                           <div class="card card-default">
-                               <div class="card-header">
-                                   <h2>Thống kê sản phẩm</h2>
-                               </div>
-                               <div class="card-body">
-                                   <table class="table" id="datatable">
-                                       <thead>
-                                           <th> Tên sản phẩm</th>
-                                           <th> Danh mục</th>
-                                           <th> Loại sản phẩm</th>                                       
-                                           <th> Số lượng</th>
-                                           <th> Số lượng bán</th>
-                                           <th> Action</th>
-                                       </thead>
-                                       <tbody>
-                                          @foreach ($product as $item)
-                                        
-                                          <tr>  <a href="#">
-                                            <td>{{ $item->name }}</td>
-                                            <td>{{ $item->producttype->name }}</td>
-                                            <td>{{ $item->category->name }}</td>
-                                            <td>{{ $item->quantity }}</td>
-                                            <td>{{ $item->quantity_sell }}</td>
-                                            <td><div class="btn-group">
-                                                <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                  Select
-                                                </button>
-                                                <div class="dropdown-menu dropdown-menu-right">
-                                                <button type="button" class="btn btn-success" style="margin-left:15px" data-toggle="modal"
-                                                    data-target="#exampleModalLong">
-                                                 Nhập số lượng
-                                                </button>
-                                                  <a class="dropdown-item" href="/admin/product/{{ $item->product_id }}/edit" type="button">Tạo sale</a>
-                                                 
-                                                </div>
-                                              </div></td>   </a>
-                                           </tr>
-                                      
-                                          @endforeach
-                                       </tbody>
-                                   </table>
-                               </div>
-                           </div>
-                       </div>
-                       <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog"
-                       aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-                       <div class="modal-dialog" role="document">
-                           <div class="modal-content">
-                               <div class="modal-header">
-                                   <h5 class="modal-title" id="exampleModalLongTitle"></h5>
-                                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                       <span aria-hidden="true">&times;</span>
-                                   </button>
-                               </div>
-                               <div class="modal-body">
-                                   
-                               </div>
-                               <div class="modal-footer">
-                                   <button type="button" class="btn btn-secondary"
-                                       data-dismiss="modal">Hủy</button>
-                                   <button type="submit" class=" add-to-cart">Mua hàng</button>
-                               </div>
-                           </div>
-                       </div>
-                   </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Đơn hàng chưa xử lý</h3>
+                            </div>
+                            <div class="card-body">
+
+
+                                <table class="table table-hover" id="order">
+                                    <thead>
+                                        <th>STT</th>
+                                        <th>Tên khách hàng</th>
+                                        <th>Số tiền</th>
+                                        <th width="100px">Trạng thái</th>
+                                        <th>Ngày mua hàng</th>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($order as $key => $item)
+                                            <tr class="link"
+                                                onclick="window.location='/admin/don-hang/danh-sach/{{ $item->id }}';">
+                                                <td>{{ $key + 1 }}</td>
+                                                <td class="uppercase">{{ $item->firstname }} {{ $item->lastname }}</td>
+                                                <td>{{ number_format($item->amount) }} VND</td>
+                                                <td>
+                                                    @if ($item->status == 1)
+                                                        <p
+                                                            style="color:rgb(255, 255, 255);background-color:chocolate;border-radius:15px;padding: 4px">
+                                                            Chưa xử lý</p>
+                                                    @endif
+                                                </td>
+                                                <td>{{ $item->created_at }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
-                    <!-- /.row (main row) -->
+                </div>
+                <!-- /.row (main row) -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card card-default">
+                            <div class="card-header">
+                                <h2>Thống kê sản phẩm</h2>
+                            </div>
+                            <div class="card-body">
+                                <table class="table" id="datatable">
+                                    <thead>
+                                        <th> Tên sản phẩm</th>
+                                        <th> Danh mục</th>
+                                        <th> Loại sản phẩm</th>
+                                        <th> Số lượng</th>
+                                        <th> Số lượng bán</th>
+                                        <th> Action</th>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($product as $item)
+
+                                            <tr> <a href="#">
+                                                    <td>{{ $item->name }}</td>
+                                                    <td>{{ $item->producttype->name }}</td>
+                                                    <td>{{ $item->category->name }}</td>
+                                                    <td>{{ $item->quantity }}</td>
+                                                    <td>{{ $item->quantity_sell }}</td>
+                                                    <td>
+                                                        <div class="btn-group">
+                                                            <button type="button" class="btn btn-secondary dropdown-toggle"
+                                                                data-toggle="dropdown" aria-haspopup="true"
+                                                                aria-expanded="false">
+                                                                Select
+                                                            </button>
+                                                            <div class="dropdown-menu dropdown-menu-right">
+                                                                <button type="button" class="btn btn-success"
+                                                                    style="margin-left:15px" data-toggle="modal"
+                                                                    data-target="#exampleModalLong">
+                                                                    Nhập số lượng
+                                                                </button>
+                                                                <a class="dropdown-item"
+                                                                    href="/admin/product/{{ $item->product_id }}/edit"
+                                                                    type="button">Tạo sale</a>
+
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </a>
+                                            </tr>
+
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog"
+                        aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle"></h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                                    <button type="submit" class=" add-to-cart">Mua hàng</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div><!-- /.container-fluid -->
         </section>
         <!-- /.content -->
@@ -351,14 +399,14 @@
 
 
         });
-        
+
     </script>
 
     <script type="text/javascript">
-     $(function() {
+        $(function() {
             $("#datatable").DataTable({
                 "responsive": true,
-             
+
                 "pageLength": 10,
                 "autoWidth": false,
                 "language": {
@@ -378,7 +426,28 @@
                     }
                 },
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+            $("#order").DataTable({
+                "responsive": true,
 
+                "pageLength": 5,
+
+                "language": {
+                    "search": "Tìm kiếm:",
+                    "info": "Hiển thị _START_ từ _END_ của _TOTAL_ bản ghi",
+                    "infoEmpty": "Chưa có dữ liệu",
+                    "loadingRecords": "Vui lòng đợi - loading...",
+                    "processing": "Đang xử lý...",
+                    "paginate": {
+
+                        "next": "Tiếp",
+                        "previous": "Lùi",
+                        "first": "Đầu",
+                        "last": "Cuối",
+
+
+                    }
+                },
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
         });
         $(document).ready(function() {
             let token = document.head.querySelector('[name=csrf-token]').content;
@@ -412,23 +481,23 @@
                     }
                 })
             }
-            $('.applyBtn').on('click',function(){
-               
-            let token = document.head.querySelector('[name=csrf-token]').content;
-            var date =$('#date-range-picker').val();
-            $.ajax({
-                url:'/admin/dashboard/softdate',
-                type:'get',
-                data:{
-                    order_date:date,
-                    _token:token
-                },
-                success: function(data) {
-                    console.log(data);
+            $('.applyBtn').on('click', function() {
+
+                let token = document.head.querySelector('[name=csrf-token]').content;
+                var date = $('#date-range-picker').val();
+                $.ajax({
+                    url: '/admin/dashboard/softdate',
+                    type: 'get',
+                    data: {
+                        order_date: date,
+                        _token: token
+                    },
+                    success: function(data) {
+                        console.log(data);
                         char.setData(data);
-                }
+                    }
+                })
             })
-        })
         })
 
     </script>

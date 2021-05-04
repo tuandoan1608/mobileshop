@@ -22,8 +22,8 @@ class dashboardController extends Controller
         $product = product::join('product_attribute', 'product.id', '=', 'product_attribute.product_id')
             ->select('product.*', 'product_attribute.*')
             ->get();
-
-        return view('admin.dashboard.list', compact('countProduct', 'countOrder', 'doanhthu', 'orderdate', 'dtdate', 'product'));
+        $order=orders::where('status',1)->orderBy('created_at','asc')->get();
+        return view('admin.dashboard.list', compact('countProduct', 'countOrder', 'doanhthu', 'orderdate', 'dtdate', 'product','order'));
     }
     public function getdata()
     {

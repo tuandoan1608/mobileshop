@@ -51,7 +51,10 @@ Route::prefix('admin')->group(function () {
     Route::resource('producttype', 'producttypeController');
     Route::resource('product', 'productController');
     Route::resource('spetification', 'spetificationController');
+    Route::resource('user', 'userController');
+    Route::resource('roles', 'roleController');
 
+    
     route::post('/loaisp', 'productController@loaisp');
     route::post('/getsize', 'productController@getsize');
     route::post('/addspe', 'productController@addspe');

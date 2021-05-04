@@ -23,7 +23,7 @@ $(document).ready(function(){
 				}
 			}
 		});
-		$('.update').click(function(){
+		$('.update').on('click',function(){
 			let ten = $('.name').val();
 			let status = $('.status').val();
 			let parent_id=$('#parent_id').val();

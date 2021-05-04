@@ -50,7 +50,21 @@
 
                                                 <td>{{ $item->getcustomer->firstname }} {{ $item->getcustomer->lastname }}</td>
                                                
-                                                <td>{{ $item->status }}</td>
+                                                <td>
+                                                    @if ($item->status==1)
+                                                        <span>Chưa xác nhận</span>
+                                                    @elseif($item->status==2)
+                                                    <span>Đã xác nhận</span>
+                                                    @elseif($item->status==3)
+                                                    <span>Đã đóng gói</span>
+                                                    @elseif($item->status==4)
+                                                    <span>Đã xuất kho</span>
+                                                    @elseif($item->status==5)
+                                                    <span>Đã hoàn thành</span>
+                                                    @else
+                                                    <span>Trả hàng</span>
+                                                    @endif
+                                                </td>
                                                 
                                                 <td>{{ $item->amount }}</td>
                                                 

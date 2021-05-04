@@ -14,7 +14,7 @@ class orderController extends Controller
 {
    public function index()
    {
-        $data=orders::all();
+        $data=orders::orderby('status','asc')->get();
         return view('admin.orders.list',compact('data'));
    }
 
