@@ -69,7 +69,7 @@
                                                                 class="fas fa-edit"></i></a></button>
                                                     <button class="btn btn-danger delete"
                                                         title="{{ 'Xóa ' . $item->name }}" type="button"
-                                                        data-url="/admin/producttype/{{ $item->id }}"><i
+                                                        data-url="/admin/product/{{ $item->id }}"><i
                                                             class="fas fa-trash-alt"></i></button>
                                                 </td>
                                             </tr>
@@ -122,7 +122,48 @@
 
         });
         $('div.alert').delay(3000).slideUp();
+        $(function() {
+            $('.delete').on('click', function(e) {
+                e.preventDefault();
+                let urlreq = $(this).data('url');
+                let that = $(this);
+                Swal.fire({
+                    title: 'Chắc chắn xóa?',
+                    text: "Bạn không thể lấy lại dữ liệu!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'yes'
+                }).then((result) => {
+                    if (result.isConfirmed) {
 
+                        $.ajax({
+                            type: 'delete',
+                            url: urlreq,
+                            type:'delete',
+                            success: function(data) {
+                                if (data.code == 200) {
+                                    that.parent().parent().remove();
+                                    Swal.fire(
+                                        'Thành công!',
+                                        'Xóa thành công.',
+                                        'success'
+                                    )
+                                } else {
+                                    Swal.fire(
+                                        'Không thể xóa',
+                                        'Có loại sản phẩm thuộc danh mục này.',
+                                        'error'
+                                    )
+                                }
+                            }
+                        })
+
+                    }
+                })
+            })
+        })
     </script>
 
 @endsection

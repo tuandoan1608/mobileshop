@@ -119,8 +119,21 @@ class cardController extends Controller
             $orderdetail->total_price = $item->qty * $item->price;
             $orderdetail->save();
         }
-
+        $orderdetail = orders::join('order_detail', 'orders.id', '=', 'order_detail.order_id')
+         ->leftjoin('product_attribute', 'order_detail.product_id', '=', 'product_attribute.id')
+         ->leftjoin('product', 'product_attribute.product_id', '=', 'product.id')
+         ->leftjoin('attribute_value', 'product_attribute.attributevalue_id', '=', 'attribute_value.id')
+         ->leftjoin('attribute_value_size', 'product_attribute.attributevaluesize_id', '=', 'attribute_value_size.id')
+         ->where('orders.id', '=', $order->id)
+         ->select('orders.*', 'order_detail.order_id', 'order_detail.product_id as productid', 'order_detail.quantity as soluong', 'order_detail.total_price', 'product_attribute.*', 'product.name as productname', 'attribute_value.name as color', 'attribute_value_size.name as size')
+         ->get();
         Cart::instance('shopping')->destroy();
+        $url = route('donhang', ['id'=>$order->id]);
+        Mail::send('emails.mail', array('order'=>$order, 'url'=>$url,'orderdetail'=>$orderdetail), function ($message) {
+            $message->from('sinnobi11226@gmail.com', 'Đơn hàng mới');
+            $message->to('1710294@dlu.edu.vn', 'Đơn hàng mới'); 
+            $message->subject('Một đơn hàng mới vừa được tạo');
+        });
         return redirect('/');
     }
     public function cart()

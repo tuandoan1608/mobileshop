@@ -395,15 +395,21 @@ class productController extends Controller
      */
     public function destroy($id)
     {
-        //
+        product::find($id)->delete();
+        productAttribute::where('product_id',$id)->delete();
+        return response()->json([
+            'code' => 200,
+            'message' => 'success'
+        ]);
     }
     public function deletes($id)
     {
         $this->authorize('product-delete');
         $data = productAttribute::find($id);
+        $data->delete();
         $count = productAttribute::where('product_id', $data->product_id)->where('attributevalue_id', $data->attributevalue_id)->count();
         if ($count == 1) {
-            $data->delete();
+           
             productImage::where('color_id', $data->attributevalue_id)->where('product_id', $data->product_id)->delete();
         } else {
             $data->delete();

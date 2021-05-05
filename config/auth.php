@@ -97,8 +97,8 @@ return [
     */
 
     'passwords' => [
-        'custommers' => [
-            'provider' => 'custommers',
+        'users' => [
+            'provider' => 'users',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,

@@ -5,9 +5,12 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 class product extends Model
 {
     use Notifiable;
+    use SoftDeletes;
     protected $table='product';
     protected $fillable=['name','slug','price','discount','content','lower_name','image','category_id','producttype_id','startdate','enddate','startsale'];
     public function category(){

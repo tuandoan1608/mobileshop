@@ -15,4 +15,9 @@ class specification extends Model
         
        return $this->hasMany(product_spetification::class,'spetification_id')->where('product_id',$id)->get();
    }
+   public function getspes()
+   {
+        
+       return $this->hasMany(product_spetification::class,'spetification_id');
+   }
 }

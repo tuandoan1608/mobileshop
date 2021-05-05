@@ -1,6 +1,8 @@
 @extends('client.master')
 @section('content')
-
+<div class="col-md-12" id="errors">
+    @include('flash::message')
+</div>
     <div class="breadcrumb-area">
         <div class="container">
             <div class="breadcrumb-content">

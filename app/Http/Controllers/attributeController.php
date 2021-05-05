@@ -22,24 +22,26 @@ class attributeController extends Controller
 
    public function create()
    {
-      return view('admin.attributes.add');
+      $attribute=attribute::all();
+      return view('admin.attributes.add',compact('attribute'));
    }
    public function store(Request $request)
    {
-
-
-
-      $at = new attribute();
-      $at->name = $request->attribute;
-      $at->save();
-      $datas = ['attribute_id' => $at->id];
-
-
-
-      foreach ($request->namecolor as $key => $item) {
-         $datas['name'] = $item;
-         $datas['color'] = $request->color[$key];
-         $this->attributevalue->create($datas);
+      if($request->attribute_type==5){
+        foreach($request->namesize as $item){
+         $size=new attributevalue_size();
+         $size->attribute_id=5;
+         $size->name=$item;
+         $size->save();
+        }
+      }else{
+         foreach($request->namecolor as $key=> $item){
+            $color=new attributevalue();
+            $color->name=$item;
+            $color->attribute_id=6;
+            $color->color=$request->color[$key];
+            $color->save();
+           }
       }
       return redirect()->route('astributeindex');
    }

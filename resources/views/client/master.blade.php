@@ -123,7 +123,9 @@
     <script src="/theme/client/js/scrollUp.min.js"></script>
     <!-- Main/Activator js -->
     <script src="/theme/client/js/main.js"></script>
- 
+    <script>
+        $('#errors').delay(2000).slideUp();
+    </script>
     @yield('script')
 
 </body>

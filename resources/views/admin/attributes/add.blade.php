@@ -37,46 +37,40 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                <div class="form-group">
-                                    <div class="row">
-                                        <label class="col-md-2" for="inputName">Tên thuộc tính <span style="color: red">*<span></label>
-                                        <input type="text" name="name" id="inputName" class="col-md-10 form-control">
-                                    </div>
-                                </div>
+
                                 <div class="form-group">
                                     <div class="row">
                                         <label class="col-md-2" for="inputName">Loại đầu vào thuộc tính</label>
 
                                         <select id="frontend_input" type="text" name="attribute_type"
-                                            title="Catalog Input Type for Store Owner" class="form-control custom-select col-md-4">
-                                            <option value="multiselect" id="sel">--Select--</option>
-                                            <option value="multiselect" id="optIdEguqOvFU">Multiple Select</option>
-                                          
-                                            <option value="swatch_visual" id="optIdzJ900K6h">Visual Swatch</option>
-                                          
+                                            title="Catalog Input Type for Store Owner"
+                                            class="form-control custom-select col-md-4">
+
+                                            @foreach ($attribute as $item)
+                                                <option value="{{ $item->id }}" id="{{ $item->id }}">{{ $item->name }}</option>
+                                            @endforeach
+
+
                                         </select>
                                     </div>
                                 </div>
-                                <div class="form-group " id="multi" style="display: none">
+                                <div class="form-group " id="multi" >
                                     <table id="myTable" class=" table order-list">
                                         <thead>
                                             <tr>
                                                 <th>Tên thuộc tính</th>
-                                                
                                                 <th></th>
-
-
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>                                            
+                                            <tr>
                                                 <td>
-                                                    <input type="text" name="name[]"
-                                                        class="form-control " placeholder="Tên thuộc tính">
-                                                </td>                                       
+                                                    <input type="text" name="namesize[]" class="form-control "
+                                                        placeholder="Tên thuộc tính">
+                                                </td>
                                                 <td style="text-align: left;">
-                                                    <input type="button" class="btn btn-lg btn-block "
-                                                        id="addrow" value="+" />
+                                                    <input type="button" class="btn btn-lg btn-block " id="addrow"
+                                                        value="+" />
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -86,25 +80,25 @@
                                 <div class="form-group " id="multis" style="display: none">
                                     <table id="myTable" class=" table order-list">
                                         <thead>
-                                            <tr>
-                                                <th>Chọn màu</th>
+                                            <tr>      
                                                 <th>Tên thuộc tính</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td><input type="color" id="favcolor" name="color[]" value="#ff0000"><label for="head">Chọn màu</label></td>
+                                                <td><input type="color" id="favcolor" name="color[]" value="#ff0000"><label
+                                                        for="head">Chọn màu</label></td>
                                                 <td>
 
 
-                                                    <input type="text" name="namecolor[]"
-                                                        class="form-control " placeholder="Tên thuộc tính">
+                                                    <input type="text" name="namecolor[]" class="form-control "
+                                                        placeholder="Tên thuộc tính">
                                                 </td>
-                                              
+
                                                 <td style="text-align: left;">
-                                                    <input type="button" class="btn btn-lg btn-block "
-                                                        id="addrows" value="+" />
+                                                    <input type="button" class="btn btn-lg btn-block " id="addrows"
+                                                        value="+" />
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -134,23 +128,21 @@
 @section('script')
     <script>
         $(document).ready(function() {
-            let select= document.getElementById('optIdEguqOvFU');
-            let selects= document.getElementById('optIdzJ900K6h');
-            let select1= document.getElementById('sel');
-            
-            $("select").change(function(){
-               if(select.selected==true){
-                document.getElementById('multi').style.display="block";
-                document.getElementById('multis').style.display="none";
-               }
-               else if(selects.selected==true){
-                document.getElementById('multis').style.display="block";
-                document.getElementById('multi').style.display="none";
-               }
-               else if(select1.selected==true){
-                document.getElementById('multis').style.display="none";
-                document.getElementById('multi').style.display="none";
-               }
+            let select = document.getElementById('5');
+            let selects = document.getElementById('6');
+            let select1 = document.getElementById('sel');
+
+            $("select").change(function() {
+                if (select.selected == true) {
+                    document.getElementById('multi').style.display = "block";
+                    document.getElementById('multis').style.display = "none";
+                } else if (selects.selected == true) {
+                    document.getElementById('multis').style.display = "block";
+                    document.getElementById('multi').style.display = "none";
+                } else if (select1.selected == true) {
+                    document.getElementById('multis').style.display = "none";
+                    document.getElementById('multi').style.display = "none";
+                }
             });
 
             $("#addrow").on("click", function() {
@@ -158,7 +150,7 @@
                 var cols = "";
 
                 cols += '<td><input type="text" class="form-control" name="name[]"/></td>';
-              
+
                 cols +=
                     '<td><input type="button" class="ibtnDel btn btn-md btn-danger "  value="Delete"></td>';
                 newRow.append(cols);
@@ -171,8 +163,9 @@
                 var cols = "";
                 cols +=
                     '<td><div> <input type="color" id="favcolor" name="color[]" value="#ff0000"><label for="head">Chọn màu</label></div></td>';
-                cols += '<td><input type="text" class="form-control" placeholder="Tên thuộc tính" name="namecolor[]"/></td>';
-               
+                cols +=
+                    '<td><input type="text" class="form-control" placeholder="Tên thuộc tính" name="namecolor[]"/></td>';
+
 
                 cols +=
                     '<td><input type="button" class="ibtnDel btn btn-md btn-danger "  value="Delete"></td>';

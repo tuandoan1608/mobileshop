@@ -14,8 +14,8 @@ class spetificationController extends Controller
      */
     public function index()
     {
-       $spe=specification::all();
-       return view('admin.specification.list',compact('spe'));
+        $spe = specification::all();
+        return view('admin.specification.list', compact('spe'));
     }
 
     /**
@@ -25,8 +25,8 @@ class spetificationController extends Controller
      */
     public function create()
     {
-        $spe=specification::all();
-       return view('admin.specification.add',compact('spe'));
+        $spe = specification::all();
+        return view('admin.specification.add', compact('spe'));
     }
 
     /**
@@ -37,13 +37,13 @@ class spetificationController extends Controller
      */
     public function store(Request $request)
     {
-    
-  
-        foreach($request->name as $key=>$item){
-            $spe=new specification();
-            $spe->name=$item;
-            $spe->default=$request->default[$key];
-            $spe->status=$request->status[$key];
+
+
+        foreach ($request->name as $key => $item) {
+            $spe = new specification();
+            $spe->name = $item;
+            $spe->default = $request->default[$key];
+            $spe->status = $request->status[$key];
             $spe->save();
         }
     }
@@ -90,6 +90,19 @@ class spetificationController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = specification::find($id);
+        $cout = $data->getspes;
+        if (!empty($cout)) {
+            return response()->json([
+                'code' => 500,
+                'messages' => 'Có loại sản phẩm thuộc danh mục nên không thể xóa.'
+            ]);
+        } else {
+            $data->delete();
+            return response()->json([
+                'code' => 200,
+                'message' => 'success'
+            ]);
+        }
     }
 }

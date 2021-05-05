@@ -23,10 +23,13 @@
                 <div class="error-wrapper text-center ptb-50 pt-xs-20">
                     
                     <div class="search-error">
-                        <form id="search-form" method="post" action="/quen-mat-khau">
+                        <form id="search-form" method="post" action="/verify">
                             @csrf
-                            <input type="text" placeholder="Nhập email để lấy lại mật khẩu">
-                            <button><i class=""></i> Gửi</button>
+                            <div id="errors">
+                                @include('flash::message')
+                            </div>
+                            <input name="email" class="form-control @error('email') is-invalid @enderror" type="text" placeholder="Nhập email để lấy lại mật khẩu">
+                            <button type="submit"><i class=""></i> Gửi</button>
                         </form>
                     </div>
                     
@@ -38,5 +41,7 @@
 
 @endsection
 @section('script')
-
+<script>
+    $('#errors').delay(2000).slideUp();
+</script>
 @endsection

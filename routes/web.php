@@ -61,6 +61,7 @@ Route::prefix('admin')->group(function () {
     route::get('/productattribute/delete/{id}', 'productController@deletes')->name('proattribute-delete');
     route::get('/databar', 'dashboardController@getdata');
     route::get('/deleteattribute/{id}', 'productController@deletes');
+    
 
 
     //dơn hang
@@ -68,7 +69,7 @@ Route::prefix('admin')->group(function () {
         route::get('danh-sach', 'orderController@index');
         route::post('cap-nhat/{id}', 'orderController@update');
         route::post('add', 'orderController@createorder');
-        route::get('danh-sach/{id}', 'orderController@getorder');
+        route::get('danh-sach/{id}', 'orderController@getorder')->name('donhang');
         Route::get('tao-don-hang', 'orderController@create');
         route::post('create/{id}', 'orderController@addorder');
         route::post('searchaccout', 'orderController@searchaccout');
@@ -89,9 +90,10 @@ route::get('/san-pham/{slug}', 'productClientController@index');
 Route::get('/dtdd/{slug}', 'productcateController@index');
 Route::get('/pk/{slug}', 'productcateController@index');
 route::get('/tim-kiem', 'searchController@searchByName');
-route::get('/quen-mat-khau','forgotPasswordController@index');
-route::post('/quen-mat-khau','forgotPasswordController@forget');
-
+route::get('/quen-mat-khau','Auth\ForgotPasswordController@getForgotPassword');
+route::post('/verify','Auth\ForgotPasswordController@SendCodeResetPass');
+route::get('/password/resets','Auth\ForgotPasswordController@resetPassword')->name('resetpass');
+route::post('/password/resets','Auth\ForgotPasswordController@savePassword')->name('resetpass');
 Route::group(['middleware' => 'auth:custommer'], function () {
     route::post('/thanh-toan', 'cardController@checkout');
     route::get('/checkout', 'cardController@index');
@@ -104,7 +106,5 @@ Route::group(['middleware' => 'auth:custommer'], function () {
     route::post('/update-users', 'accountController@update');
 });
 
-Auth::routes();
-Auth::routes(['register' => false]);
-Auth::routes(['verify' => true]);
+
 Route::get('/home', 'HomeController@index')->name('home');

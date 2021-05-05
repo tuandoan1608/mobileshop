@@ -79,7 +79,7 @@
                                                         data-toggle="modal" data-target="#edit" type="button"
                                                         data-id="{{ $item->id }}"><i class="fas fa-edit"></i></button>
                                                     <button class="btn btn-danger delete" title="{{ 'Xóa ' . $item->name }}"
-                                                        type="button" data-url="/admin/category/{{ $item->id }}"><i
+                                                        type="button" data-url="/admin/spetification/{{ $item->id }}"><i
                                                             class="fas fa-trash-alt"></i></button>
                                                 </td>
                                             </tr>
