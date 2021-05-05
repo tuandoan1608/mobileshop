@@ -13,7 +13,7 @@ class loginController extends Controller
    {
 
       if(Auth::check()){
-         return redirect()->route('dashboard');
+         return redirect('/admin/trang-chu');
       }else{
          return view('admin.auth.login');
       }
@@ -24,7 +24,7 @@ class loginController extends Controller
       $user = $request->only('email', 'password');
       if (Auth::attempt($user)) {
          Flash::info('Đăng nhập thành công.');
-         return redirect()->route('dashboard');
+         return redirect('/admin/trang-chu');
       } else {
 
          Flash::error('Tên đăng nhập hoặc mật khẩu không chính xác.');

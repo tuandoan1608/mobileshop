@@ -73,7 +73,7 @@
                                                     <br>
 
 
-                                                   
+
                                                 </fieldset>
 
                                             </div>
@@ -135,31 +135,37 @@
                                                 </div>
                                                 <div class="card-body">
                                                     <div>
-                                                        <button type="button" class="btn btn-success" id="getspe">Chọn thông số mặc định</button>
+                                                        <button type="button" class="btn btn-success" id="getspe">Chọn thông
+                                                            số mặc định</button>
                                                     </div>
                                                     <div class="container">
                                                         <ul class="ks-cboxtags" id="thongsokt">
-                                                         @foreach ($spe as $key=> $item )
-                                                         <li><input type="checkbox" name="spe[]" id="checkbox{{ $key }}" value="{{ $item->id }}"><label class="uppercase" for="checkbox{{ $key }}">{{ $item->name }}</label></li>
-                                                         @endforeach
-                                                          
+                                                            @foreach ($spe as $key => $item)
+                                                                <li><input type="checkbox" name="spe[]"
+                                                                        id="checkbox{{ $key }}"
+                                                                        value="{{ $item->id }}"><label class="uppercase"
+                                                                        for="checkbox{{ $key }}">{{ $item->name }}</label>
+                                                                </li>
+                                                            @endforeach
+
                                                         </ul>
                                                         <ul class="ks-cboxtags" id="thongsokts">
 
                                                         </ul>
-                                                      </div>
-                                                      <div>
-                                                          <button id="addspe" type="button" >Thêm</button>
-                                                      </div>
-                                                      <div class="tskt">
+                                                    </div>
+                                                    <div>
+                                                        <button id="addspe" class="btn btn-success"
+                                                            type="button">Add</button>
+                                                    </div>
+                                                    <div class="tskt">
                                                         <table class="table table-bordered">
                                                             <thead>
                                                                 <th>Thông số kĩ thuật</th>
-                                                               
+
                                                                 <th>Nội dung</th>
                                                             </thead>
                                                             <tbody class="spe">
-    
+
                                                             </tbody>
                                                         </table>
                                                     </div>
@@ -171,7 +177,50 @@
 
 
                                         </div>
-                                        <div class="card card-default collapsed-card">
+
+                                        <div class="card card-default">
+                                            <div class="card-body"><a style="color: #007bff;font-size:25px">Thuộc tính sản
+                                                    phẩm:</a>
+
+                                                <div class="radio-group">
+                                                    <input onclick="myfun()" checked type="radio" id="option-one" value="1" name="attribute"><label class="label"
+                                                        for="option-one">Có</label>
+                                                    <input onclick="myfun()" type="radio" id="option-two" value="0" name="attribute"><label class="label"
+                                                        for="option-two">Không</label>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="quantity" style="display:none" class="card card-default collapsed-card">
+                                            <div class="card-header">
+                                                <h3 class="card-title">Số lượng sản phẩm</h3>
+                                                <div class="card-tools">
+                                                    <button type="button" class="btn btn-tool" data-card-widget="collapse"
+                                                        title="Collapse">
+                                                        <a href=""> Nhập số lượng</a>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="card-body">
+                                                <table class="table">
+                                                    <thead>
+                                                        <th>Giá nhập</th>
+                                                        <th>Giá bán</th>
+                                                        <th>Số lượng</th>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td><input class="form-control" name="import_price" type="number"></td>
+                                                            <td><input class="form-control" name="export_price" type="number"></td>
+                                                            <td><input class="form-control" name="quantity" type="number"></td>
+                                                            
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+
+                                            </div>
+                                        </div>
+                                        <div id="attribute"  class="card card-default collapsed-card">
                                             <div class="card-header">
                                                 <h3 class="card-title">Thêm thuộc tính</h3>
 
@@ -189,14 +238,19 @@
                                                     </div>
                                                     <fieldset class="attribute-fie">
                                                         <div class="container">
-                                                            <ul class="ks-cboxtags" >
-                                                             @foreach ($size as $key=> $item )
-                                                             <li><input type="checkbox" name="datasize[]" id="checkbox1{{ $key }}" value="{{ $item->id }}"><label class="uppercase" for="checkbox1{{ $key }}">{{ $item->name }} GB</label></li>
-                                                             @endforeach
-                                                              
+                                                            <ul class="ks-cboxtags">
+                                                                @foreach ($size as $key => $item)
+                                                                    <li><input type="checkbox" name="datasize[]"
+                                                                            id="checkbox1{{ $key }}"
+                                                                            value="{{ $item->id }}"><label
+                                                                            class="uppercase"
+                                                                            for="checkbox1{{ $key }}">{{ $item->name }}
+                                                                            GB</label></li>
+                                                                @endforeach
+
                                                             </ul>
-                                                          
-                                                          </div>
+
+                                                        </div>
                                                     </fieldset>
 
                                                 </div>
@@ -206,18 +260,23 @@
                                                     </div>
                                                     <fieldset class="attribute-fie">
                                                         <div class="container">
-                                                            <ul class="ks-cboxtags" >
-                                                             @foreach ($color as $key=> $item )
-                                                             <li><input type="checkbox" name="datacolor[]" id="checkbox2{{ $key }}" value="{{ $item->id }}"><label class="uppercase" for="checkbox2{{ $key }}">{{ $item->name }}</label></li>
-                                                             @endforeach
-                                                              
+                                                            <ul class="ks-cboxtags">
+                                                                @foreach ($color as $key => $item)
+                                                                    <li><input type="checkbox" name="datacolor[]"
+                                                                            id="checkbox2{{ $key }}"
+                                                                            value="{{ $item->id }}"><label
+                                                                            class="uppercase"
+                                                                            for="checkbox2{{ $key }}">{{ $item->name }}</label>
+                                                                    </li>
+                                                                @endforeach
+
                                                             </ul>
-                                                          
-                                                          </div>
+
+                                                        </div>
                                                     </fieldset>
 
                                                 </div>
-                                                <button type="button" id="getdata"> theem</button>
+                                                <button type="button" class="btn btn-success" id="getdata"> Add</button>
 
                                                 <div class="size">
                                                     <table class="table">
@@ -235,7 +294,7 @@
                                                     <table class="table">
                                                         <thead>
                                                             <th>Color</th>
-                                                           
+
                                                             <th>Số lượng</th>
                                                         </thead>
                                                         <tbody class="c">
@@ -243,7 +302,7 @@
                                                         </tbody>
                                                     </table>
                                                 </div>
-                                                
+
 
 
 
@@ -253,10 +312,12 @@
                                         <div class="card">
                                             <div class="card-body">
                                                 <table class="table">
-                                                    
+
                                                     <td><a href="/admin/product" class="btn btn-secondary">Cancel</a>
-                                                        <td></td>
-                                                    <td> <input type="submit"  value="Thêm" class="btn btn-success float-right "></td></td>
+                                                    <td></td>
+                                                    <td> <input type="submit" value="Thêm"
+                                                            class="btn btn-success float-right "></td>
+                                                    </td>
                                                 </table>
                                             </div>
                                         </div>
@@ -356,11 +417,11 @@
 
 
                         </div>
-                     
-                          
-                               
-                         
-                       
+
+
+
+
+
                     </div>
                     <!-- /.card -->
 
@@ -438,6 +499,7 @@
                 alert('hãy chọn màu');
                 $('.loader').hide();
             }
+
             $.ajax({
                 url: '/admin/getsize',
                 method: 'post',
@@ -459,17 +521,17 @@
         });
         $('#addspe').click(function(e) {
             e.preventDefault();
-           
+
             $('.loader').show();
             let spe = '';
-            
+
             // su dung vong lap de them gia tri checkbox vao chuoi....
             jQuery("input[name='spe[]']:checked").each(function() {
 
                 spe = spe + '/' + jQuery(this).val();
 
             });
-         
+
             if (spe.length == 1) {
                 spe = spe.substring(1);
             }
@@ -478,35 +540,35 @@
                 $('.loader').hide();
             }
 
-            
+
             $.ajax({
                 url: '/admin/addspe',
                 method: 'post',
 
                 data: {
-                  
+
                     spe: spe
 
                 },
                 success: function(data) {
                     $('.loader').hide();
                     $('.spe').html(data);
-                   
+
                     $('.tskt').show();
 
                 }
             })
         });
-        $('#getspe').on('click',function(){
+        $('#getspe').on('click', function() {
             $('.loader').show();
             let token = document.head.querySelector('[name=csrf-token]').content;
             $.ajax({
-                url:'/admin/getspe',
-                type:'get',
-                data:{
-                    _token:token
+                url: '/admin/getspe',
+                type: 'get',
+                data: {
+                    _token: token
                 },
-                success:function(data){
+                success: function(data) {
                     $('.loader').hide();
                     $('#thongsokt').remove();
                     $('#thongsokts').html(data);
@@ -544,14 +606,17 @@
     </script>
     <script type="text/javascript">
         function myfun() {
-            var yes = document.getElementById("yes");
-            var no = document.getElementById("no");
-            var spe = document.getElementById("specification");
+            var yes = document.getElementById("option-one");
+            var no = document.getElementById("option-two");
+            var atti = document.getElementById("attribute");
+            var qty = document.getElementById("quantity");
             if (yes.checked == true) {
-                spe.style.display = "block";
+                atti.style.display = "block";
+                qty.style.display = "none";
             }
             if (no.checked == true) {
-                spe.style.display = "none";
+                atti.style.display = "none";
+                qty.style.display = "block";
             }
         }
 

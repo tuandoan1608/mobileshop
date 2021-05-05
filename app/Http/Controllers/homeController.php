@@ -9,11 +9,16 @@ class homeController extends Controller
 {
     public function index()
     {
-        
-        if(Auth::check()){
-            return redirect()->route('dashboard');
-        }else{
+
+        if (Auth::check()) {
+            
+            return redirect('/admin/trang-chu');
+        } else {
             return redirect()->route('login');
         }
+    }
+    public function home()
+    {
+        return view('admin.home.index');
     }
 }

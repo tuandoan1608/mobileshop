@@ -15,8 +15,5 @@ class product_spetification extends Model
    {
        return $this->belongsTo(specification::class,'spetification_id','id');
    }
-   public function getnamespe()
-   {
-       return $this->belongsTo(specification::class,'spetification_id','id');
-   }
+   
 }

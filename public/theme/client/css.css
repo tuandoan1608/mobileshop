@@ -21,14 +21,14 @@
   color: #abcd58;
 }
 
-/* [type="radio"]:checked,
+[type="radio"]:checked,
 [type="radio"]:not(:checked){
 	position: absolute;
 	left: -9999px;
 	width: 0;
 	height: 0;
 	visibility: hidden;
-} */
+}
 .checkbox-tools:checked + label,
 .checkbox-tools:not(:checked) + label{
 	position: relative;

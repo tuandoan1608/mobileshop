@@ -33,7 +33,7 @@
                         <!-- small box -->
                         <div class="small-box bg-info">
                             <div class="inner">
-                                <h3>{{ $countOrder }}</h3>
+                                <h5>{{ $countOrder }}</h5>
 
                                 <p>Tổng số đơn hàng</p>
                             </div>
@@ -48,7 +48,7 @@
                         <!-- small box -->
                         <div class="small-box bg-success">
                             <div class="inner">
-                                <h3>{{ $countProduct }}<sup style="font-size: 20px"></sup></h3>
+                                <h5>{{ $countProduct }}<sup style="font-size: 20px"></sup></h5>
 
                                 <p>Tổng số sản phẩm</p>
                             </div>
@@ -63,7 +63,7 @@
                         <!-- small box -->
                         <div class="small-box bg-warning">
                             <div class="inner">
-                                <h3>{{ number_format($doanhthu) }} VND</h3>
+                                <h5>{{ number_format($doanhthu) }} VND</h5>
 
                                 <p>Tổng doanh thu</p>
                             </div>
@@ -78,14 +78,14 @@
                         <!-- small box -->
                         <div class="small-box bg-danger">
                             <div class="inner">
-                                <h3>65</h3>
+                                <h5>{{ number_format($loinhuan )}} VND</h5>
 
-                                <p>Unique Visitors</p>
+                                <p>Tổng lợi nhuận</p>
                             </div>
                             <div class="icon">
                                 <i class="ion ion-pie-graph"></i>
                             </div>
-                            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                            <a href="#" class="small-box-footer">Xem thêm <i class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
                     <!-- ./col -->
@@ -337,7 +337,7 @@
                                                             <div class="dropdown-menu dropdown-menu-right">
                                                                 <button type="button" class="btn btn-success"
                                                                     style="margin-left:15px" data-toggle="modal"
-                                                                    data-target="#exampleModalLong">
+                                                                    data-target="#exampleModal{{ $item->id }}">
                                                                     Nhập số lượng
                                                                 </button>
                                                                 <a class="dropdown-item"
@@ -356,26 +356,35 @@
                             </div>
                         </div>
                     </div>
-                    <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog"
-                        aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLongTitle"></h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                                    <button type="submit" class=" add-to-cart">Mua hàng</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                   @foreach ($product as $item)
+                   <div class="modal fade" id="exampleModal{{ $item->id }}" tabindex="-1" role="dialog"
+                   aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                   <div class="modal-dialog" role="document">
+                    <form action="/admin/product/updateqty/{{ $item->id }}" method="POST">
+                        @csrf
+                       <div class="modal-content">
+                           <div class="modal-header">
+                               <h5 class="modal-title" id="exampleModalLongTitle"></h5>
+                               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                   <span aria-hidden="true">&times;</span>
+                               </button>
+                           </div>
+                           <div class="modal-body">
+                                
+                                    <div class="form-group">
+                                        <label for="">Số lượng</label><input type="number" name="quantity" class="form-control">
+                                    </div>
+                               
+                           </div>
+                           <div class="modal-footer">
+                               <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                               <button type="submit" class=" btn btn-success">Nhập</button>
+                           </div>
+                       </div>
+                    </form>
+                   </div>
+               </div>
+                   @endforeach
                 </div><!-- /.container-fluid -->
         </section>
         <!-- /.content -->

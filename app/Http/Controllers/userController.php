@@ -22,6 +22,7 @@ class userController extends Controller
     }
     public function index()
     {
+        $this->authorize('accout-list');
         $data=User::all();
         return view('admin.members.list',compact('data'));
     }
@@ -33,6 +34,7 @@ class userController extends Controller
      */
     public function create()
     {
+        $this->authorize('accout-add');
         $role=roles::all();
         return view('admin.members.add',compact('role'));
     }
@@ -45,7 +47,7 @@ class userController extends Controller
      */
     public function store(Request $request)
     {
-     
+        $this->authorize('accout-add');
             $user=$this->user->create([
             'firstname'=>$request->firstname,
             'lastname'=>$request->lastname,
@@ -80,9 +82,11 @@ class userController extends Controller
      */
     public function edit($id)
     {
+        $this->authorize('accout-edit');
         $user=User::find($id);
         $role=roles::all();
         $userrole=$user->roles;
+      
        return view('admin.members.edit',compact('user','role','userrole'));
 
     }
@@ -96,18 +100,22 @@ class userController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->authorize('accout-edit');
         try{
             
             DB::beginTransaction();
-            $this->user->find($id)->update([
+            $data=[
                 'firstname'=>$request->firstname,
                 'lastname'=>$request->lastname,
                 'email'=>$request->email,
-                'password'=>$request->password,
+                
                 'phone'=>$request->phone,
                 'address'=>$request->address,
-    
-            ]);
+            ];
+            if(isset($request->password)){
+                $data['password']=bcrypt($request->password);
+            }
+            $this->user->find($id)->update($data);
             $user=$this->user->find($id);
             $user->roles()->sync($request->role);
             DB::commit();
@@ -126,6 +134,6 @@ class userController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->authorize('accout-delete');
     }
 }

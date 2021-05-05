@@ -16,9 +16,10 @@ class productClientController extends Controller
     {
         $product=product::where('slug',$slug)->first();
         $productattribute=productAttribute::where('product_id',$product->id)
-        ->select('attributevaluesize_id','export_price')
+        ->select('attributevaluesize_id','export_price',)
         ->groupBy('attributevaluesize_id','export_price')
         ->get();
+       
         $productimg=productImage::where('product_id',$product->id)->get();
         $productspe=product::join('product_spetification','product.id','=','product_spetification.product_id')
                     ->leftjoin('specifications','product_spetification.spetification_id','=','specifications.id')
@@ -26,7 +27,7 @@ class productClientController extends Controller
                     ->where('slug',$slug);
         $productalike=product::whereNotIn('id',[$product->id])->where('category_id',$product->category_id)->get();
        
-        
+      
         return view('client.product.index',compact('product','productattribute','productimg','productspe','productalike'));
     }
     public function card(Request $request,$id)

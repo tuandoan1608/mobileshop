@@ -27,11 +27,9 @@ Route::prefix('admin')->group(function () {
     route::post('logins', 'loginController@login')->name('addlogin');
     route::get('register', 'loginController@register')->name('register');
     route::post('registers', 'loginController@registers');
-
+    Route::get('/trang-chu', 'homeController@home');
     //router accessori
-    route::prefix('phu-kien')->group(function () {
-        route::get('danh-sach', 'accessoriesController@index');
-    });
+  
     route::prefix('dashboard')->group(function () {
         route::get('danh-sach', 'dashboardController@index')->name('dashboard');
         route::get('softdate', 'dashboardController@softdate');
@@ -56,6 +54,7 @@ Route::prefix('admin')->group(function () {
 
     
     route::post('/loaisp', 'productController@loaisp');
+    route::post('/product/updateqty/{id}', 'productController@updateqty');
     route::post('/getsize', 'productController@getsize');
     route::post('/addspe', 'productController@addspe');
     route::get('/getspe', 'productController@getspe');
@@ -68,9 +67,11 @@ Route::prefix('admin')->group(function () {
     route::prefix('don-hang')->group(function () {
         route::get('danh-sach', 'orderController@index');
         route::post('cap-nhat/{id}', 'orderController@update');
+        route::post('add', 'orderController@createorder');
         route::get('danh-sach/{id}', 'orderController@getorder');
         Route::get('tao-don-hang', 'orderController@create');
-
+        route::post('create/{id}', 'orderController@addorder');
+        route::post('searchaccout', 'orderController@searchaccout');
         //mailler
         Route::get('laravel-send-email', 'EmailController@sendEMail');
     });
@@ -88,12 +89,13 @@ route::get('/san-pham/{slug}', 'productClientController@index');
 Route::get('/dtdd/{slug}', 'productcateController@index');
 Route::get('/pk/{slug}', 'productcateController@index');
 route::get('/tim-kiem', 'searchController@searchByName');
-
-
+route::get('/quen-mat-khau','forgotPasswordController@index');
+route::post('/quen-mat-khau','forgotPasswordController@forget');
 
 Route::group(['middleware' => 'auth:custommer'], function () {
     route::post('/thanh-toan', 'cardController@checkout');
     route::get('/checkout', 'cardController@index');
+    route::post('/carts/{id}', 'cardController@addToCards');
     route::get('/gio-hang', 'cardController@cart');
     route::get('/dang-xuat', 'accountController@logout');
     route::post('/card/{id}', 'cardController@addToCard')->name('addcard');
@@ -101,3 +103,8 @@ Route::group(['middleware' => 'auth:custommer'], function () {
 
     route::post('/update-users', 'accountController@update');
 });
+
+Auth::routes();
+Auth::routes(['register' => false]);
+Auth::routes(['verify' => true]);
+Route::get('/home', 'HomeController@index')->name('home');

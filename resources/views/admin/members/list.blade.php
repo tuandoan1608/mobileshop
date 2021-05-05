@@ -49,7 +49,7 @@
                                             <th>Email</th>
                                             <th>Số điện thoại</th>
                                  
-                                            <th>Trạng thái</th>
+                                            <th>Địa chỉ</th>
                                             <th>Chĩnh sửa</th>
                                         </tr>
                                         </tr>

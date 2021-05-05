@@ -488,3 +488,56 @@ border: 2px solid #e9a1ff;
   height: 60px;
   background-color: rgb(60, 60, 214);
 }
+
+
+input[type=radio] {
+  position: absolute;
+  visibility: hidden;
+  display: none;
+}
+
+.label {
+  color: blue;
+  display: inline-block;
+  cursor: pointer;
+  font-weight: bold;
+  padding: 5px 20px;
+  margin: 0px;
+}
+input[type=radio]:checked + label{
+  color: rgb(238, 238, 238);
+  background-color: rgb(80, 80, 80);
+}
+input[type=radio]:checked + label{
+  color: rgb(238, 238, 238);
+  background-color: rgb(80, 80, 80);
+}
+
+.label + input[type=radio] + label {
+  border-left:1px solid rgb(109, 109, 109);
+}
+.radio-group {
+  border: 1px solid rgb(109, 109, 109);
+  display: inline-block;
+  margin: 20px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+
+.disactive{
+  background-color: rgb(104, 101, 101)!important;
+}
+.my-custom-scrollbar {
+  position: relative;
+  height: 200px;
+  overflow: auto;
+  }
+  .table-wrapper-scroll-y {
+  display: block;
+  }
+  .select2-selection{
+    height: 40px !important;
+  }

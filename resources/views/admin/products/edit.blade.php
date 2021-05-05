@@ -5,7 +5,8 @@
 @section('content')
     <div class="content-wrapper">
 
-        <form accept-charset="utf-8" action="/admin/product/{{ $product->id }}" method="post"  enctype="multipart/form-data">
+        <form accept-charset="utf-8" action="/admin/product/{{ $product->id }}" method="post"
+            enctype="multipart/form-data">
             @method('put')
             @csrf
             <!-- Main content -->
@@ -47,15 +48,17 @@
                                                     <div class="form-group row">
                                                         <label class="col-sm-3" for="disabledTextInput">Tên sản
                                                             phẩm</label>
-                                                        <input type="text" name="name" value="{{ $product->name }}" class="form-control col-sm-9"
-                                                            placeholder="Nhập tên sản phẩm" required>
+                                                        <input type="text" name="name" value="{{ $product->name }}"
+                                                            class="form-control col-sm-9" placeholder="Nhập tên sản phẩm"
+                                                            required>
                                                     </div>
 
                                                     <div class="form-group row">
-                                                        <label class="col-sm-3"  for="disabledTextInput">Giá hiển thị sản
+                                                        <label class="col-sm-3" for="disabledTextInput">Giá hiển thị sản
                                                             phẩm</label>
-                                                        <input type="text" value="{{ $product->price }}" name="price" class="form-control col-sm-9"
-                                                            placeholder="Nhập giá sản phẩm" required>
+                                                        <input type="text" value="{{ $product->price }}" name="price"
+                                                            class="form-control col-sm-9" placeholder="Nhập giá sản phẩm"
+                                                            required>
                                                     </div>
 
 
@@ -74,7 +77,7 @@
                                                     <br>
 
 
-                                                  
+
                                                 </fieldset>
 
                                             </div>
@@ -86,16 +89,16 @@
                                             <div class="card-body">
                                                 <div class="form-group row">
                                                     <label class="col-sm-3" for="disabledTextInput">Discount</label>
-                                                    <input type="text" value="{{ $product->discount }}" name="discount" class="form-control col-sm-9"
-                                                        placeholder="Nhập discount">
+                                                    <input type="text" value="{{ $product->discount }}" name="discount"
+                                                        class="form-control col-sm-9" placeholder="Nhập discount">
                                                 </div>
 
                                                 <div class="form-group">
                                                     <label>Ngày bắt đầu:</label>
                                                     <div class="input-group date" id="reservationdate"
                                                         data-target-input="nearest">
-                                                        <input type="text" value="{{ $product->startdate }}" name="startdate"
-                                                            class="form-control datetimepicker-input"
+                                                        <input type="text" value="{{ $product->startdate }}"
+                                                            name="startdate" class="form-control datetimepicker-input"
                                                             data-target="#reservationdate" />
                                                         <div class="input-group-append" data-target="#reservationdate"
                                                             data-toggle="datetimepicker">
@@ -121,7 +124,7 @@
 
                                             </div>
                                         </div>
-                                        
+
 
 
                                         <div id="specification">
@@ -137,40 +140,58 @@
                                                     </div>
                                                 </div>
                                                 <div class="card-body">
-                                                    
+
                                                     <div class="container">
                                                         <ul class="ks-cboxtags" id="thongsokt">
-                                                         @foreach ($spe as $key=> $item )
-                                                                @if ($item->getspe($product->id)->isEmpty() )
-                                                                <li><input type="checkbox" name="spe[]"   id="checkbox{{ $key }}" value="{{ $item->id }}"><label  class="uppercase" for="checkbox{{ $key }}">{{ $item->name }}</label></li>
+                                                            @foreach ($spe as $key => $item)
+                                                                @if ($item->getspe($product->id)->isEmpty())
+                                                                    <li><input type="checkbox" name="spe[]"
+                                                                            id="checkbox{{ $key }}"
+                                                                            value="{{ $item->id }}"><label
+                                                                            class="uppercase"
+                                                                            for="checkbox{{ $key }}">{{ $item->name }}</label>
+                                                                    </li>
                                                                 @else
-                                                                <li><input type="checkbox" disabled="disabled" name="spe[]" id="checkbox{{ $key }}" value="{{ $item->id }}"><label style="background-color: rgb(104, 101, 101)" class="uppercase" for="checkbox{{ $key }}">{{ $item->name }}</label></li>
+                                                                    <li><input type="checkbox" disabled="disabled"
+                                                                            name="spe[]" id="checkbox{{ $key }}"
+                                                                            value="{{ $item->id }}"><label
+                                                                            style="background-color: rgb(104, 101, 101)"
+                                                                            class="uppercase"
+                                                                            for="checkbox{{ $key }}">{{ $item->name }}</label>
+                                                                    </li>
                                                                 @endif
-                                                         @endforeach
-                                                          
+                                                            @endforeach
+
                                                         </ul>
                                                         <ul class="ks-cboxtags" id="thongsokts">
 
                                                         </ul>
-                                                      </div>
-                                                      <div>
-                                                          <button id="addspe" type="button" >Thêm</button>
-                                                      </div>
-                                                      <div class="tskt">
+                                                    </div>
+                                                    <div>
+                                                        <button id="addspe" type="button">Thêm</button>
+                                                    </div>
+                                                    <div class="tskt">
                                                         <table class="table table-bordered">
                                                             <thead>
                                                                 <th>Thông số kĩ thuật</th>
-                                                               
+
                                                                 <th>Nội dung</th>
                                                             </thead>
                                                             <tbody class="spe">
-                                                                @foreach ($speci as $item )
-                                                                <tr>
-                                                                    <td>  <label for="">{{ $item->name }}</label><input style="   visibility: hidden;" name="speid[]" readonly value=" {{ $item->idspe }} " type="text" class="form-control"></td>
-                                                                   
-                                                                    <td>    <input type="text" name="specontent[]" value="{{ $item->content }}" required class="form-control"></td>
-                                                                  
-                                                                </tr> 
+                                                                @foreach ($speci as $item)
+                                                                    <tr>
+                                                                        <td> <label
+                                                                                for="">{{ $item->spename->name }}</label><input
+                                                                                style="   visibility: hidden;"
+                                                                                name="speid[]" readonly
+                                                                                value=" {{ $item->spetification_id }} " type="text"
+                                                                                class="form-control"></td>
+
+                                                                        <td> <input  type="text" name="specontent[]"
+                                                                                value="{{ $item->content }}" required
+                                                                                class="form-control"></td>
+
+                                                                    </tr>
                                                                 @endforeach
                                                             </tbody>
                                                         </table>
@@ -180,96 +201,100 @@
 
                                             </div>
                                             <!-- /.card -->
-
-
                                         </div>
 
+                                        @if ($productattribute->count() > 1)
+
+                                            
 
 
-                                     
-                                        <div class="card card-default ">
-                                            <div class="card-header">
-                                                <h3 class="card-title">Thêm thuộc tính</h3>
+                                            <div id="attribute" class="card card-default collapsed-card">
+                                                <div class="card-header">
+                                                    <h3 class="card-title">Thêm thuộc tính</h3>
 
-                                                <div class="card-tools">
-                                                    <button type="button" class="btn btn-tool" data-card-widget="collapse"
-                                                        title="Collapse">
-                                                        <a href="">Thêm thuộc tính</a>
-                                                    </button>
+                                                    <div class="card-tools">
+                                                        <button type="button" class="btn btn-tool"
+                                                            data-card-widget="collapse" title="Collapse">
+                                                            <a href="">Thêm thuộc tính</a>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="attribute-form">
+                                                        <div class="attribute-top">
+                                                            Dung lượng
+                                                        </div>
+                                                        <fieldset class="attribute-fie">
+                                                            <div class="container">
+                                                                <ul class="ks-cboxtags">
+                                                                    @foreach ($size as $key => $item)
+                                                                        <li><input {{ $size_id->contains('attributevaluesize_id',$item->id) ?'disabled':''}} type="checkbox" name="datasize[]"
+                                                                                id="checkbox1{{ $key }}"
+                                                                                value="{{ $item->id }}"><label  {{ $size_id->contains('attributevaluesize_id',$item->id) ?'class=disactive':''}}
+                                                                                class="uppercase"
+                                                                                for="checkbox1{{ $key }}">{{ $item->name }}
+                                                                                GB</label></li>
+                                                                    @endforeach
+
+                                                                </ul>
+
+                                                            </div>
+                                                        </fieldset>
+
+                                                    </div>
+                                                    <div class="attribute-form">
+                                                        <div class="attribute-top">
+                                                            Màu sắc
+                                                        </div>
+                                                        <fieldset class="attribute-fie">
+                                                            <div class="container">
+                                                                <ul class="ks-cboxtags">
+                                                                    @foreach ($color as $key => $item)
+                                                                        <li><input  {{ $color_id->contains('attributevalue_id',$item->id) ?'disabled':''}} type="checkbox" name="datacolor[]"
+                                                                                id="checkbox2{{ $key }}"
+                                                                                value="{{ $item->id }}"><label {{ $color_id->contains('attributevalue_id',$item->id) ?'class=disactive':''}}
+                                                                                class="uppercase"
+                                                                                for="checkbox2{{ $key }}">{{ $item->name }}</label>
+                                                                        </li>
+                                                                    @endforeach
+
+                                                                </ul>
+
+                                                            </div>
+                                                        </fieldset>
+
+                                                    </div>
+                                                    <button type="button" id="getdata"> theem</button>
+
+                                                    <div class="size">
+                                                        <table class="table">
+                                                            <thead>
+                                                                <th>Size</th>
+                                                                <th>Giá nhập</th>
+                                                                <th>Giá bán</th>
+                                                            </thead>
+                                                            <tbody class="s">
+
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <div class="color">
+                                                        <table class="table">
+                                                            <thead>
+                                                                <th>Color</th>
+
+                                                                <th>Số lượng</th>
+                                                            </thead>
+                                                            <tbody class="c">
+
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="card-body">
-                                                <div class="attribute-form">
-                                                    <div class="attribute-top">
-                                                        Dung lượng
-                                                    </div>
-                                                    <fieldset class="attribute-fie">
-                                                        <div class="container">
-                                                            <ul class="ks-cboxtags" >
-                                                             @foreach ($size as $key=> $item )
-                                                             <li><input type="checkbox" name="datasize[]" id="checkbox1{{ $key }}" value="{{ $item->id }}"><label class="uppercase" for="checkbox1{{ $key }}">{{ $item->name }} GB</label></li>
-                                                             @endforeach
-                                                              
-                                                            </ul>
-                                                          
-                                                          </div>
-                                                    </fieldset>
-
-                                                </div>
-                                                <div class="attribute-form">
-                                                    <div class="attribute-top">
-                                                        Màu sắc
-                                                    </div>
-                                                    <fieldset class="attribute-fie">
-                                                        <div class="container">
-                                                            <ul class="ks-cboxtags" >
-                                                             @foreach ($color as $key=> $item )
-                                                             <li><input type="checkbox" name="datacolor[]" id="checkbox2{{ $key }}" value="{{ $item->id }}"><label class="uppercase" for="checkbox2{{ $key }}">{{ $item->name }}</label></li>
-                                                             @endforeach
-                                                              
-                                                            </ul>
-                                                          
-                                                          </div>
-                                                    </fieldset>
-
-                                                </div>
-                                                <button type="button" id="getdata"> theem</button>
-
-                                                <div class="size">
-                                                    <table class="table">
-                                                        <thead>
-                                                            <th>Size</th>
-                                                            <th>Giá nhập</th>
-                                                            <th>Giá bán</th>
-                                                        </thead>
-                                                        <tbody class="s">
-
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                                <div class="color">
-                                                    <table class="table">
-                                                        <thead>
-                                                            <th>Color</th>
-                                                           
-                                                            <th>Số lượng</th>
-                                                        </thead>
-                                                        <tbody class="c">
-
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                                
 
 
-
-                                            </div>
-                                        </div>
-                                      
-
-
-
-
+                                        @endif
                                     </div>
 
                                     <div class="col-md-4">
@@ -280,22 +305,22 @@
                                             </div>
                                             <div class="card-body">
                                                 <div class="form-group">
-                                                    @if ($product->status==1)
-                                                    <label class="radio-inline">
-                                                        <input name="status" value="1" checked="" type="checkbox">Có
-                                                    </label><br>
-                                                    <label class="radio-inline">
-                                                        <input name="status" value="0" type="checkbox">Không
-                                                    </label>
+                                                    @if ($product->status == 1)
+                                                        <label class="radio-inline">
+                                                            <input name="status" value="1" checked="" type="checkbox">Có
+                                                        </label><br>
+                                                        <label class="radio-inline">
+                                                            <input name="status" value="0" type="checkbox">Không
+                                                        </label>
                                                     @else
-                                                    <label class="radio-inline">
-                                                        <input name="status" value="1"  type="checkbox">Có
-                                                    </label><br>
-                                                    <label class="radio-inline">
-                                                        <input name="status" value="0" checked="" type="checkbox">Không
-                                                    </label>
+                                                        <label class="radio-inline">
+                                                            <input name="status" value="1" type="checkbox">Có
+                                                        </label><br>
+                                                        <label class="radio-inline">
+                                                            <input name="status" value="0" checked="" type="checkbox">Không
+                                                        </label>
                                                     @endif
-                                                    
+
                                                 </div>
                                             </div>
                                             <div class="card-header">
@@ -322,13 +347,14 @@
 
 
                                                         @foreach ($protype as $item)
-                                                           @if ($product->producttype_id==$item->id)
-                                                           <option selected value="{{ $item->id }}">{{ $item->name }}
-                                                        </option>
-                                                           @else
-                                                           <option value="{{ $item->id }}">{{ $item->name }}
-                                                        </option>
-                                                           @endif
+                                                            @if ($product->producttype_id == $item->id)
+                                                                <option selected value="{{ $item->id }}">
+                                                                    {{ $item->name }}
+                                                                </option>
+                                                            @else
+                                                                <option value="{{ $item->id }}">{{ $item->name }}
+                                                                </option>
+                                                            @endif
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -361,8 +387,8 @@
 
                                                         </div>
                                                         <div class="border rounded-lg text-center p-3">
-                                                            <img src="{{ Storage::url($product->image) }}" class="img-fluid"
-                                                                id="preview" />
+                                                            <img src="{{ Storage::url($product->image) }}"
+                                                                class="img-fluid" id="preview" />
                                                         </div>
                                                     </div>
 
@@ -376,40 +402,85 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="card card-default">
-                                            <div class="card-header">  
+                                            <div class="card-header">
                                                 <h2>Thuộc tính sản phẩm</h2>
                                             </div>
                                             <div class="card-body">
-                                               <table class="table">
-                                                   <thead>
-                                                       <th>Tên sản phẩm</th>
-                                             
-                                                       <th>Dung lượng</th>
-                                                       <th>Màu sắc</th>
-                                                       <th>Giá nhập</th>
-                                                       <th>Giá bán</th>
-                                                       <th>Số lượng</th>
-                                                       <th>Hành động</th>
-                                                   </thead>
-                                                   <tbody>
-                                                    @foreach ($productattribute as $item )
-                                                        <tr>
-                                                            <td><label class="uppercase" for="">{{ $item->productname->name }}</label> <input name="product_attribute[]" value="{{ $item->id }}" style="visibility: hidden" type="text"></td>
-                                                         
-                                                            <td>{{ $item->productsize->name }}GB</td>
-                                                            <td><p class="uppercase">{{ $item->productcolor->name }}</p></td>
-                                                            <td><input name="import_price[]" value="{{ $item->import_price }}" class="form-control" type="text"></td>
-                                                            <td><input name="export_price[]" value="{{ $item->export_price }}" class="form-control"  type="text"></td>
-                                                            <td><input name="quantity[]" value="{{ $item->quantity }}" class="form-control"   type="text"></td>
-                                                            <td><button title="Delete"  data-url="/admin/deleteattribute/{{ $item->id }}" class="action- scalable delete delete-option">
-                                                                <span class="icon">
-                                                                    <i class="far fa-trash-alt"></i>
-                                                                  </span>
-                                                                </button> </td>
-                                                        </tr>
-                                                    @endforeach
-                                                   </tbody>
-                                               </table>
+                                                <table class="table">
+                                                    <thead>
+                                                        <th>Tên sản phẩm</th>
+
+                                                        <th>Dung lượng</th>
+                                                        <th>Màu sắc</th>
+                                                        <th>Giá nhập</th>
+                                                        <th>Giá bán</th>
+                                                        <th>Số lượng</th>
+                                                       
+                                                    </thead>
+                                                    <tbody>
+                                                        @if ($productattribute->count() > 1)
+                                                            @foreach ($productattribute as $item)
+                                                                <tr>
+                                                                    <td><label class="uppercase"
+                                                                            for="">{{ $item->productname->name }}</label>
+                                                                        <input name="product_attribute[]"
+                                                                            value="{{ $item->id }}"
+                                                                            style="visibility: hidden" type="text">
+                                                                    </td>
+
+                                                                    <td>{{ $item->productsize->name }}GB</td>
+                                                                    <td>
+                                                                        <p class="uppercase">
+                                                                            {{ $item->productcolor->name }}
+                                                                        </p>
+                                                                    </td>
+                                                                    <td><input name="import_price[]"
+                                                                            value="{{ $item->import_price }}"
+                                                                            class="form-control" type="text"></td>
+                                                                    <td><input name="export_price[]"
+                                                                            value="{{ $item->export_price }}"
+                                                                            class="form-control" type="text"></td>
+                                                                    <td><input name="quantity[]"
+                                                                            value="{{ $item->quantity }}"
+                                                                            class="form-control" type="text"></td>
+                                                                    <td><button title="Delete"
+                                                                            data-url="/admin/deleteattribute/{{ $item->id }}"
+                                                                            class="action- scalable delete delete-option">
+                                                                            <span class="icon">
+                                                                                <i class="far fa-trash-alt"></i>
+                                                                            </span>
+                                                                        </button> </td>
+                                                                </tr>
+                                                            @endforeach
+                                                        @else
+                                                            @foreach ($productattribute as $item)
+                                                                <tr>
+                                                                    <td><label class="uppercase"
+                                                                            for="">{{ $item->productname->name }}</label>
+                                                                        <input name="product_attribute[]"
+                                                                            value="{{ $item->id }}"
+                                                                            style="visibility: hidden" type="text">
+                                                                    </td>
+
+                                                                    <td>Không có</td>
+                                                                    <td>
+                                                                        Không có
+                                                                    </td>
+                                                                    <td><input name="import_price[]"
+                                                                            value="{{ $item->import_price }}"
+                                                                            class="form-control" type="text"></td>
+                                                                    <td><input name="export_price[]"
+                                                                            value="{{ $item->export_price }}"
+                                                                            class="form-control" type="text"></td>
+                                                                    <td><input name="quantity[]"
+                                                                            value="{{ $item->quantity }}"
+                                                                            class="form-control" type="text"></td>
+                                                                  
+                                                                </tr>
+                                                            @endforeach
+                                                        @endif
+                                                    </tbody>
+                                                </table>
                                             </div>
                                         </div>
                                     </div>
@@ -418,39 +489,47 @@
                                     <div class="col-md-12">
                                         <div class="col-md-12">
                                             <div class="card card-default">
-                                                <div class="card-header">  
+                                                <div class="card-header">
                                                     <h3>Hình ảnh thuộc tính</h3>
                                                 </div>
                                                 <div class="card-body">
                                                     <table class="table">
                                                         <thead>
-                                                       
+
                                                         </thead>
                                                         <tbody>
                                                             <tr>
-                                                                @foreach ($product_img as  $item)
-                                                                
-                                                                <td class="float-left"> <div class="form-group">
-                                                                    <input type="text" name="img_color[]" value="{{ $item->color_id }}" style="visibility: hidden">
-                                                                    <label class="uppercase" for="">{{ $item->getcolorimg->name }}</label>
-                                                                    <div class="mx-auto" style="width: 200px" >
-                                                                        <div class="input-group " >
-                                                                            <div class="custom-file">
-                                                                                <input type="file" name="img"
-                                                                                    class="custom-file-input" id="inputGroupFile">
-                                                                                <label class="custom-file-label" for="inputGroupFile"
-                                                                                    aria-describedby="inputGroupFileAddon">Choose
-                                                                                    image</label>
+                                                                @foreach ($product_img as $item)
+
+                                                                    <td class="float-left">
+                                                                        <div class="form-group">
+                                                                            <input type="text" name="img_color[]"
+                                                                                value="{{ $item->color_id }}"
+                                                                                style="visibility: hidden">
+                                                                            <label class="uppercase"
+                                                                                for="">{{ $item->getcolorimg->name }}</label>
+                                                                            <div class="mx-auto" style="width: 200px">
+                                                                                <div class="input-group ">
+                                                                                    <div class="custom-file">
+                                                                                        <input type="file" name="img"
+                                                                                            class="custom-file-input"
+                                                                                            id="inputGroupFile">
+                                                                                        <label class="custom-file-label"
+                                                                                            for="inputGroupFile"
+                                                                                            aria-describedby="inputGroupFileAddon">Choose
+                                                                                            image</label>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                                <div
+                                                                                    class="border rounded-lg text-center p-3">
+                                                                                    <img src="{{ Storage::url($item->image) }}"
+                                                                                        class="img-fluid" id="preview" />
+                                                                                </div>
                                                                             </div>
-                
+
                                                                         </div>
-                                                                        <div class="border rounded-lg text-center p-3">
-                                                                            <img src="{{ Storage::url($item->image) }}" class="img-fluid"
-                                                                                id="preview" />
-                                                                        </div>
-                                                                    </div>
-                
-                                                                </div></td>
+                                                                    </td>
                                                                 @endforeach
                                                             </tr>
                                                         </tbody>
@@ -463,10 +542,12 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <table class="table">
-                                            
+
                                             <td><a href="/admin/product" class="btn btn-secondary">Cancel</a>
-                                                <td></td>
-                                            <td> <input type="submit" value="Thêm" class="btn btn-success float-right "></td></td>
+                                            <td></td>
+                                            <td> <input type="submit" value="Thêm" class="btn btn-success float-right ">
+                                            </td>
+                                            </td>
                                         </table>
                                     </div>
                                 </div>
@@ -474,11 +555,11 @@
 
 
                         </div>
-                     
-                          
-                               
-                         
-                       
+
+
+
+
+
                     </div>
                     <!-- /.card -->
 
@@ -575,17 +656,17 @@
         });
         $('#addspe').click(function(e) {
             e.preventDefault();
-           
+
             $('.loader').show();
             let spe = '';
-            
+
             // su dung vong lap de them gia tri checkbox vao chuoi....
             jQuery("input[name='spe[]']:checked").each(function() {
 
                 spe = spe + '/' + jQuery(this).val();
 
             });
-         
+
             if (spe.length == 1) {
                 spe = spe.substring(1);
             }
@@ -594,29 +675,30 @@
                 $('.loader').hide();
             }
 
-            
+
             $.ajax({
                 url: '/admin/addspe',
                 method: 'post',
 
                 data: {
-                  
+
                     spe: spe
 
                 },
                 success: function(data) {
                     $('.loader').hide();
                     $('.spe').html(data);
-                   
+
                     $('.tskt').show();
 
                 }
             })
         });
+
     </script>
 
     <script>
-         $(function() {
+        $(function() {
             $('.delete').on('click', function(e) {
                 e.preventDefault();
                 let urlreq = $(this).data('url');
@@ -651,6 +733,7 @@
                 })
             })
         })
+
     </script>
 
 
@@ -679,14 +762,17 @@
     </script>
     <script type="text/javascript">
         function myfun() {
-            var yes = document.getElementById("yes");
-            var no = document.getElementById("no");
-            var spe = document.getElementById("specification");
+            var yes = document.getElementById("option-one");
+            var no = document.getElementById("option-two");
+            var atti = document.getElementById("attribute");
+            var qty = document.getElementById("quantity");
             if (yes.checked == true) {
-                spe.style.display = "block";
+                atti.style.display = "block";
+                qty.style.display = "none";
             }
             if (no.checked == true) {
-                spe.style.display = "none";
+                atti.style.display = "none";
+                qty.style.display = "block";
             }
         }
 

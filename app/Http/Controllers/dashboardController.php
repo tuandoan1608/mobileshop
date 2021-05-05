@@ -13,9 +13,11 @@ class dashboardController extends Controller
 {
     public function index()
     {
+        $this->authorize('dashboard-list');
         $countProduct = product::where('status', 1)->count();
         $countOrder = orders::whereIn('status', [1, 2, 3, 4, 5])->count();
         $doanhthu = statistic::sum('sales');
+        $loinhuan = statistic::sum('profit');
         $date = Carbon::now()->toDateString();
         $orderdate = orders::where('order_date', $date)->count();
         $dtdate = statistic::where('order_date', $date)->select('sales')->sum('sales');
@@ -23,7 +25,7 @@ class dashboardController extends Controller
             ->select('product.*', 'product_attribute.*')
             ->get();
         $order=orders::where('status',1)->orderBy('created_at','asc')->get();
-        return view('admin.dashboard.list', compact('countProduct', 'countOrder', 'doanhthu', 'orderdate', 'dtdate', 'product','order'));
+        return view('admin.dashboard.list', compact('countProduct', 'countOrder', 'doanhthu', 'orderdate', 'dtdate', 'product','order','loinhuan'));
     }
     public function getdata()
     {

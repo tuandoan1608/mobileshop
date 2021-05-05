@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable
 {
@@ -39,5 +40,22 @@ class User extends Authenticatable
     public function roles()
     {
         return $this->belongsToMany(roles::class,'user_roles','user_id','user_role');
+    }
+    public function checkPermissionAccess($permissions)
+    {
+        $roles=auth()->user()->roles;
+      
+        foreach($roles as $role){
+            $permission=permission_roles::where('role_id',$role->id)->join('permission','permission_role.permission_id','=','permission.id')
+            ->select('permission.key_permission')->get();
+           
+            
+            if($permission->contains('key_permission',$permissions)){
+                return true;
+            }
+            
+        }
+       
+        return false;
     }
 }

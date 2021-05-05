@@ -64,8 +64,8 @@
                                            
                                     
                                                 <td><button class="btn btn-primary edit" title="{{ 'Sửa ' . $item->name }}"
-                                                        data-toggle="modal" data-target="#edit" type="button"
-                                                        data-id="{{ $item->id }}"><i class="fas fa-edit"></i></button>
+                                                         type="button"><a style="text-decoration: none;color:white;" href="/admin/roles/{{ $item->id }}/edit">
+                                                            <i class="fas fa-edit"></i></a></button>
                                                     <button class="btn btn-danger delete" title="{{ 'Xóa ' . $item->name }}"
                                                         type="button" data-url="/admin/category/{{ $item->id }}"><i
                                                             class="fas fa-trash-alt"></i></button>

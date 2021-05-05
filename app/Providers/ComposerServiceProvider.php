@@ -26,5 +26,8 @@ class ComposerServiceProvider extends ServiceProvider
         view()->composer( 
              'client.master',
         'App\Http\ViewComposer\categoryComposer');
+        view()->composer( 
+            'admin.master',
+       'App\Http\ViewComposer\masterComposer');
     }
 }

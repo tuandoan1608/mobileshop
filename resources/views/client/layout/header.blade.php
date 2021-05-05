@@ -7,7 +7,7 @@
                 <div class="col-lg-3 col-md-4">
                     <div class="header-top-left">
                         <ul class="phone-wrap">
-                            <li><span>Telephone Enquiry:</span><a href="#">(+123) 123 321 345</a></li>
+                            <li><span>Số điện thoại:</span><a href="#">(+84) 123 321 345</a></li>
                         </ul>
                     </div>
                 </div>
@@ -17,28 +17,24 @@
                     <div class="header-top-right">
                         <ul class="ht-menu">
                             <!-- Begin Setting Area -->
-                            <li>
-                                <div class="ht-setting-trigger"><span>Setting</span></div>
-                                <div class="setting ht-setting">
-                                    <ul class="ht-setting-list">
-                                        <li><a href="login-register.html">My Account</a></li>
-                                        <li><a href="checkout.html">Checkout</a></li>
-                                        <li><a href="login-register.html">Sign In</a></li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <!-- Setting Area End Here -->
-                            <!-- Begin Currency Area -->
-                            <li>
-                                <span class="currency-selector-wrapper">Currency :</span>
-                                <div class="ht-currency-trigger"><span>USD $</span></div>
-                                <div class="currency ht-currency">
-                                    <ul class="ht-setting-list">
-                                        <li><a href="#">EUR €</a></li>
-                                        <li class="active"><a href="#">USD $</a></li>
-                                    </ul>
-                                </div>
-                            </li>
+
+                            @if (Auth::guard('custommer')->check())
+
+                                <li>
+                                    <span class="currency-selector-wrapper"><a style="color: #fff"
+                                            href="/dang-xuat">Đăng xuất</a></span>
+
+
+                                </li>
+                                @else
+                                <li>
+                                    <span class="currency-selector-wrapper"><a style="color: #fff"
+                                            href="/dang-nhap">Đăng nhập</a></span>
+
+
+                                </li>
+
+                            @endif
                             <!-- Currency Area End Here -->
                             <!-- Begin Language Area -->
                             <li>
@@ -78,11 +74,11 @@
                 <div class="col-lg-9 pl-0 ml-sm-15 ml-xs-15">
                     <!-- Begin Header Middle Searchbox Area -->
                     <form action="/tim-kiem" method="get" class="hm-searchbox ">
-                       
-                        <input type="search"  name="search" placeholder="Nhập từ khóa sản phẩm bạn muốn tìm..">
-                        <button class="li-btn"  type="submit"><i class="fa fa-search"></i></button>
+
+                        <input type="search" name="search" placeholder="Nhập từ khóa sản phẩm bạn muốn tìm..">
+                        <button class="li-btn" type="submit"><i class="fa fa-search"></i></button>
                     </form>
-                   
+
                     <!-- Header Middle Searchbox Area End Here -->
                     <!-- Begin Header Middle Right Area -->
                     <div class="header-middle-right">
@@ -106,19 +102,19 @@
                                 <span></span>
                                 <div class="minicart">
                                     <ul class="minicart-product-list">
-                                        @foreach ($cart as $item )
-                                        <li>
-                                            
-                                            <div class="minicart-product-details">
-                                                <h6><a href="">{{ $item->name }}</a></h6>
-                                                <span> {{ $item->price }} * {{ $item->qty }}</span>
-                                            </div>
-                                            <button class="close">
-                                                <i class="fa fa-close"></i>
-                                            </button>
-                                        </li>
+                                        @foreach ($cart as $item)
+                                            <li>
+
+                                                <div class="minicart-product-details">
+                                                    <h6><a href="">{{ $item->name }}</a></h6>
+                                                    <span> {{ $item->price }} * {{ $item->qty }}</span>
+                                                </div>
+                                                <button class="close">
+                                                    <i class="fa fa-close"></i>
+                                                </button>
+                                            </li>
                                         @endforeach
-                                        
+
                                     </ul>
                                     <p class="minicart-total">Tổng: <span>{{ $total }}</span></p>
                                     <div class="minicart-button">
@@ -156,13 +152,13 @@
                                 </li>
                                 @foreach ($menu as $menuparent)
                                     @if ($menuparent->categorychildrent->count())
-                                        <li class="megamenu-holder"><a
-                                                >{{ $menuparent->name }}</a>
+                                        <li class="megamenu-holder"><a>{{ $menuparent->name }}</a>
 
                                             @include('client.layout.child')
                                         </li>
                                     @else
-                                        <li class=""><a href="/dtdd/{{ $menuparent->slug }}">{{ $menuparent->name }}</a>
+                                        <li class=""><a
+                                                href="/dtdd/{{ $menuparent->slug }}">{{ $menuparent->name }}</a>
 
                                             @include('client.layout.child')
                                         </li>

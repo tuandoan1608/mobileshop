@@ -4,6 +4,7 @@
  use Illuminate\View\View;
 use App\category;
 use App\Components\Recusive as ComponentsRecusive;
+use App\orders;
 use Gloudemans\Shoppingcart\Facades\Cart;
 
 use Illuminate\Support\Facades\DB;
@@ -37,8 +38,9 @@ class categoryComposer
              $price=$item->price;
              $total +=$price;
          }
+         $order=orders::where('status',1)->get();
         $category=category::where('status',1)->get();
-         $view->with(['menu'=>$menu,'category'=>$category,'cart'=>$cart,'total'=>$total]);
+         $view->with(['menu'=>$menu,'category'=>$category,'cart'=>$cart,'total'=>$total,'order'=>$order]);
          
      }
  }

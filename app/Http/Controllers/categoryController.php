@@ -30,6 +30,7 @@ class categoryController extends Controller
      */
     public function index()
     {
+        $this->authorize('category-list');
         $data=$this->category->paginate(25);
         return view('admin.categories.list',compact('data'));
         
@@ -42,6 +43,7 @@ class categoryController extends Controller
      */
     public function create()
     {
+        $this->authorize('category-add');
         $option=$this->getcate();
     
         return view('admin.categories.add',compact('option'));
@@ -62,6 +64,7 @@ class categoryController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('category-add');
         $data=$request->all();
         $data['slug']=Str::slug($request->name);
         $this->category->create($data);
@@ -106,6 +109,7 @@ class categoryController extends Controller
     }
     public function edit($id)
     {
+        $this->authorize('category-edit');
         $data=  $this->category->find($id);
         $option=$this->getcateselect($data->parent_id);
         return response()->json(['data'=>$data,'option'=>$option]);
@@ -120,6 +124,7 @@ class categoryController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->authorize('category-edit');
       $category=category::find($id);
       $category->update([
         'name' => $request->name,
@@ -139,6 +144,7 @@ class categoryController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('category-delete');
         $category = category::find($id);
         $num=producttype::where('categori_id',$id)->get();
         if(!empty($num[0])){

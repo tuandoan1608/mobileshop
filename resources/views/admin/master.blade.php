@@ -38,7 +38,7 @@
     <link rel="stylesheet" href="/theme/admin/plugins/sweetalert2/sweetalert2.css">
 
     <link rel="stylesheet" href="/theme/admin/plugins/daterangepicker/daterangepicker.css">
-   
+
 
     <!-- Theme style -->
     <link rel="stylesheet" href="/theme/admin/dist/css/adminlte.min.css">
@@ -74,7 +74,7 @@
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
                 <!-- Navbar Search -->
-           
+
 
                 <!-- Messages Dropdown Menu -->
                 <li class="nav-item dropdown">
@@ -120,7 +120,7 @@
                     <div class="info">
                         <a href="#" class="d-block">
                             @if (Auth::check())
-                                {!! Auth::user()->name !!}
+                                {!! Auth::user()->lastname !!}
                             @endif
                         </a>
                     </div>
@@ -145,25 +145,27 @@
                         data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-                        <li class="nav-item menu-open">
-                            <a href="#" class="nav-link active">
-                                <i class="nav-icon fas fa-tachometer-alt"></i>
-                                <p>
-                                    Dashboard
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="/admin/dashboard/danh-sach" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Tổng hợp</p>
-                                    </a>
-                                </li>
+                        @can('dashboard-list')
+                            <li class="nav-item menu-open">
+                                <a href="#" class="nav-link active">
+                                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                                    <p>
+                                        Dashboard
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="/admin/dashboard/danh-sach" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Tổng hợp</p>
+                                        </a>
+                                    </li>
 
-                            </ul>
-                        </li>
-                        <li class="nav-header"></li>
+                                </ul>
+                            </li>
+                        @endcan
+
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-copy"></i>
@@ -201,117 +203,99 @@
 
                             </ul>
                         </li>
-                        <li class="nav-header"></li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-copy"></i>
-                                <p>
-                                   Sản phẩm
-                                    <i class="fas fa-angle-left right"></i>
 
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{ route('product.index') }}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Danh sách sản phẩm</p>
-                                    </a>
-                                </li>
+                        @can('product-list')
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-copy"></i>
+                                    <p>
+                                        Sản phẩm
+                                        <i class="fas fa-angle-left right"></i>
 
-                            </ul>
-                        </li>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="{{ route('product.index') }}" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Danh sách sản phẩm</p>
+                                        </a>
+                                    </li>
 
-                        <li class="nav-header"></li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-chart-pie"></i>
-                                <p>
-                                    Đơn hàng
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="/admin/don-hang/danh-sach" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Danh sách đơn hàng</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="pages/charts/flot.html" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Tạo Đơn hàng</p>
-                                    </a>
-                                </li>
-
-                            </ul>
-                        </li>
-                        <li class="nav-header"></li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-tree"></i>
-                                <p>
-                                    Quản lý người dùng
-                                    <i class="fas fa-angle-left right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="/admin/user" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Danh sách người dùng</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="/admin/roles" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Vai trò</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="pages/UI/buttons.html" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Danh sách permission</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="pages/UI/sliders.html" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Tạo danh sách permission</p>
-                                    </a>
-                                </li>
-
-                            </ul>
-                        </li>
+                                </ul>
+                            </li>
+                        @endcan
 
 
+                        @can('order-list')
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-chart-pie"></i>
+                                    <p>
+                                        Đơn hàng
+                                        <i class="right fas fa-angle-left"></i>
+                                        <span class="badge badge-info right">{{ $order }}</span>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="/admin/don-hang/danh-sach" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Danh sách đơn hàng</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="/admin/don-hang/tao-don-hang" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Tạo Đơn hàng</p>
+                                        </a>
+                                    </li>
 
-                        <li class="nav-header"></li>
+                                </ul>
+                            </li>
+                        @endcan
 
-                        
-                 
 
+                        @can('accout-list')
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-tree"></i>
+                                    <p>
+                                        Quản lý người dùng
+                                        <i class="fas fa-angle-left right"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="/admin/user" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Danh sách người dùng</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="/admin/roles" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Vai trò</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="pages/UI/buttons.html" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Danh sách permission</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="pages/UI/sliders.html" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Tạo danh sách permission</p>
+                                        </a>
+                                    </li>
 
-                        <li class="nav-header">LABELS</li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon far fa-circle text-danger"></i>
-                                <p class="text">Important</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon far fa-circle text-warning"></i>
-                                <p>Warning</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon far fa-circle text-info"></i>
-                                <p>Informational</p>
-                            </a>
-                        </li>
+                                </ul>
+                            </li>
+
+                        @endcan
+
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->
@@ -376,7 +360,7 @@
     <!-- Tempusdominus Bootstrap 4 -->
     <script src="/theme/admin/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
     <!-- Summerno/theme/admin/te -->
-  
+
     <script src="/theme/admin/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
     <!-- AdminLTE App -->
     <script src="/theme/admin/dist/js/adminlte.js"></script>
@@ -392,7 +376,7 @@
     <script src="/theme/admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
     <script src="/theme/admin/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
     <script src="/theme/admin/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
- 
+
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
@@ -410,7 +394,6 @@
             $('.size').hide();
             $('.color').hide();
         });
-        
 
     </script>
     @yield('script')

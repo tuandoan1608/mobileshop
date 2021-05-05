@@ -45,7 +45,11 @@
                                         @foreach ($product as $key => $item)
                                             <tr>
                                                 <td>{{ $key + 1 }}</td>
-                                                <td>{{ $item->name }}</td>
+                                                <td>{{ $item->name }}
+                                                    <br>
+                                                    <br>
+                                                    <i>ngày tạo: {{ $item->created_at }}</i>
+                                                </td>
 
                                                 <td>{{ $item->price }}</td>
                                                 <td><img src="{{ Storage::url($item->image) }}" title="{{ $item->name }}"

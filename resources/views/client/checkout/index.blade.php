@@ -163,7 +163,7 @@
 
 
                                 <div class="order-button-payment">
-                                    <button type="submit">Thanh toán</button>
+                                    <button class="btn btn-success" type="submit">Thanh toán</button>
                                 </div>
                             </div>
                         </div>

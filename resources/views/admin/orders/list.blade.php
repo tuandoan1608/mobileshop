@@ -28,7 +28,7 @@
                                     <thead>
                                         <tr>
                                             <th>STT</th>
-                                            <th>Mã đơn hàng</th>
+                                          
                                            
                                             <th>Tên khách hàng</th>
 
@@ -36,7 +36,7 @@
                                             <th>Trạng thái đơn hàng</th>
                                      
                                             <th>Tổng tiền</th>
-
+                                            <th>Ngày tạo đơn</th>
                                            
                                             <th>Acction</th>
                                         </tr>
@@ -45,7 +45,7 @@
                                         @foreach ($data as $key => $item)
                                             <tr>
                                                 <td>{{ $key + 1 }}</td>
-                                                <td>{{ $item->order_code }}</td>
+                                            
                                                 
 
                                                 <td>{{ $item->getcustomer->firstname }} {{ $item->getcustomer->lastname }}</td>
@@ -67,7 +67,7 @@
                                                 </td>
                                                 
                                                 <td>{{ $item->amount }}</td>
-                                                
+                                                <td>{{ $item->created_at }}</td>
                                                 <td>
                                                     <button class="btn btn-primary editProducttype"><a
                                                             style="text-decoration: none;color:white;"

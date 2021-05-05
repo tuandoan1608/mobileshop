@@ -153,8 +153,8 @@
                                                             <tr>
                                                                 <td>{{ $item->productname }} <input
                                                                         name="productattribute_id[]"
-                                                                        value="{{ $item->productid }}" hidden 
-                                                                        type="text"> </td>
+                                                                        value="{{ $item->productid }}" hidden type="text">
+                                                                </td>
                                                                 <td>{{ $item->export_price }}</td>
                                                                 <td>{{ $item->color }}</td>
                                                                 <td>{{ $item->size }}</td>
@@ -200,36 +200,58 @@
                                                     </thead>
                                                     <tbody>
                                                         <tr>
-                                                            <td style="float: left"> <input type="text" name="status"
-                                                                value="0" hidden><button type="submit">Hủy đơn hàng</button></td>
-                                                        </td>
-                                                            <td></td>
-                                                            <td></td>
+
                                                             @if ($order->status == 1)
                                                                 <td style="float: left"> <input type="text" name="status"
-                                                                        value="2" hidden><button type="submit">Xác nhận</button></td>
+                                                                        value="0" hidden><button class="btn btn-danger"
+                                                                        type="submit">Hủy đơn hàng</button></td>
+                                                                </td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td style="float: left"> <input type="text" name="status"
+                                                                        value="2" hidden><button class="btn btn-success"
+                                                                        type="submit">Xác nhận</button></td>
                                                                 </td>
                                                             @elseif ($order->status==2)
-
                                                                 <td style="float: left"> <input type="text" name="status"
-                                                                        value="3" hidden><button type="submit">Đóng gói</button></td>
+                                                                        value="0" hidden><button class="btn btn-danger"
+                                                                        type="submit">Hủy đơn hàng</button></td>
+                                                                </td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td style="float: left"> <input type="text" name="status"
+                                                                        value="3" hidden><button class="btn btn-success"
+                                                                        type="submit">Đóng gói</button></td>
                                                                 </td>
                                                             @elseif ($order->status==3)
-
+                                                                <td style="float: left"> <input type="text" name="status"
+                                                                        value="0" hidden><button class="btn btn-danger"
+                                                                        type="submit">Hủy đơn hàng</button></td>
+                                                                </td>
+                                                                <td></td>
+                                                                <td></td>
                                                                 <td style="float: right">
                                                                 <td style="float: left"> <input type="text" name="status"
-                                                                        value="4" hidden><button type="submit">Xuất
+                                                                        value="4" hidden><button class="btn btn-success"
+                                                                        type="submit">Xuất
                                                                         kho</button></td>
                                                                 </td>
                                                             @elseif ($order->status==4)
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
                                                                 <td style="float: left"> <input type="text" name="status"
-                                                                        value="5" hidden><button type="submit">Hoàn thành</button></td>
+                                                                        value="5" hidden><button class="btn btn-success"
+                                                                        type="submit">Hoàn thành</button></td>
                                                                 </td>
 
                                                             @else
-
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
                                                                 <td style="float: left"> <input type="text" name="status"
-                                                                        value="6" hidden><button type="submit">Trả hàng</button></td>
+                                                                        value="6" hidden><button class="btn btn-success"
+                                                                        type="submit">Trả hàng</button></td>
                                                                 </td>
 
                                                             @endif

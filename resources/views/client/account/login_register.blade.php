@@ -51,7 +51,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4 mt-10 mb-20 text-left text-md-right">
-                                    <a href="#"> Quên mật khẩu</a>
+                                    <a href="/quen-mat-khau"> Quên mật khẩu</a>
                                 </div>
                                 <div class="col-md-12">
                                     <button type="submit" class="register-button mt-0">Đăng nhập</button>
@@ -68,19 +68,27 @@
                             <div class="row">
                                 <div class="col-md-6 col-12 mb-20">
                                     <label>Họ tên lót</label>
-                                    <input class="mb-0" name="firstname" type="text" placeholder="First Name">
+                                    <input class="mb-0" name="firstname" type="text" placeholder="Họ tên lót">
                                 </div>
                                 <div class="col-md-6 col-12 mb-20">
                                     <label>tên</label>
-                                    <input class="mb-0" type="text" name="lastname" placeholder="Last Name">
+                                    <input class="mb-0" type="text" name="lastname" placeholder="Tên">
+                                </div>
+                                <div class="col-md-6 col-12 mb-20">
+                                    <label>Mật khẩu</label>
+                                    <input class="mb-0" name="password" type="password" placeholder="Mật khẩu">
+                                </div>
+                                <div class="col-md-6 col-12 mb-20">
+                                    <label>Số điện thoại</label>
+                                    <input class="mb-0" type="number" name="phone" placeholder="Số điện thoại">
                                 </div>
                                 <div class="col-md-12 mb-20">
                                     <label>Email </label>
-                                    <input class="mb-0" type="email" name="email" placeholder="Email Address">
+                                    <input class="mb-0" type="email" name="email" placeholder="Email ">
                                 </div>
-                                <div class="col-md-6 mb-20">
-                                    <label>Mật khẩu</label>
-                                    <input class="mb-0" name="password" type="password" placeholder="Password">
+                                <div class="col-md-12 mb-20">
+                                    <label>Địa chỉ </label>
+                                    <input class="mb-0" type="text" name="address" placeholder="Địa chỉ">
                                 </div>
 
                                 <div class="col-12">

@@ -49,11 +49,11 @@
                                                         <label for="disabledTextInput">Họ và tên đệm
                                                             <span style="color: red;font-size:20px">*</span></label>
                                                         <input type="text" name="firstname" class="form-control 
-                                                                                    placeholder="" required>
+                                                                                        placeholder="" required>
 
-                                                                </div>
+                                                                    </div>
 
-                                                                <div class=" col-lg-6">
+                                                                    <div class=" col-lg-6">
                                                         <label for="disabledTextInput">Tên <span
                                                                 style="color: red;font-size:20px">*</span></label>
                                                         <input type="text" name="lastname" class="form-control "
@@ -68,11 +68,11 @@
                                                         <label for="disabledTextInput">Email
                                                             <span style="color: red;font-size:20px">*</span></label>
                                                         <input type="email" name="email" class="form-control 
-                                                                                    placeholder="" required>
+                                                                                        placeholder="" required>
 
-                                                                </div>
+                                                                    </div>
 
-                                                                <div class=" col-lg-6">
+                                                                    <div class=" col-lg-6">
                                                         <label for="disabledTextInput">Mật khẩu <span
                                                                 style="color: red;font-size:20px">*</span></label>
                                                         <input type="password" name="password" class="form-control "
@@ -87,11 +87,11 @@
                                                         <label for="disabledTextInput">Số điện thoại
                                                             <span style="color: red;font-size:20px">*</span></label>
                                                         <input type="number" name="phone" class="form-control 
-                                                                                    placeholder="" required>
+                                                                                        placeholder="" required>
 
-                                                                </div>
+                                                                    </div>
 
-                                                                <div class=" col-lg-6">
+                                                                    <div class=" col-lg-6">
                                                         <label for="disabledTextInput">Vài trò <span
                                                                 style="color: red;font-size:20px">*</span></label>
                                                         <select class="js-example-basic-multiple form-control" name="role[]"

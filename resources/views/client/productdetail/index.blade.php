@@ -93,7 +93,7 @@
                                             <a href="/san-pham/{{ $item->slug }}">
                                                 <img src="{{ Storage::url($item->image) }}" alt="{{ $item->name }}">
                                             </a>
-                                            <span class="sticker">New</span>
+                                            <span class="sticker">Hot</span>
                                         </div>
                                         <div class="product_desc">
                                             <div class="product_desc_info">
@@ -159,7 +159,7 @@
                                       <a href="/san-pham/{{ $item->slug }}">
                                           <img src="{{ Storage::url($item->image) }}" alt="Li's Product Image">
                                       </a>
-                                      <span class="sticker">New</span>
+                                   
                                   </div>
                                   <div class="product_desc">
                                       <div class="product_desc_info">

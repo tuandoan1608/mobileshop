@@ -10,8 +10,7 @@ class permission_roles extends Model
     protected $fillable = [
         "id",
         "role_id",
-     
-        "permission",
+        "permission_id",
 
     ];
 }

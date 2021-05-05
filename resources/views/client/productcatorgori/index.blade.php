@@ -135,7 +135,7 @@
 
                             </div>
                         </div>
-                        <button type="submit">asdd</button>
+                        <button type="submit">Lọc</button>
                     </form>
                     </div>
                     <!--sidebar-categores-box end  -->

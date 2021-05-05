@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\permission;
+use App\permission_roles;
 use App\roles;
 use Illuminate\Http\Request;
 
@@ -66,7 +67,11 @@ class roleController extends Controller
      */
     public function edit($id)
     {
-        //
+        $role=roles::find($id);
+        $permission=permission::where('parent_id',0)->get();
+        $permissionid=permission_roles::where('role_id',$role->id)->select('permission_id','id')->get();
+        
+        return view('admin.roles.edit',compact('permission','role','permissionid'));
     }
 
     /**
@@ -78,7 +83,13 @@ class roleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $role=roles::find($id);
+        $role->name=$request->name;
+        $role->display_name=$request->displayname;
+        $role->save();
+        
+        $role->permissions()->sync($request->permission_id);
+        return redirect('/admin/roles');
     }
 
     /**

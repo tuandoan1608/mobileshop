@@ -15,99 +15,179 @@
 
 
             <div class="row single-product-area">
-                <div class="col-lg-4 col-md-6">
-                    <!-- Product Details Left -->
-                    <div class="product-details-left">
-                        <div class="product-details-images slider-navigation-1">
-                            @foreach ($productimg as $item)
+                @if ($productimg->count() > 1)
+                    <div class="col-lg-4 col-md-6">
+                        <!-- Product Details Left -->
+                        <div class="product-details-left">
+                            <div class="product-details-images slider-navigation-1">
+                                @foreach ($productimg as $item)
+                                    <div class="lg-image">
+                                        <a class="popup-img venobox vbox-item" href="images/product/large-size/1.jpg"
+                                            data-gall="myGallery">
+                                            <img src="{{ Storage::url($item->image) }}" alt="product image">
+                                        </a>
+                                    </div>
+                                @endforeach
+
+                            </div>
+                            <div class="product-details-thumbs slider-thumbs-1">
+                                @foreach ($productimg as $item)
+                                    <div class="sm-image"><img src="{{ Storage::url($item->image) }}"
+                                            alt="product image thumb">
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                        <!--// Product Details Left -->
+                    </div>
+                @else
+                    <div class="col-lg-4 col-md-6">
+                        <!-- Product Details Left -->
+                        <div class="product-details-left">
+                            <div class="product-details-images slider-navigation-1">
+
                                 <div class="lg-image">
-                                    <a class="popup-img venobox vbox-item" href="images/product/large-size/1.jpg"
-                                        data-gall="myGallery">
-                                        <img src="{{ Storage::url($item->image) }}" alt="product image">
+                                    <a class="popup-img venobox vbox-item" href="" data-gall="myGallery">
+                                        <img src="{{ Storage::url($product->image) }}" alt="product image">
                                     </a>
                                 </div>
-                            @endforeach
 
-                        </div>
-                        <div class="product-details-thumbs slider-thumbs-1">
-                            @foreach ($productimg as $item)
-                                <div class="sm-image"><img src="{{ Storage::url($item->image) }}"
+
+                            </div>
+                            <div class="product-details-thumbs slider-thumbs-1">
+
+                                <div class="sm-image"><img src="{{ Storage::url($product->image) }}"
                                         alt="product image thumb">
                                 </div>
-                            @endforeach
+
+                            </div>
                         </div>
+                        <!--// Product Details Left -->
                     </div>
-                    <!--// Product Details Left -->
-                </div>
+                @endif
 
                 <div class="col-lg-4 col-md-6">
                     <div class="product-details-view-content pt-60">
                         <div class="product-info">
                             <h2>{{ $product->name }}</h2>
                             <span class="product-details-ref">Trạng thái: Còn hàng</span>
-
-
-
-
                             <div>
                                 <form action="{{ route('addcard', ['id' => $product->id]) }}" method="POST">
                                     @csrf
 
                                     <div class="row justify-content-center pb-5">
+                                        @if ($productattribute->count() == 1)
+                                            @foreach ($productattribute as $item)
+                                                @if ($item->attributevaluesize_id == null)
+                                                    @foreach ($productattribute as $item)
+                                                        @if ($product->startsale == 1)
+                                                            <div>
 
-                                        @foreach ($productattribute as $item)
+                                                                <label class="for-checkbox-tools">
+
+                                                                    <br>
+                                                                    <span style="color: red" class="new-price new-price-2 ">
+                                                                        <?php
+                                                                        $pr = $item->export_price;
+                                                                        $dc = $product->discount;
+                                                                        $dis = ($pr * (100 - $dc)) / 100;
+                                                                        echo number_format($dis);
+                                                                        ?> VND</span>
+                                                                    <br>
+                                                                    <span style="text-decoration: line-through"
+                                                                        class="old-price">{{ number_format($item->export_price) }}
+                                                                        VND</span>
+                                                                </label>
+                                                            </div>
+                                                        @else
+
+                                                            <span style="color: red;font-size:25px"
+                                                                class="new-price new-price-2">{{ number_format($item->export_price) }}
+                                                                VND</span>
 
 
-                                            @if ($product->startsale == 1)
-                                                <div>
-                                                    <label for="">
-                                                        <a> <input name="attributevaluesize_id" checked type="radio"
-                                                                value="{{ $item->attributevaluesize_id }}"
-                                                                checked>{{ $item->productsize->name }}GB</a>
+                                                        @endif
+
+                                                    @endforeach
+                                                @else
+                                                    @foreach ($productattribute as $item)
+                                                        @if ($product->startsale == 1)
+                                                            <div>
+                                                                <input class="checkbox-tools" type="radio"
+                                                                    name="attributevaluesize_id"
+                                                                    value="{{ $item->attributevaluesize_id }}"
+                                                                    id="tool-{{ $item->attributevaluesize_id }}" checked>
+                                                                <label class="for-checkbox-tools"
+                                                                    for="tool-{{ $item->attributevaluesize_id }}">
+                                                                    <i class=''>{{ $item->productsize->name }}GB</i>
+                                                                    <br>
+                                                                    <span style="color: red" class="new-price new-price-2 ">
+                                                                        <?php
+                                                                        $pr = $item->export_price;
+                                                                        $dc = $product->discount;
+                                                                        $dis = ($pr * (100 - $dc)) / 100;
+                                                                        echo number_format($dis);
+                                                                        ?> VND</span>
+                                                                    <br>
+                                                                    <span style="text-decoration: line-through"
+                                                                        class="old-price">{{ number_format($item->export_price) }}
+                                                                        VND</span>
+                                                                </label>
+                                                            </div>
+                                                        @else
+
+                                                            <span style="color: red;font-size:25px"
+                                                                class="new-price new-price-2">{{ number_format($item->export_price) }}
+                                                                VND</span>
+
+
+                                                        @endif
+
+                                                    @endforeach
+                                                @endif
+                                            @endforeach
+                                        @else
+
+
+                                            @foreach ($productattribute as $item)
+                                                @if ($product->startsale == 1)
+                                                    <div>
+                                                        <input class="checkbox-tools" type="radio"
+                                                            name="attributevaluesize_id"
+                                                            value="{{ $item->attributevaluesize_id }}"
+                                                            id="tool-{{ $item->attributevaluesize_id }}" checked>
+                                                        <label class="for-checkbox-tools"
+                                                            for="tool-{{ $item->attributevaluesize_id }}">
+                                                            <i class=''>{{ $item->productsize->name }}GB</i>
+                                                            <span style="color: red" class="new-price new-price-2 "> <?php
+                                                                $pr = $item->export_price;
+                                                                $dc = $product->discount;
+                                                                $dis = ($pr * (100 - $dc)) / 100;
+                                                                echo number_format($dis);
+                                                                ?> VND</span>
+                                                            <br>
+                                                            <span style="text-decoration: line-through"
+                                                                class="old-price">{{ number_format($item->export_price) }}VND</span>
+                                                        </label>
+                                                    </div>
+                                                @else
+                                                    <input class="checkbox-tools" type="radio" name="attributevaluesize_id"
+                                                        value="{{ $item->attributevaluesize_id }}"
+                                                        id="tool-{{ $item->attributevaluesize_id }}" checked>
+                                                    <label class="for-checkbox-tools"
+                                                        for="tool-{{ $item->attributevaluesize_id }}">
+                                                        <i class=''>{{ $item->productsize->name }}GB</i>
+                                                        {{ number_format($item->export_price) }} VND
                                                     </label>
-                                                    <span class="new-price new-price-2 "> <?php
-                                                        $pr = $item->export_price;
-                                                        $dc = $product->discount;
-                                                        $dis = ($pr * (100 - $dc)) / 100;
-                                                        echo number_format($dis);
-                                                        ?> VND</span>
-                                                    <br>
-                                                    <span
-                                                        class="old-price">{{ number_format($item->export_price) }}VND</span>
-
-                                                </div>
-                                            @else
-                                                {{-- <div>
-                                                <input type="radio" id="control_01" name="attributevaluesize_id" value="{{ $item->attributevaluesize_id }}" checked>
-                                                <label for="control_01">
-                                                  <h2>{{ $item->productsize->name }}GB</h2>
-                                                  <label for="">{{ number_format($item->export_price) }} VND</label>
-                                                </label>
-                                              </div> --}}
 
 
-                                                <input class="checkbox-tools" type="radio" name="attributevaluesize_id" value="{{ $item->attributevaluesize_id }}"  
-                                                    id="tool-{{ $item->attributevaluesize_id }}" checked>
-                                                <label class="for-checkbox-tools"
-                                                    for="tool-{{ $item->attributevaluesize_id }}">
-                                                    <i class=''>{{ $item->productsize->name }}GB</i>
-                                                    {{ number_format($item->export_price) }} VND
-                                                </label>
+                                                @endif
+                                            @endforeach
+                                        @endif
 
-
-                                            @endif
-
-                                        @endforeach
                                     </div>
 
                             </div>
-
-
-
-
-
-
-
 
                             <div class="single-add-to-cart">
 
@@ -115,15 +195,28 @@
                                 <div class="quantity">
 
                                     <div class="cart-plus-minus">
-                                        <input class="cart-plus-minus-box" name="quantity" value="1" type="text">
+                                        <input class="cart-plus-minus-box" id="qty" name="quantity" value="1" type="text">
                                         <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
                                         <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
                                     </div>
                                 </div>
+                                @if ($productattribute->count() == 1)
+                                    @if ($item->attributevaluesize_id == null)
+                                    <button id="checkout" type="button" value="{{ $product->id }}" class="add-to-cart">
+                                        Mua hàng
+                                    </button>
+                                    @else
+                                        <button type="button" class="add-to-cart" data-toggle="modal"
+                                            data-target="#exampleModalLong">
+                                            Mua hàng
+                                        </button>
+                                    @endif
+                                @else
                                 <button type="button" class="add-to-cart" data-toggle="modal"
-                                    data-target="#exampleModalLong">
-                                    Mua hàng
-                                </button>
+                                data-target="#exampleModalLong">
+                                Mua hàng
+                            </button>
+                                @endif
 
                             </div>
                             <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog"
@@ -138,8 +231,8 @@
                                         </div>
                                         <div class="modal-body">
                                             @foreach ($productimg as $key => $item)
-                                                <input class="checkbox-tools" type="radio" name="attributevalue_id" value="{{ $item->color_id }}"
-                                                    id="tool-{{ $item->id }}" >
+                                                <input class="checkbox-tools" type="radio" name="attributevalue_id"
+                                                    value="{{ $item->color_id }}" id="tool-{{ $item->id }}">
                                                 <label class="for-checkbox-tools" for="tool-{{ $item->id }}">
                                                     <i class=''> <img width="100px" height="50px"
                                                             src="{{ Storage::url($item->image) }}" alt=""></i>
@@ -147,7 +240,7 @@
                                                 </label>
 
 
-                                              
+
                                             @endforeach
                                         </div>
                                         <div class="modal-footer">
@@ -170,7 +263,7 @@
                         </thead>
                         <tbody>
                             @if ($productspe->count())
-                                @foreach ($productspe->limit(2)->get() as $item)
+                                @foreach ($productspe->limit(6)->get() as $item)
                                     <tr>
                                         <td>{{ $item->name }}</td>
                                         <td>{{ $item->content }}</td>
@@ -239,10 +332,9 @@
                     <div class="col-lg-12">
                         <div class="li-product-tab">
                             <ul class="nav li-product-menu">
-                                <li><a class="active" data-toggle="tab" href="#description"><span>Description</span></a>
+                                <li><a class="active" data-toggle="tab" href="#description"><span>Thông tin</span></a>
                                 </li>
-                                <li><a data-toggle="tab" href="#product-details"><span>Product Details</span></a></li>
-                                <li><a data-toggle="tab" href="#reviews"><span>Reviews</span></a></li>
+
                             </ul>
                         </div>
                         <!-- Begin Li's Tab Menu Content Area -->
@@ -251,138 +343,10 @@
                 <div class="tab-content">
                     <div id="description" class="tab-pane active show" role="tabpanel">
                         <div class="product-description">
-                            <span>The best is yet to come! Give your walls a voice with a framed poster. This aesthethic,
-                                optimistic poster will look great in your desk or in an open-space office. Painted wooden
-                                frame
-                                with passe-partout for more depth.</span>
+                            {!! $product->content !!}
                         </div>
                     </div>
-                    <div id="product-details" class="tab-pane" role="tabpanel">
-                        <div class="product-details-manufacturer">
-                            <a href="#">
-                                <img src="images/product-details/1.jpg" alt="Product Manufacturer Image">
-                            </a>
-                            <p><span>Reference</span> demo_7</p>
-                            <p><span>Reference</span> demo_7</p>
-                        </div>
-                    </div>
-                    <div id="reviews" class="tab-pane" role="tabpanel">
-                        <div class="product-reviews">
-                            <div class="product-details-comment-block">
-                                <div class="comment-review">
-                                    <span>Grade</span>
-                                    <ul class="rating">
-                                        <li><i class="fa fa-star-o"></i></li>
-                                        <li><i class="fa fa-star-o"></i></li>
-                                        <li><i class="fa fa-star-o"></i></li>
-                                        <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                        <li class="no-star"><i class="fa fa-star-o"></i></li>
-                                    </ul>
-                                </div>
-                                <div class="comment-author-infos pt-25">
-                                    <span>HTML 5</span>
-                                    <em>01-12-18</em>
-                                </div>
-                                <div class="comment-details">
-                                    <h4 class="title-block">Demo</h4>
-                                    <p>Plaza</p>
-                                </div>
-                                <div class="review-btn">
-                                    <a class="review-links" href="#" data-toggle="modal" data-target="#mymodal">Write Your
-                                        Review!</a>
-                                </div>
-                                <!-- Begin Quick View | Modal Area -->
-                                <div class="modal fade modal-wrapper" id="mymodal">
-                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-body">
-                                                <h3 class="review-page-title">Write Your Review</h3>
-                                                <div class="modal-inner-area row">
-                                                    <div class="col-lg-6">
-                                                        <div class="li-review-product">
-                                                            <img src="images/product/large-size/3.jpg" alt="Li's Product">
-                                                            <div class="li-review-product-desc">
-                                                                <p class="li-product-name">Today is a good day Framed poster
-                                                                </p>
-                                                                <p>
-                                                                    <span>Beach Camera Exclusive Bundle - Includes Two
-                                                                        Samsung
-                                                                        Radiant 360 R3 Wi-Fi Bluetooth Speakers. Fill The
-                                                                        Entire
-                                                                        Room With Exquisite Sound via Ring Radiator
-                                                                        Technology.
-                                                                        Stream And Control R3 Speakers Wirelessly With Your
-                                                                        Smartphone. Sophisticated, Modern Design </span>
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-6">
-                                                        <div class="li-review-content">
-                                                            <!-- Begin Feedback Area -->
-                                                            <div class="feedback-area">
-                                                                <div class="feedback">
-                                                                    <h3 class="feedback-title">Our Feedback</h3>
-                                                                    <form action="#">
-                                                                        <p class="your-opinion">
-                                                                            <label>Your Rating</label>
-                                                                            <span>
-                                                                                <select class="star-rating">
-                                                                                    <option value="1">1</option>
-                                                                                    <option value="2">2</option>
-                                                                                    <option value="3">3</option>
-                                                                                    <option value="4">4</option>
-                                                                                    <option value="5">5</option>
-                                                                                </select>
-                                                                            </span>
-                                                                        </p>
-                                                                        <p class="feedback-form">
-                                                                            <label for="feedback">Your Review</label>
-                                                                            <textarea id="feedback" name="comment" cols="45"
-                                                                                rows="8" aria-required="true"></textarea>
-                                                                        </p>
-                                                                        <div class="feedback-input">
-                                                                            <p class="feedback-form-author">
-                                                                                <label for="author">Name<span
-                                                                                        class="required">*</span>
-                                                                                </label>
-                                                                                <input id="author" name="author" value=""
-                                                                                    size="30" aria-required="true"
-                                                                                    type="text">
-                                                                            </p>
-                                                                            <p
-                                                                                class="feedback-form-author feedback-form-email">
-                                                                                <label for="email">Email<span
-                                                                                        class="required">*</span>
-                                                                                </label>
-                                                                                <input id="email" name="email" value=""
-                                                                                    size="30" aria-required="true"
-                                                                                    type="text">
-                                                                                <span class="required"><sub>*</sub> Required
-                                                                                    fields</span>
-                                                                            </p>
-                                                                            <div class="feedback-btn pb-15">
-                                                                                <a href="#" class="close"
-                                                                                    data-dismiss="modal"
-                                                                                    aria-label="Close">Close</a>
-                                                                                <a href="#">Submit</a>
-                                                                            </div>
-                                                                        </div>
-                                                                    </form>
-                                                                </div>
-                                                            </div>
-                                                            <!-- Feedback Area End Here -->
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Quick View | Modal Area End Here -->
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
             </div>
         </div>
@@ -405,10 +369,10 @@
                                         <!-- single-product-wrap start -->
                                         <div class="single-product-wrap">
                                             <div class="product-image">
-                                                <a href="single-product.html">
+                                                <a href="/san-pham/{{ $item->slug }}">
                                                     <img src="{{ Storage::url($item->image) }}" alt="Li's Product Image">
                                                 </a>
-                                                <span class="sticker">New</span>
+                                           
                                             </div>
                                             <div class="product_desc">
                                                 <div class="product_desc_info">
@@ -431,8 +395,6 @@
 
                                                         @else
                                                             <div>
-
-
                                                                 <label for="">{{ number_format($item->price) }}
                                                                     VND</label>
                                                             </div>
@@ -458,4 +420,28 @@
     @endsection
     @section('sr')
         <script src="/theme/client/js/jquery.countdown.min.js"></script>
+        <script>
+            $("#checkout").on('click', function() {
+                let qty = $('#qty').val();
+                let token = document.head.querySelector('[name=csrf-token]').content;
+                let id = $('#checkout').val();
+                $.ajax({
+                    url: '/carts/' + id,
+                    type: 'post',
+                    data: {
+                        id: id,
+                        qty: qty,
+                        _token: token
+                    },
+                    success: function(data) {
+                        if (data.code == 200) {
+                            // window.location.href('http://127.0.0.1:8000/checkout');
+                            window.location.replace('/checkout');
+                        }
+                    }
+                })
+
+            })
+
+        </script>
     @endsection

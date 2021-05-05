@@ -75,7 +75,7 @@
                                                         <label for="disabledTextInput">Mật khẩu <span
                                                                 style="color: red;font-size:20px">*</span></label>
                                                         <input type="password" name="password" class="form-control "
-                                                            placeholder="" value="{{ $user->password }}" required>
+                                                            placeholder=""  required>
 
                                                     </div>
 
@@ -110,7 +110,7 @@
                                                         <label for="disabledTextInput">Địa chĩ
                                                             <span style="color: red;font-size:20px">*</span></label>
                                                         <textarea class="form-control" name="address" id="" cols="30"
-                                                            rows="10"></textarea>
+                                                            rows="10">{{  $user->address  }}</textarea>
 
                                                     </div>
 
