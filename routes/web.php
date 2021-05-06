@@ -46,7 +46,11 @@ Route::prefix('admin')->group(function () {
     });
 
     Route::resource('category', 'categoryController');
+    route::get('/categorys/adddm','categoryController@adddm');
+    route::post('/categorys/savedm','categoryController@savedm');
     Route::resource('producttype', 'producttypeController');
+    route::get('/producttypes/addloai','producttypeController@addloai');
+    route::post('/producttypes/saveloai','producttypeController@saveloai');
     Route::resource('product', 'productController');
     Route::resource('spetification', 'spetificationController');
     Route::resource('user', 'userController');

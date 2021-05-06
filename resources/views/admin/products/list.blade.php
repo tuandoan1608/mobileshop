@@ -51,7 +51,7 @@
                                                     <i>ngày tạo: {{ $item->created_at }}</i>
                                                 </td>
 
-                                                <td>{{ $item->price }}</td>
+                                                <td>{{ number_format($item->price )}} đ</td>
                                                 <td><img src="{{ Storage::url($item->image) }}" title="{{ $item->name }}"
                                                         width="200px" height="200px"></td>
                                                 <td>{{ $item->category->name }}</td>

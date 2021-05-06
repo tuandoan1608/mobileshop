@@ -58,7 +58,7 @@
                                         <!-- single-product-wrap start -->
                                         <div class="single-product-wrap">
                                             <div class="product-image">
-                                                <a href="single-product.html">
+                                                <a href="/san-pham/{{ $item->slug }}">
                                                     <img src="{{ Storage::url($item->image) }}" alt="Li's Product Image">
                                                 </a>
                                                 <span class="sticker">New</span>

@@ -29,7 +29,7 @@
                                         <tr>
                                             <th>STT</th>
                                           
-                                           
+                                            <th>Mã đơn hàng</th>
                                             <th>Tên khách hàng</th>
 
                                          
@@ -46,7 +46,7 @@
                                             <tr>
                                                 <td>{{ $key + 1 }}</td>
                                             
-                                                
+                                                <td>{{ $item->order_code }}</td>
 
                                                 <td>{{ $item->getcustomer->firstname }} {{ $item->getcustomer->lastname }}</td>
                                                

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\category;
+use App\Components\Recusive;
 use App\Http\Requests\producttypeRequest;
 use App\producttype;
 use Illuminate\Http\Request;
@@ -11,8 +12,10 @@ use Illuminate\support\Str;
 class producttypeController extends Controller
 {
     private $producttype;
-    public function __construct(producttype $producttype)
+    private $category;
+    public function __construct(producttype $producttype,category $category)
     {
+        $this->category = $category;
        $this->producttype=$producttype;
     }
     /**
@@ -22,6 +25,7 @@ class producttypeController extends Controller
      */
     public function index()
     {
+       
         $producttype= $this->producttype->paginate(10);
         
        return view('admin.productTypes.list',compact('producttype'));
@@ -71,7 +75,14 @@ class producttypeController extends Controller
     {
         
     }
-
+    public function getcate()
+    {   
+        $this->authorize('category-list');
+        $data = category::where('status', 1)->get();
+        $recusive = new Recusive($data);
+        $option = $recusive->categoryRecure();
+        return $option;
+    }
     /**
      * Show the form for editing the specified resource.
      *
@@ -121,5 +132,20 @@ class producttypeController extends Controller
        $producttype=producttype::find($id);
        $producttype->delete();
        return response()->json(['code'=>200]);
+    }
+
+
+
+    public function addloai()
+    {
+        $option = $this->getcate();
+        return response()->json(['option' => $option]);
+    }
+    public function saveloai(Request $request)
+    {
+        $data = $request->all();
+        $data['slug'] = Str::slug($request->name);
+        $this->producttype->create($data);
+        return response()->json(['success' => 'thêm thành công']);
     }
 }

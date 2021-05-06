@@ -157,7 +157,7 @@
                                             @include('client.layout.child')
                                         </li>
                                     @else
-                                        <li class=""><a
+                                        <li class=""><a class="uppercase"
                                                 href="/dtdd/{{ $menuparent->slug }}">{{ $menuparent->name }}</a>
 
                                             @include('client.layout.child')

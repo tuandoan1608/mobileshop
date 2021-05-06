@@ -168,7 +168,7 @@
                                                         </ul>
                                                     </div>
                                                     <div>
-                                                        <button id="addspe" type="button">Thêm</button>
+                                                        <button id="addspe" class="btn btn-success" type="button">Add</button>
                                                     </div>
                                                     <div class="tskt">
                                                         <table class="table table-bordered">
@@ -264,7 +264,7 @@
                                                         </fieldset>
 
                                                     </div>
-                                                    <button type="button" id="getdata"> theem</button>
+                                                    <button type="button" class="btn btn-success" id="getdata"> Add</button>
 
                                                     <div class="size">
                                                         <table class="table">
@@ -338,6 +338,9 @@
                                                         {!! $category !!}
 
                                                     </select>
+                                                    <button class="btn btn-success adddm" data-toggle="modal"
+                                                            data-target="#addd" type="button"><i class="fa fa-plus"
+                                                                aria-hidden="true"></i></button>
                                                 </div>
                                                 <div class="form-group ">
                                                     <label for="disabledSelect">Loại sản phẩm</label><br>
@@ -357,10 +360,113 @@
                                                             @endif
                                                         @endforeach
                                                     </select>
+                                                    <button class="btn btn-success addloai" data-toggle="modal"
+                                                    data-target="#addloai" type="button"><i class="fa fa-plus"
+                                                        aria-hidden="true"></i></button>
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="modal fade" id="addd" tabindex="-1" role="dialog"
+                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Thêm danh mục sản
+                                                        phẩm <span class="title"></span></h5>
+                                                    <button class="close" type="button" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">×</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="row" style="margin: 5px">
+                                                        <div class="col-lg-12">
+                                                            <form role="form">
+                                                                <fieldset class="form-group">
+                                                                    <label>Tên danh mục</label>
+                                                                    <input class="form-control namedm" name="name"
+                                                                        placeholder="Nhập tên loại sản phẩm">
 
+                                                                </fieldset>
+                                                                <div class="form-group">
+                                                                    <label>Danh mục</label>
+                                                                    <select class="form-control idCategorydm"
+                                                                        name="categori_id">
+                                                                        <option value="0">Danh mục cha</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label>Trạng thái</label>
+                                                                    <select class="form-control statusdm" name="status">
+                                                                        <option value="1" class="ht">Hiển Thị</option>
+                                                                        <option value="0" class="kht">Không Hiển Thị
+                                                                        </option>
+                                                                    </select>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-success updatedm">Save</button>
+                                                    <button type="reset" class="btn btn-primary">Làm Lại</button>
+                                                    <button class="btn btn-secondary" type="button"
+                                                        data-dismiss="modal">Cancel</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="modal fade" id="addloai" tabindex="-1" role="dialog"
+                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Thêm loại sản
+                                                        phẩm <span class="title"></span></h5>
+                                                    <button class="close" type="button" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">×</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="row" style="margin: 5px">
+                                                        <div class="col-lg-12">
+                                                            <form role="form">
+                                                                <fieldset class="form-group">
+                                                                    <label>Tên loại sản phẩm</label>
+                                                                    <input class="form-control nameloai" name="name"
+                                                                        placeholder="Nhập tên loại sản phẩm">
+
+                                                                </fieldset>
+                                                                <div class="form-group">
+                                                                    <label>Danh mục</label>
+                                                                    <select class="form-control idCategoryloai"
+                                                                        name="categori_id"> </select></select>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label>Trạng thái</label>
+                                                                    <select class="form-control statusloai"
+                                                                        name="status">
+                                                                        <option value="1" class="ht">Hiển Thị</option>
+                                                                        <option value="0" class="kht">Không Hiển Thị
+                                                                        </option>
+                                                                    </select>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button"
+                                                        class="btn btn-success updateloai">Save</button>
+                                                    <button type="reset" class="btn btn-primary">Làm Lại</button>
+                                                    <button class="btn btn-secondary" type="button"
+                                                        data-dismiss="modal">Cancel</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                         <div class="card card-default">
                                             <div class="card-header">
                                                 <h3 class="card-title">Ảnh đại diện</h3>

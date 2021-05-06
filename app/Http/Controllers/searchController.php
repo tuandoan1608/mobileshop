@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\category;
 use App\Components\converString;
 use App\Components\convertstring;
 use App\product;
+use App\producttype;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -12,9 +14,10 @@ class searchController extends Controller
 {
     public function search(Request $request)
     {
-        $data = product::whereIn('producttype_id', $request->brand)
+            $product = product::whereIn('producttype_id', $request->brand)
             ->get();
-        dd($data);
+            
+           
         if ($request->ajax()) {
 
             $output = '';
@@ -52,13 +55,14 @@ class searchController extends Controller
 
 
         }
+        return view('client.productcatorgori.index',compact('product'));
     }
     public function searchByName(Request $request)
     {  
         $con=new converString();
        $key=Str::lower($con->convert_vi_to_en($request->search));
         $product=product::where('lower_name','like','%'.$key.'%')->get();   
-        return view('client.search.index',compact('product'));
+        return view('client.search.index',compact('product',));
     }
     public function searchindex(Request $request)
     {

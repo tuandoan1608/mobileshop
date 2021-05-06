@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\category;
 use App\Components\Recusive;
 use Illuminate\Http\Request;
@@ -13,7 +14,7 @@ use Laracasts\Flash\Flash;
 class categoryController extends Controller
 {
     private $category;
- private $htmlSelect;
+    private $htmlSelect;
     /**
      * Display a listing of the resource.
      *
@@ -21,9 +22,9 @@ class categoryController extends Controller
      */
     public function __construct(category $category)
     {
-        $this->category=$category;
+        $this->category = $category;
     }
-     /**
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -31,9 +32,8 @@ class categoryController extends Controller
     public function index()
     {
         $this->authorize('category-list');
-        $data=$this->category->paginate(25);
-        return view('admin.categories.list',compact('data'));
-        
+        $data = $this->category->paginate(25);
+        return view('admin.categories.list', compact('data'));
     }
 
     /**
@@ -44,16 +44,17 @@ class categoryController extends Controller
     public function create()
     {
         $this->authorize('category-add');
-        $option=$this->getcate();
-    
-        return view('admin.categories.add',compact('option'));
+        $option = $this->getcate();
+
+        return view('admin.categories.add', compact('option'));
     }
 
     public function getcate()
     {
-        $data=category::where('status',1)->get();
-        $recusive=new Recusive($data);
-        $option=$recusive->categoryRecure();
+        $this->authorize('category-list');
+        $data = category::where('status', 1)->get();
+        $recusive = new Recusive($data);
+        $option = $recusive->categoryRecure();
         return $option;
     }
     /**
@@ -65,11 +66,11 @@ class categoryController extends Controller
     public function store(Request $request)
     {
         $this->authorize('category-add');
-        $data=$request->all();
-        $data['slug']=Str::slug($request->name);
+        $data = $request->all();
+        $data['slug'] = Str::slug($request->name);
         $this->category->create($data);
         Flash::success('Thêm danh mục thành công.');
-      
+
         return redirect()->route('category.index');
     }
 
@@ -81,7 +82,7 @@ class categoryController extends Controller
      */
     public function show($id)
     {
-   
+
         return view('admin.categories.edit');
     }
 
@@ -91,18 +92,19 @@ class categoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    function getcateselect($parentId, $id =0, $text = '')
+    function getcateselect($parentId, $id = 0, $text = '')
     {
-        $data=$this->category->all();
+        $this->authorize('category-edit');
+        $data = category::all();
 
         foreach ($data as $value) {
             if ($value['parent_id'] == $id) {
-                if(!empty($parentId)&& $parentId==$value['id']){
+                if (!empty($parentId) && $parentId == $value['id']) {
                     $this->htmlSelect .= "<option selected value='"  . $value['id'] .  "'>" . $text . $value['name'] . "</option>";
+                } else {
+                    $this->htmlSelect .= "<option value='"  . $value['id'] .  "'>" . $text . $value['name'] . "</option>";
+                    $this->getcateselect($parentId, $value['id'], $text . '--');
                 }
-                $this->htmlSelect .= "<option value='"  . $value['id'] .  "'>" . $text . $value['name'] . "</option>";
-
-                $this->getcateselect($parentId,$value['id'], $text . '--');
             }
         }
         return $this->htmlSelect;
@@ -110,11 +112,28 @@ class categoryController extends Controller
     public function edit($id)
     {
         $this->authorize('category-edit');
-        $data=  $this->category->find($id);
-        $option=$this->getcateselect($data->parent_id);
-        return response()->json(['data'=>$data,'option'=>$option]);
+        $data =  $this->category->find($id);
+        $option = $this->getcateselect($data->parent_id);
+        // return response()->json(['data' => $data, 'option' => $option]);
+        return view('admin.categories.edit',compact('data','option'));
     }
-
+    public function adddm()
+    {
+        $option = $this->getcate();
+        return response()->json(['option' => $option]);
+    }
+    public function savedm(Request $request)
+    {
+        $data = $request->all();
+        $data['slug'] = Str::slug($request->name);
+        $this->category->create($data);
+        return response()->json(['success' => 'thêm thành công']);
+    }
+    public function addloai()
+    {
+        $option = $this->getcate();
+        return response()->json(['option' => $option]);
+    }
     /**
      * Update the specified resource in storage.
      *
@@ -125,15 +144,15 @@ class categoryController extends Controller
     public function update(Request $request, $id)
     {
         $this->authorize('category-edit');
-      $category=category::find($id);
-      $category->update([
-        'name' => $request->name,
-        'parent_id' => $request->parent_id,
-        'slug' => Str::slug($request->name),
-        'status' => $request->status
-      ]);
-       Flash::success('Cập nhật thành công.');
-       return response()->json(['success'=>'Cập nhật thành công']);
+        $category = category::find($id);
+        $category->update([
+            'name' => $request->name,
+            'parent_id' => $request->parent_id,
+            'slug' => Str::slug($request->name),
+            'status' => $request->status
+        ]);
+        Flash::success('Cập nhật thành công.');
+        return redirect('/admin/category');
     }
 
     /**
@@ -146,15 +165,18 @@ class categoryController extends Controller
     {
         $this->authorize('category-delete');
         $category = category::find($id);
-        $num=producttype::where('categori_id',$id)->get();
-        if(!empty($num[0])){
-          return response()->json([ 'code'=>500,
-          'messages'=>'Có loại sản phẩm thuộc danh mục nên không thể xóa.']);
-        }else{
-          $category->delete();
-          return response()->json([ 'code'=>200,
-          'message'=>'success']);
+        $num = producttype::where('categori_id', $id)->get();
+        if (!empty($num[0])) {
+            return response()->json([
+                'code' => 500,
+                'messages' => 'Có loại sản phẩm thuộc danh mục nên không thể xóa.'
+            ]);
+        } else {
+            $category->delete();
+            return response()->json([
+                'code' => 200,
+                'message' => 'success'
+            ]);
         }
-       
     }
 }

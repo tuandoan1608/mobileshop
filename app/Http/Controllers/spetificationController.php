@@ -46,6 +46,8 @@ class spetificationController extends Controller
             $spe->status = $request->status[$key];
             $spe->save();
         }
+
+        return back();
     }
 
     /**

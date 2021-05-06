@@ -119,7 +119,9 @@ class orderController extends Controller
                   <td>' . $product->name . '</td>
                   <td>' . $size . '</td>
                   <td>' . $color . '</td>
-                  <td><input type="number" class="form-control" value="' . $product->name . '" ></td>
+                  <td><input type="number" style="   visibility: hidden;" name="price[]" class="form-control" value="' . $data->export_price . '" ></td>
+                  <td><input type="number" style="   visibility: hidden;" name="product_id[]" class="form-control" value="' . $data->product_id . '" ></td>
+                  <td><input type="number" name="quantity[]" class="form-control"  ></td>
                   <td>' . $data->export_price . '</td>
             </tr>';
 
@@ -153,14 +155,14 @@ class orderController extends Controller
 
    public function createorder(Request $request)
    {
-
+      $total = 0;
       $date_order = Carbon::now()->toDateString();
-      if ($request->price) {
-         $total = 0;
+    
+      
          foreach ($request->price as $item) {
             $total += $item;
          }
-      }
+      
 
       $custommer = custommer::find($request->idcustommer);
       $order_code=Str::random(7);
@@ -188,5 +190,6 @@ class orderController extends Controller
          }
       }
       Cart::instance('order')->destroy();
+      return back();
    }
 }

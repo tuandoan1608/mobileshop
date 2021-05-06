@@ -1,7 +1,7 @@
 @extends('admin.master')
 @section('content')
 <div class="content-wrapper">
-    <div class="card shadow mb-4">
+    <div class="card">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">Danh mục sản phẩm</h6>
         </div>

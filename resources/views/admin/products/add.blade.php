@@ -86,7 +86,7 @@
                                                 <div class="form-group row">
                                                     <label class="col-sm-3" for="disabledTextInput">Discount</label>
                                                     <input type="text" name="discount" class="form-control col-sm-9"
-                                                        placeholder="Nhập discount">
+                                                        placeholder="Nhập phần trăm giảm giá (Chỉ nhập số)">
                                                 </div>
 
                                                 <div class="form-group">
@@ -179,14 +179,17 @@
                                         </div>
 
                                         <div class="card card-default">
-                                            <div class="card-body"><a style="color: #007bff;font-size:25px">Thuộc tính sản
+                                            <div class="card-header">
+                                                <a style="color: #007bff;font-size:25px">Thuộc tính sản
                                                     phẩm:</a>
+                                            </div>
+                                            <div class="card-body">
 
                                                 <div class="radio-group">
-                                                    <input onclick="myfun()" checked type="radio" id="option-one" value="1" name="attribute"><label class="label"
-                                                        for="option-one">Có</label>
-                                                    <input onclick="myfun()" type="radio" id="option-two" value="0" name="attribute"><label class="label"
-                                                        for="option-two">Không</label>
+                                                    <input onclick="myfun()" checked type="radio" id="option-one" value="1"
+                                                        name="attribute"><label class="label" for="option-one">Có</label>
+                                                    <input onclick="myfun()" type="radio" id="option-two" value="0"
+                                                        name="attribute"><label class="label" for="option-two">Không</label>
 
                                                 </div>
                                             </div>
@@ -210,17 +213,20 @@
                                                     </thead>
                                                     <tbody>
                                                         <tr>
-                                                            <td><input class="form-control" name="import_price" type="number"></td>
-                                                            <td><input class="form-control" name="export_price" type="number"></td>
-                                                            <td><input class="form-control" name="quantity" type="number"></td>
-                                                            
+                                                            <td><input class="form-control" name="import_price"
+                                                                    type="number"></td>
+                                                            <td><input class="form-control" name="export_price"
+                                                                    type="number"></td>
+                                                            <td><input class="form-control" name="quantity" type="number">
+                                                            </td>
+
                                                         </tr>
                                                     </tbody>
                                                 </table>
 
                                             </div>
                                         </div>
-                                        <div id="attribute"  class="card card-default collapsed-card">
+                                        <div id="attribute" class="card card-default collapsed-card">
                                             <div class="card-header">
                                                 <h3 class="card-title">Thêm thuộc tính</h3>
 
@@ -241,10 +247,10 @@
                                                             <ul class="ks-cboxtags">
                                                                 @foreach ($size as $key => $item)
                                                                     <li><input type="checkbox" name="datasize[]"
-                                                                            id="checkbox1{{ $key }}"
+                                                                            id="checkbox12{{ $key }}"
                                                                             value="{{ $item->id }}"><label
                                                                             class="uppercase"
-                                                                            for="checkbox1{{ $key }}">{{ $item->name }}
+                                                                            for="checkbox12{{ $key }}">{{ $item->name }}
                                                                             GB</label></li>
                                                                 @endforeach
 
@@ -263,10 +269,10 @@
                                                             <ul class="ks-cboxtags">
                                                                 @foreach ($color as $key => $item)
                                                                     <li><input type="checkbox" name="datacolor[]"
-                                                                            id="checkbox2{{ $key }}"
+                                                                            id="checkbox3{{ $key }}"
                                                                             value="{{ $item->id }}"><label
                                                                             class="uppercase"
-                                                                            for="checkbox2{{ $key }}">{{ $item->name }}</label>
+                                                                            for="checkbox3{{ $key }}">{{ $item->name }}</label>
                                                                     </li>
                                                                 @endforeach
 
@@ -347,18 +353,26 @@
                                                 <h5 for="disabledSelect" class="m-0">Phân loại</h5>
                                             </div>
                                             <div class="card-body">
+
                                                 <div class="form-group ">
                                                     <label>Danh mục</label><br>
-                                                    <select id="danhmuc"
-                                                        class="js-example-basic-multiple  custom-select  text-light border-0 bg-white "
-                                                        style="width:200px" name="category_id">
+                                                    <div style="display: inline-block">
+                                                        <select id="danhmuc"
+                                                            class="js-example-basic-multiple  custom-select  text-light border-0 bg-white "
+                                                            style="width:200px" name="category_id">
 
 
 
-                                                        {!! $category !!}
+                                                            {!! $category !!}
 
-                                                    </select>
+                                                        </select>
+                                                        <button class="btn btn-success adddm" data-toggle="modal"
+                                                            data-target="#addd" type="button"><i class="fa fa-plus"
+                                                                aria-hidden="true"></i></button>
+                                                    </div>
                                                 </div>
+
+
                                                 <div class="form-group ">
                                                     <label for="disabledSelect">Loại sản phẩm</label><br>
                                                     <select id="loaisp"
@@ -371,10 +385,114 @@
                                                             </option>
                                                         @endforeach
                                                     </select>
+                                                    <button class="btn btn-success addloai" data-toggle="modal"
+                                                        data-target="#addloai" type="button"><i class="fa fa-plus"
+                                                            aria-hidden="true"></i></button>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="modal fade" id="addd" tabindex="-1" role="dialog"
+                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Thêm danh mục sản
+                                                            phẩm <span class="title"></span></h5>
+                                                        <button class="close" type="button" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                            <span aria-hidden="true">×</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="row" style="margin: 5px">
+                                                            <div class="col-lg-12">
+                                                                <form role="form">
+                                                                    <fieldset class="form-group">
+                                                                        <label>Tên danh mục</label>
+                                                                        <input class="form-control namedm" name="namedm"
+                                                                            placeholder="Nhập tên loại sản phẩm">
+
+                                                                    </fieldset>
+                                                                    <div class="form-group">
+                                                                        <label>Danh mục</label>
+                                                                        <select class="form-control idCategorydm"
+                                                                            name="categori_id">
+                                                                            <option value="0">Danh mục cha</option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label>Trạng thái</label>
+                                                                        <select class="form-control statusdm" name="status">
+                                                                            <option value="1" class="ht">Hiển Thị</option>
+                                                                            <option value="0" class="kht">Không Hiển Thị
+                                                                            </option>
+                                                                        </select>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-success updatedm">Save</button>
+                                                        <button type="reset" class="btn btn-primary">Làm Lại</button>
+                                                        <button class="btn btn-secondary" type="button"
+                                                            data-dismiss="modal">Cancel</button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
 
+                                        <div class="modal fade" id="addloai" tabindex="-1" role="dialog"
+                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Thêm loại sản
+                                                            phẩm <span class="title"></span></h5>
+                                                        <button class="close" type="button" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                            <span aria-hidden="true">×</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="row" style="margin: 5px">
+                                                            <div class="col-lg-12">
+                                                                <form role="form">
+                                                                    <fieldset class="form-group">
+                                                                        <label>Tên loại sản phẩm</label>
+                                                                        <input class="form-control nameloai" name="nameloai"
+                                                                            placeholder="Nhập tên loại sản phẩm">
+
+                                                                    </fieldset>
+                                                                    <div class="form-group">
+                                                                        <label>Danh mục</label>
+                                                                        <select class="form-control idCategoryloai"
+                                                                            name="categori_id"> </select></select>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label>Trạng thái</label>
+                                                                        <select class="form-control statusloai"
+                                                                            name="status">
+                                                                            <option value="1" class="ht">Hiển Thị</option>
+                                                                            <option value="0" class="kht">Không Hiển Thị
+                                                                            </option>
+                                                                        </select>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button"
+                                                            class="btn btn-success updateloai">Save</button>
+                                                        <button type="reset" class="btn btn-primary">Làm Lại</button>
+                                                        <button class="btn btn-secondary" type="button"
+                                                            data-dismiss="modal">Cancel</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div class="card card-default">
                                             <div class="card-header">
                                                 <h3 class="card-title">Ảnh đại diện</h3>
